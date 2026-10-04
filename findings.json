@@ -1,0 +1,82 @@
+{
+ "note": "Defects the suite found in SpireScape. Each is pinned by strict xfail tests carrying its id, so a fix turns them into XPASS failures until the marker is removed.",
+ "findings": [
+  {
+   "id": "BUG-001",
+   "title": "Losing a starter tool soft-locks the tutorial",
+   "severity": "high",
+   "area": "tutorial",
+   "found": "2026-10-04",
+   "how": "A data test asked, for every item in Old Bram's starter kit, whether any recipe makes it. Three don't. A local end-to-end test then reproduced the dead end.",
+   "impact": "Old Bram hands out the pickaxe, axe and hammer once, and nothing makes them again. Drop one and lose the pile, or die before smithing (death keeps your three most valuable items, and the hammer is worth the least) and don't get back to your death pile within 300 ticks (three minutes), and the tutorial can't be finished.",
+   "repro": ["Talk to Old Bram and take the kit", "Drop the hammer", "Wait three minutes for the pile to despawn", "Talk to Bram again: no new hammer", "The forge's arrowhead recipe says 'Needs a Hammer' for good"],
+   "fix": "Have Bram replace missing tutorial tools, or add recipes for them. Which one is a design call."
+  },
+  {
+   "id": "BUG-002",
+   "title": "Duplicate names can be longer than the 12-character cap",
+   "severity": "low",
+   "area": "session",
+   "found": "2026-10-04",
+   "how": "An integration test logged in twice with the same 12-character name.",
+   "impact": "The server trims names to 12 characters, then adds a number if the name is taken, so the second player becomes 13 characters long. Anything that sizes a name tag for 12 characters overflows.",
+   "repro": ["Log in as 'abcdefghijkl'", "Log in again with the same name", "The second player is 'abcdefghijkl2'"],
+   "fix": "Trim the base name so that base plus suffix fits in 12."
+  },
+  {
+   "id": "BUG-003",
+   "title": "Chopping a tree says 'Choping...'",
+   "severity": "cosmetic",
+   "area": "gathering",
+   "found": "2026-10-04",
+   "how": "A parametrised test checks the progress text for every gathering verb.",
+   "impact": "The status line is built by adding 'ing' to the verb, which works for Pluck and Mine but not for Chop.",
+   "repro": ["Take Old Bram's kit", "Chop a tree", "The status reads 'Choping...'"],
+   "fix": "Keep the progress text in the node content instead of deriving it."
+  },
+  {
+   "id": "BUG-004",
+   "title": "WebSocket frames' length prefix is never checked",
+   "severity": "low",
+   "area": "protocol",
+   "found": "2026-10-04",
+   "how": "A robustness test sent a valid message with a wrong length prefix. The server accepted it.",
+   "impact": "Every frame starts with its length, but the WebSocket path decodes from byte four whatever the prefix says. The TCP path does check it. Not exploitable on its own, but the two transports disagree about what a valid frame is.",
+   "repro": ["Encode a Chat message", "Replace the length prefix with 9999", "Send it over WebSocket: it's processed as normal"],
+   "fix": "Reject a frame whose length prefix doesn't match the WebSocket message size."
+  },
+  {
+   "id": "BUG-005",
+   "title": "No chat rate limit",
+   "severity": "medium",
+   "area": "multiplayer",
+   "found": "2026-10-04",
+   "how": "A robustness test sent 300 chat lines as fast as possible and counted how many reached another player.",
+   "impact": "All 300 arrived. One client can flood every player in a region, and on the public demo anyone can be that client.",
+   "repro": ["Connect two players", "Send 300 Chat messages from one", "The other receives all 300"],
+   "fix": "A per-player token bucket on chat (and probably on every intent)."
+  },
+  {
+   "id": "BUG-006",
+   "title": "A kicked client hangs until its close timeout",
+   "severity": "low",
+   "area": "protocol",
+   "found": "2026-10-04",
+   "how": "The suite was taking ten minutes. Timing the disconnects showed every server-initiated close took exactly the client library's 10-second close timeout.",
+   "impact": "When the server closes a connection (a bad frame, the server is full, an idle player), its read loop has already stopped, so nothing reads the client's reply to the close frame and TCP is never closed. RFC 6455 says the server should close TCP right after the handshake. Clients wait out their timeout instead.",
+   "repro": ["Connect with a client whose close timeout is 10 s", "Send a malformed frame", "The close frame arrives at once, but the connection takes 10 s to end"],
+   "fix": "Close or abort the socket once the close handshake completes on the server-initiated path."
+  },
+  {
+   "id": "BUG-007",
+   "title": "The demo's browser tab says 'Unity Web Player | client'",
+   "severity": "cosmetic",
+   "area": "client",
+   "found": "2026-10-04",
+   "how": "A Playwright test of the live demo page.",
+   "impact": "Unity's WebGL template default title was never changed, so that's what visitors see in the tab and in bookmarks.",
+   "repro": ["Open spirescape.lachlanb.com", "Look at the tab title"],
+   "fix": "Set the product name in the WebGL template or player settings."
+  }
+ ]
+}
