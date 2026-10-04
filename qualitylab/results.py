@@ -70,7 +70,9 @@ class Recorder:
 
     @pytest.hookimpl
     def pytest_runtest_logreport(self, report: pytest.TestReport) -> None:
-        r = self._rec(report.nodeid)
+        # xdist's --dist loadgroup appends "@group" to grouped node ids; strip it so a test keeps one id
+        # across runs with and without grouping
+        r = self._rec(re.sub(r"@[\w-]+$", "", report.nodeid))
         r["duration"] = round(r["duration"] + (report.duration or 0.0), 4)
         start, stop = getattr(report, "start", None), getattr(report, "stop", None)
         if start is not None:

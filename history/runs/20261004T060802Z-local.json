@@ -1,0 +1,3912 @@
+{
+ "schema": 1,
+ "id": "20261004T060803Z-b2daab",
+ "label": "first recorded run",
+ "started": "2026-10-04T06:08:03+00:00",
+ "wall": 42.34,
+ "target": "local",
+ "tick_ms": 20,
+ "seeded": true,
+ "workers": 4,
+ "exitstatus": 0,
+ "counts": {
+  "passed": 194,
+  "xfailed": 9,
+  "skipped": 4
+ },
+ "env": {
+  "python": "3.13.2",
+  "pytest": "9.1.1",
+  "os": "Windows",
+  "lab_commit": "9057e81",
+  "sut_commit": "8cc2e44"
+ },
+ "protocol": {
+  "sent": {
+   "Hello": 192,
+   "Interact": 65,
+   "DialogueChoice": 112,
+   "CombatCommit": 19,
+   "MoveTo": 51,
+   "Chat": 72,
+   "Craft": 11,
+   "InventoryAction": 8,
+   "Unequip": 2
+  },
+  "received": {
+   "Welcome": 191,
+   "Catalog": 191,
+   "MapData": 193,
+   "EntitySpawn": 4116,
+   "InventoryState": 239,
+   "SkillsState": 208,
+   "Objective": 224,
+   "Notice": 258,
+   "EntityMoves": 2023,
+   "Dialogue": 109,
+   "DialogueClose": 23,
+   "CombatStart": 12,
+   "CombatUpdate": 10,
+   "ChatLine": 76,
+   "EntityDespawn": 7,
+   "CombatEnd": 2,
+   "ActionStatus": 33,
+   "CraftMenu": 15
+  }
+ },
+ "tests": [
+  {
+   "id": "tests/spirescape/test_combat.py::test_attacking_starts_combat_visible_to_the_world",
+   "outcome": "passed",
+   "duration": 0.9093,
+   "call": 0.1709,
+   "start": 3.351,
+   "stop": 4.261,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-028: both the player and the rat show as in combat on the world map.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 24
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_accuracy_is_a_percentage",
+   "outcome": "passed",
+   "duration": 0.6442,
+   "call": 0.0003,
+   "start": 3.351,
+   "stop": 3.995,
+   "worker": "gw3",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 40
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_recipes_only_reference_real_cards",
+   "outcome": "passed",
+   "duration": 0.6581,
+   "call": 0.0004,
+   "start": 3.351,
+   "stop": 4.009,
+   "worker": "gw1",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 24
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_every_card_has_a_name_and_examine_text",
+   "outcome": "passed",
+   "duration": 0.6601,
+   "call": 0.0003,
+   "start": 3.351,
+   "stop": 4.011,
+   "worker": "gw2",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "D-016: the examine text is how players learn what a card is for.",
+   "file": "tests/spirescape/test_content.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_equipment_points_at_real_slots",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 3.997,
+   "stop": 3.998,
+   "worker": "gw3",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 63
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[shortbow]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 3.999,
+   "stop": 4.001,
+   "worker": "gw3",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[bronze_axe]",
+   "outcome": "xfailed",
+   "duration": 0.0016,
+   "call": 0.0005,
+   "start": 4.002,
+   "stop": 4.125,
+   "worker": "gw3",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_costs_and_counts_are_positive",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 4.011,
+   "stop": 4.012,
+   "worker": "gw1",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 46
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_ammo_and_bulk_materials_stack",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 4.012,
+   "stop": 4.014,
+   "worker": "gw2",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "D-023: arrows and the like stack. Anything a recipe makes or needs fifteen of must stack, or 15",
+   "file": "tests/spirescape/test_content.py",
+   "line": 54
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[hammer]",
+   "outcome": "xfailed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 4.013,
+   "stop": 4.133,
+   "worker": "gw1",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_dropping_the_hammer_does_not_strand_the_player",
+   "outcome": "xfailed",
+   "duration": 6.1696,
+   "call": 6.1577,
+   "start": 4.015,
+   "stop": 10.288,
+   "worker": "gw2",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "e2e",
+   "area": "tutorial",
+   "markers": [
+    "data",
+    "e2e",
+    "local_only",
+    "xfail"
+   ],
+   "doc": "The behaviour behind BUG-001: drop the hammer, let the pile despawn (300 ticks), ask Bram again.",
+   "file": "tests/spirescape/test_content.py",
+   "line": 84
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[bronze_pickaxe]",
+   "outcome": "xfailed",
+   "duration": 0.0012,
+   "call": 0.0003,
+   "start": 4.126,
+   "stop": 4.134,
+   "worker": "gw3",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_login_starts_with_welcome_catalog_then_map",
+   "outcome": "passed",
+   "duration": 0.0133,
+   "call": 0.0003,
+   "start": 4.135,
+   "stop": 4.148,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "The first three messages are always Welcome, Catalog, MapData, in that order.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 12
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_welcome_reports_the_tick_this_target_runs_at",
+   "outcome": "passed",
+   "duration": 0.0131,
+   "call": 0.0003,
+   "start": 4.135,
+   "stop": 4.149,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_player_entity_is_spawned_for_its_owner",
+   "outcome": "passed",
+   "duration": 0.0137,
+   "call": 0.0003,
+   "start": 4.149,
+   "stop": 4.164,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 31
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_inventory_has_28_slots_and_3_equipment_slots",
+   "outcome": "passed",
+   "duration": 0.0136,
+   "call": 0.0003,
+   "start": 4.15,
+   "stop": 4.164,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 38
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_skills_cover_all_sixteen",
+   "outcome": "passed",
+   "duration": 0.0127,
+   "call": 0.0003,
+   "start": 4.165,
+   "stop": 4.178,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 51
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_empty_slots_are_empty_strings_with_zero_counts",
+   "outcome": "passed",
+   "duration": 0.0127,
+   "call": 0.0003,
+   "start": 4.165,
+   "stop": 4.178,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 45
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_map_tiles_match_its_dimensions",
+   "outcome": "passed",
+   "duration": 0.0146,
+   "call": 0.0003,
+   "start": 4.179,
+   "stop": 4.194,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 57
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_entity_is_on_the_map",
+   "outcome": "passed",
+   "duration": 0.0145,
+   "call": 0.0003,
+   "start": 4.179,
+   "stop": 4.194,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 64
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_entity_ids_are_unique_and_positive",
+   "outcome": "passed",
+   "duration": 0.0128,
+   "call": 0.0003,
+   "start": 4.195,
+   "stop": 4.209,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 76
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_entity_offers_examine",
+   "outcome": "passed",
+   "duration": 0.013,
+   "call": 0.0003,
+   "start": 4.195,
+   "stop": 4.209,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "Examine is on every entity's action list (the client's right-click always has it).",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_server_frame_decodes_strictly",
+   "outcome": "passed",
+   "duration": 0.0143,
+   "call": 0.0004,
+   "start": 4.21,
+   "stop": 4.225,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "The strict decoder (length prefix exact, no trailing bytes) accepted everything the server sent.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 82
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_each_station_offers_its_recipes[bench-recipes0]",
+   "outcome": "passed",
+   "duration": 0.1042,
+   "call": 0.0903,
+   "start": 4.21,
+   "stop": 4.315,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_each_station_offers_its_recipes[forge-recipes1]",
+   "outcome": "passed",
+   "duration": 0.0581,
+   "call": 0.0446,
+   "start": 4.226,
+   "stop": 4.284,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_opening_hand_is_five_cards_with_two_energy",
+   "outcome": "passed",
+   "duration": 0.2491,
+   "call": 0.1513,
+   "start": 4.262,
+   "stop": 4.511,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-022 hand of 5, D-024 energy held at 2. Six cards in the deck, so one is left to draw.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[bench-fletch_bronze_arrows-Needs 15 Arrow Shafts]",
+   "outcome": "passed",
+   "duration": 0.0739,
+   "call": 0.0611,
+   "start": 4.285,
+   "stop": 4.36,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[bench-cut_shafts-Needs Logs]",
+   "outcome": "passed",
+   "duration": 0.0881,
+   "call": 0.0737,
+   "start": 4.316,
+   "stop": 4.405,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[forge-smelt_bronze-Needs Copper Ore]",
+   "outcome": "passed",
+   "duration": 0.0581,
+   "call": 0.0434,
+   "start": 4.361,
+   "stop": 4.42,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[forge-smith_arrowheads-Needs a Hammer]",
+   "outcome": "passed",
+   "duration": 0.0741,
+   "call": 0.059,
+   "start": 4.406,
+   "stop": 4.48,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_menu_reasons_line_up_with_recipes",
+   "outcome": "passed",
+   "duration": 0.0898,
+   "call": 0.0747,
+   "start": 4.421,
+   "stop": 4.511,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Three parallel arrays: one entry per recipe in each, and a reason only when it can't be made.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_crafting_away_from_the_station_is_refused",
+   "outcome": "passed",
+   "duration": 0.0291,
+   "call": 0.0141,
+   "start": 4.482,
+   "stop": 4.511,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "A Craft for a forge recipe with no forge nearby gets a warning, not an item.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_your_draw_pile_is_browsable_but_not_its_order",
+   "outcome": "passed",
+   "duration": 0.2728,
+   "call": 0.1525,
+   "start": 4.512,
+   "stop": 4.786,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-153: you can see what's in your draw pile, sorted, so its order gives nothing away.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_one_log_makes_fifteen_shafts",
+   "outcome": "passed",
+   "duration": 0.4108,
+   "call": 0.3962,
+   "start": 4.513,
+   "stop": 4.924,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 54
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_unknown_recipe_is_ignored",
+   "outcome": "passed",
+   "duration": 0.0287,
+   "call": 0.0139,
+   "start": 4.513,
+   "stop": 4.542,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 47
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_arrows_take_three_inputs_from_three_places",
+   "outcome": "passed",
+   "duration": 1.2946,
+   "call": 1.2803,
+   "start": 4.543,
+   "stop": 5.839,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration",
+    "slow"
+   ],
+   "doc": "D-076: shafts, heads and feathers converge at the bench. All 45 inputs are spent for 15 arrows.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 69
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_the_enemy_hand_is_hidden",
+   "outcome": "passed",
+   "duration": 0.2581,
+   "call": 0.1513,
+   "start": 4.787,
+   "stop": 5.045,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-103: hidden intents. Only counts are sent for the enemy, never its cards.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_bronze_needs_both_ores",
+   "outcome": "passed",
+   "duration": 0.4853,
+   "call": 0.4708,
+   "start": 4.925,
+   "stop": 5.411,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 61
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_commit_over_your_energy_is_rejected",
+   "outcome": "passed",
+   "duration": 0.2744,
+   "call": 0.1674,
+   "start": 5.046,
+   "stop": 5.321,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "Two cards costing 2 each (pickaxe, axe) need 4 energy; you have 2.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 56
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_card_you_dont_hold_is_rejected",
+   "outcome": "passed",
+   "duration": 0.2868,
+   "call": 0.183,
+   "start": 5.322,
+   "stop": 5.61,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[pluck]",
+   "outcome": "passed",
+   "duration": 0.3185,
+   "call": 0.3031,
+   "start": 5.412,
+   "stop": 5.731,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_turn_resolves_and_advances",
+   "outcome": "passed",
+   "duration": 0.2624,
+   "call": 0.1569,
+   "start": 5.611,
+   "stop": 5.874,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 79
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[mine]",
+   "outcome": "passed",
+   "duration": 0.2865,
+   "call": 0.2712,
+   "start": 5.733,
+   "stop": 6.02,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_plucking_a_chicken_gives_feathers_and_leaves_it_alive",
+   "outcome": "passed",
+   "duration": 0.3033,
+   "call": 0.2883,
+   "start": 5.84,
+   "stop": 6.144,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-075: plucking is non-lethal. Fifteen feathers per pluck, and the chicken stays.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_you_cant_move_while_fighting",
+   "outcome": "passed",
+   "duration": 0.269,
+   "call": 0.1694,
+   "start": 5.875,
+   "stop": 6.144,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 90
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[chop]",
+   "outcome": "xfailed",
+   "duration": 0.1974,
+   "call": 0.1823,
+   "start": 6.021,
+   "stop": 6.225,
+   "worker": "gw3",
+   "message": "BUG-003: the status line reads 'Choping...'",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_someone_elses_rat_cant_be_attacked",
+   "outcome": "passed",
+   "duration": 0.4866,
+   "call": 0.4846,
+   "start": 6.145,
+   "stop": 6.632,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-107: single combat. A rat already fighting is off limits to a second player.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 100
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_chopping_without_an_axe_is_refused",
+   "outcome": "passed",
+   "duration": 0.1189,
+   "call": 0.1044,
+   "start": 6.145,
+   "stop": 6.265,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 36
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_chopping_gives_logs_and_woodcutting_xp",
+   "outcome": "passed",
+   "duration": 0.2981,
+   "call": 0.2898,
+   "start": 6.226,
+   "stop": 6.525,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 43
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_tools_are_not_used_up",
+   "outcome": "passed",
+   "duration": 0.3808,
+   "call": 0.3649,
+   "start": 6.266,
+   "stop": 6.647,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-013: a tool is carried, never consumed.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_a_copper_rock_depletes_after_one_ore",
+   "outcome": "passed",
+   "duration": 0.3807,
+   "call": 0.3657,
+   "start": 6.526,
+   "stop": 6.908,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-106: copper rocks have a 100% deplete chance, so one ore empties the rock.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 56
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_leaving_mid_fight_frees_the_creature",
+   "outcome": "passed",
+   "duration": 0.3336,
+   "call": 0.3322,
+   "start": 6.633,
+   "stop": 6.967,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 111
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_a_depleted_rock_comes_back",
+   "outcome": "passed",
+   "duration": 0.4709,
+   "call": 0.4558,
+   "start": 6.648,
+   "stop": 7.12,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration",
+    "local_only"
+   ],
+   "doc": "Respawn is 5 ticks for copper: about a tenth of a second on the fast local tick.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 66
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_walking_away_cancels_gathering",
+   "outcome": "passed",
+   "duration": 0.1962,
+   "call": 0.1809,
+   "start": 6.909,
+   "stop": 7.105,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 77
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_losing_keeps_your_three_most_valuable_items",
+   "outcome": "passed",
+   "duration": 0.4033,
+   "call": 0.2984,
+   "start": 6.968,
+   "stop": 7.372,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "slow",
+    "xdist_group"
+   ],
+   "doc": "D-042/D-122: stand still and lose. Keep the bow (60), pickaxe (40) and axe (40); drop the rest.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 121
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_reaches_everyone_in_the_region",
+   "outcome": "passed",
+   "duration": 0.0444,
+   "call": 0.0423,
+   "start": 7.107,
+   "stop": 7.152,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 19
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_players_see_each_other_move",
+   "outcome": "passed",
+   "duration": 0.0609,
+   "call": 0.0588,
+   "start": 7.121,
+   "stop": 7.182,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[control-chars]",
+   "outcome": "passed",
+   "duration": 0.0433,
+   "call": 0.0412,
+   "start": 7.153,
+   "stop": 7.197,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[length-cap]",
+   "outcome": "passed",
+   "duration": 0.0431,
+   "call": 0.0409,
+   "start": 7.183,
+   "stop": 7.227,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_blank_chat_is_dropped",
+   "outcome": "passed",
+   "duration": 0.0437,
+   "call": 0.0417,
+   "start": 7.198,
+   "stop": 7.242,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 37
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_dropped_items_are_public",
+   "outcome": "passed",
+   "duration": 0.1505,
+   "call": 0.1487,
+   "start": 7.228,
+   "stop": 7.379,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-119: a drop is instantly a pile anyone can take.",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 45
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_tick_cadence_matches_the_announced_tick",
+   "outcome": "passed",
+   "duration": 0.195,
+   "call": 0.1804,
+   "start": 7.243,
+   "stop": 7.439,
+   "worker": "gw3",
+   "message": "",
+   "metrics": [
+    {
+     "name": "tick_median_ms",
+     "value": 15.32,
+     "unit": "ms"
+    },
+    {
+     "name": "tick_p95_ms",
+     "value": 30.59,
+     "unit": "ms"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Gaps between the player's own movement updates on a long walk should sit on the tick.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+   "outcome": "passed",
+   "duration": 1.5275,
+   "call": 1.5213,
+   "start": 7.373,
+   "stop": 8.901,
+   "worker": "gw0",
+   "message": "",
+   "metrics": [
+    {
+     "name": "tutorial_messages",
+     "value": 216,
+     "unit": "messages"
+    }
+   ],
+   "layer": "e2e",
+   "area": "tutorial",
+   "markers": [
+    "e2e",
+    "slow",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_tutorial_e2e.py",
+   "line": 15
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_examine_round_trip",
+   "outcome": "passed",
+   "duration": 0.3171,
+   "call": 0.3026,
+   "start": 7.38,
+   "stop": 7.698,
+   "worker": "gw1",
+   "message": "",
+   "metrics": [
+    {
+     "name": "examine_rtt_p50_ms",
+     "value": 15.29,
+     "unit": "ms"
+    },
+    {
+     "name": "examine_rtt_p95_ms",
+     "value": 15.54,
+     "unit": "ms"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Examine is answered from the inbound queue (every 5 ms), so it costs a network round trip, not a tick.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 43
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_login_time",
+   "outcome": "passed",
+   "duration": 0.0155,
+   "call": 0.0146,
+   "start": 7.44,
+   "stop": 7.456,
+   "worker": "gw3",
+   "message": "",
+   "metrics": [
+    {
+     "name": "login_ms",
+     "value": 13.16,
+     "unit": "ms"
+    },
+    {
+     "name": "login_kb",
+     "value": 6.34,
+     "unit": "KB"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Connect, Hello, and everything up to the first objective.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 60
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[huge-string]",
+   "outcome": "passed",
+   "duration": 1.0615,
+   "call": 1.0596,
+   "start": 7.458,
+   "stop": 8.52,
+   "worker": "gw3",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[truncated]",
+   "outcome": "passed",
+   "duration": 1.0494,
+   "call": 1.0476,
+   "start": 7.699,
+   "stop": 8.749,
+   "worker": "gw1",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[negative-count]",
+   "outcome": "passed",
+   "duration": 1.0521,
+   "call": 1.0504,
+   "start": 8.521,
+   "stop": 9.573,
+   "worker": "gw3",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_an_oversized_frame_is_cut_off",
+   "outcome": "passed",
+   "duration": 1.0504,
+   "call": 1.0488,
+   "start": 8.751,
+   "stop": 9.802,
+   "worker": "gw1",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 44
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[trim]",
+   "outcome": "passed",
+   "duration": 0.0451,
+   "call": 0.043,
+   "start": 8.902,
+   "stop": 8.948,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[unknown-type]",
+   "outcome": "passed",
+   "duration": 1.0508,
+   "call": 1.0491,
+   "start": 8.949,
+   "stop": 10.0,
+   "worker": "gw0",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_tiny_frame_is_ignored_not_fatal",
+   "outcome": "passed",
+   "duration": 0.0284,
+   "call": 0.0269,
+   "start": 9.575,
+   "stop": 9.604,
+   "worker": "gw3",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "Under five bytes can't hold a length and a type; the server skips it and keeps the connection.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 52
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+   "outcome": "passed",
+   "duration": 31.6097,
+   "call": 31.6088,
+   "start": 9.605,
+   "stop": 41.215,
+   "worker": "gw3",
+   "message": "",
+   "layer": "property",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "local_only",
+    "property",
+    "robustness"
+   ],
+   "doc": "Property: whatever bytes arrive, /healthz still answers and a bystander still plays.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 91
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_client_that_says_goodbye_is_let_go_promptly",
+   "outcome": "passed",
+   "duration": 0.0152,
+   "call": 0.0145,
+   "start": 9.803,
+   "stop": 9.819,
+   "worker": "gw1",
+   "message": "",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness"
+   ],
+   "doc": "Client-initiated close: the server answers the close frame and the connection is gone at once.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 60
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_chat_is_rate_limited",
+   "outcome": "xfailed",
+   "duration": 0.0528,
+   "call": 0.0508,
+   "start": 9.82,
+   "stop": 9.882,
+   "worker": "gw1",
+   "message": "BUG-005: no rate limit, so one client can flood everyone's chat",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 121
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_new_player_spawns_at_landfall",
+   "outcome": "passed",
+   "duration": 0.0117,
+   "call": 0.0003,
+   "start": 9.884,
+   "stop": 9.896,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 16
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_new_player_starts_with_an_empty_pack",
+   "outcome": "passed",
+   "duration": 0.0132,
+   "call": 0.0003,
+   "start": 9.897,
+   "stop": 9.911,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 22
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[markup]",
+   "outcome": "passed",
+   "duration": 0.0127,
+   "call": 0.0112,
+   "start": 9.912,
+   "stop": 9.925,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[blank]",
+   "outcome": "passed",
+   "duration": 0.0144,
+   "call": 0.0129,
+   "start": 9.926,
+   "stop": 9.941,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[long]",
+   "outcome": "passed",
+   "duration": 0.0136,
+   "call": 0.0121,
+   "start": 9.942,
+   "stop": 9.956,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[padded]",
+   "outcome": "passed",
+   "duration": 0.0135,
+   "call": 0.012,
+   "start": 9.957,
+   "stop": 9.971,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[control]",
+   "outcome": "passed",
+   "duration": 0.0132,
+   "call": 0.0117,
+   "start": 9.972,
+   "stop": 9.986,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_taken_name_gets_a_number",
+   "outcome": "passed",
+   "duration": 0.0295,
+   "call": 0.0276,
+   "start": 9.987,
+   "stop": 10.017,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_kicked_client_is_fully_disconnected",
+   "outcome": "xfailed",
+   "duration": 10.028,
+   "call": 10.0271,
+   "start": 10.001,
+   "stop": 20.139,
+   "worker": "gw0",
+   "message": "BUG-006: when the server kicks a client, it never finishes the close handshake",
+   "metrics": [
+    {
+     "name": "kick_close_s",
+     "value": 10.01,
+     "unit": "s"
+    }
+   ],
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "xfail"
+   ],
+   "doc": "RFC 6455 7.1.1: after the closing handshake the server SHOULD close TCP at once. When the server",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 68
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_wrong_protocol_version_is_refused",
+   "outcome": "passed",
+   "duration": 0.0116,
+   "call": 0.0108,
+   "start": 10.018,
+   "stop": 10.03,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_intents_before_hello_are_ignored",
+   "outcome": "passed",
+   "duration": 0.0157,
+   "call": 0.0143,
+   "start": 10.031,
+   "stop": 10.047,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 65
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_never_exceed_twelve_characters",
+   "outcome": "xfailed",
+   "duration": 0.0294,
+   "call": 0.0274,
+   "start": 10.048,
+   "stop": 10.084,
+   "worker": "gw1",
+   "message": "BUG-002: the duplicate-name number is added after the 12-character cap",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 73
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_leaving_despawns_the_player_for_others",
+   "outcome": "passed",
+   "duration": 0.035,
+   "call": 0.0336,
+   "start": 10.085,
+   "stop": 10.121,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 81
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_full_server_turns_new_players_away",
+   "outcome": "passed",
+   "duration": 0.6088,
+   "call": 0.6081,
+   "start": 10.122,
+   "stop": 10.731,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration",
+    "local_only"
+   ],
+   "doc": "A dedicated server with room for two: the third player gets a notice and is disconnected.",
+   "file": "tests/spirescape/test_session.py",
+   "line": 90
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_login_ends_with_inventory_skills_and_objective",
+   "outcome": "passed",
+   "duration": 0.0182,
+   "call": 0.0003,
+   "start": 10.289,
+   "stop": 10.308,
+   "worker": "gw2",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "After the map and its entities come the player's own state, then the tutorial objective.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 18
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_page_loads_the_unity_player[chromium]",
+   "outcome": "skipped",
+   "duration": 0.6301,
+   "call": 0.0,
+   "start": 10.309,
+   "stop": 10.94,
+   "worker": "gw2",
+   "message": "Skipped: browser tests run against the live site only",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 28
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_health_endpoint_counts_players",
+   "outcome": "passed",
+   "duration": 0.0188,
+   "call": 0.0173,
+   "start": 10.732,
+   "stop": 10.752,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 107
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_wasm_and_data_are_served[chromium]",
+   "outcome": "skipped",
+   "duration": 0.6004,
+   "call": 0.0,
+   "start": 10.753,
+   "stop": 11.354,
+   "worker": "gw1",
+   "message": "Skipped: browser tests run against the live site only",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "The two big downloads, fetched for real (Caddy compresses them on the fly).",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 44
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_the_tab_is_titled_spirescape[chromium]",
+   "outcome": "skipped",
+   "duration": 0.0009,
+   "call": 0.0,
+   "start": 10.941,
+   "stop": 10.943,
+   "worker": "gw2",
+   "message": "Skipped: browser tests run against the live site only",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui",
+    "xfail"
+   ],
+   "doc": "What a visitor sees in the tab and in bookmarks. Unity's WebGL template default is left in.",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 37
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_move_to_walks_the_player_there",
+   "outcome": "passed",
+   "duration": 0.0648,
+   "call": 0.0572,
+   "start": 10.944,
+   "stop": 11.01,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 43
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_players_run_two_tiles_per_tick",
+   "outcome": "passed",
+   "duration": 0.0885,
+   "call": 0.0731,
+   "start": 11.011,
+   "stop": 11.1,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Rules.PlayerTilesPerTick = 2: each EntityMoves update moves the player up to two tiles.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_out_of_bounds_move_is_ignored",
+   "outcome": "passed",
+   "duration": 0.0294,
+   "call": 0.0141,
+   "start": 11.101,
+   "stop": 11.132,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 59
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_clicking_water_next_to_the_shore_walks_to_the_shore",
+   "outcome": "passed",
+   "duration": 0.0744,
+   "call": 0.0595,
+   "start": 11.133,
+   "stop": 11.208,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "(1,16) is water but (2,16) is beside it, so the server paths to the neighbour instead.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 69
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_clicking_deep_water_is_refused",
+   "outcome": "passed",
+   "duration": 0.0285,
+   "call": 0.0135,
+   "start": 11.209,
+   "stop": 11.238,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "(0,16) has no walkable neighbour, so there's no path at all.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 76
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable",
+   "outcome": "passed",
+   "duration": 22.8088,
+   "call": 22.8079,
+   "start": 11.239,
+   "stop": 34.049,
+   "worker": "gw2",
+   "message": "",
+   "layer": "property",
+   "area": "world",
+   "markers": [
+    "hypothesis",
+    "integration",
+    "local_only",
+    "property"
+   ],
+   "doc": "Property: after any MoveTo inside the map, the player stands on a walkable tile.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 84
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_build_files_must_revalidate[chromium]",
+   "outcome": "skipped",
+   "duration": 0.0008,
+   "call": 0.0,
+   "start": 11.355,
+   "stop": 11.357,
+   "worker": "gw1",
+   "message": "Skipped: browser tests run against the live site only",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "Unity keeps file names across builds, so the Caddyfile sends no-cache on /Build/*.",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 56
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_interacting_with_something_that_isnt_there",
+   "outcome": "passed",
+   "duration": 0.0313,
+   "call": 0.0124,
+   "start": 11.358,
+   "stop": 11.39,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 108
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_an_action_the_entity_doesnt_offer_is_ignored",
+   "outcome": "passed",
+   "duration": 0.0275,
+   "call": 0.0134,
+   "start": 11.392,
+   "stop": 11.42,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Old Bram can't be attacked: the server ignores the request rather than starting a fight.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 113
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_the_boat_waits_until_bram_has_seen_you_after_the_rat",
+   "outcome": "passed",
+   "duration": 0.0421,
+   "call": 0.0278,
+   "start": 11.421,
+   "stop": 11.464,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 122
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_npcs_wander_on_their_own",
+   "outcome": "passed",
+   "duration": 0.1188,
+   "call": 0.1023,
+   "start": 11.465,
+   "stop": 11.585,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 129
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[passed-pass]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 11.586,
+   "stop": 11.587,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[failed-fail]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 11.588,
+   "stop": 11.59,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[error-fail]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0002,
+   "start": 11.591,
+   "stop": 11.592,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[xfailed-known]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0002,
+   "start": 11.593,
+   "stop": 11.594,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[xpassed-fixed]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 11.595,
+   "stop": 11.597,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[skipped-skip]",
+   "outcome": "passed",
+   "duration": 0.0012,
+   "call": 0.0003,
+   "start": 11.598,
+   "stop": 11.599,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_outcome_classes[weird-fail]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0002,
+   "start": 11.601,
+   "stop": 11.602,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "An unrecognised outcome counts as a failure, never as a pass.",
+   "file": "tests/unit/test_history.py",
+   "line": 20
+  },
+  {
+   "id": "tests/unit/test_history.py::test_pass_rate_ignores_known_bugs_and_skips",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0005,
+   "start": 11.603,
+   "stop": 11.604,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 29
+  },
+  {
+   "id": "tests/unit/test_history.py::test_an_xpass_is_not_green",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 11.606,
+   "stop": 11.607,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "A strict xfail that passes means a bug was fixed and its marker must come off: the run isn't green.",
+   "file": "tests/unit/test_history.py",
+   "line": 37
+  },
+  {
+   "id": "tests/unit/test_history.py::test_known_bugs_group_tests_by_id",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.608,
+   "stop": 11.609,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 42
+  },
+  {
+   "id": "tests/unit/test_history.py::test_flaky_finds_tests_that_flip_within_a_target",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.61,
+   "stop": 11.611,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 55
+  },
+  {
+   "id": "tests/unit/test_history.py::test_flaky_window_forgets_old_runs",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.613,
+   "stop": 11.614,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 66
+  },
+  {
+   "id": "tests/unit/test_history.py::test_matrix_counts_areas_by_layer_without_skips",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.615,
+   "stop": 11.616,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 72
+  },
+  {
+   "id": "tests/unit/test_history.py::test_slowest_skips_skipped_tests",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.617,
+   "stop": 11.618,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 78
+  },
+  {
+   "id": "tests/unit/test_history.py::test_metric_series_follows_run_order",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.619,
+   "stop": 11.62,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 83
+  },
+  {
+   "id": "tests/unit/test_history.py::test_protocol_coverage_counts_types_seen_either_way",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.621,
+   "stop": 11.623,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 89
+  },
+  {
+   "id": "tests/unit/test_history.py::test_load_runs_sorts_and_skips_junk",
+   "outcome": "passed",
+   "duration": 0.0104,
+   "call": 0.0075,
+   "start": 11.624,
+   "stop": 11.635,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_history.py",
+   "line": 95
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_registry_covers_the_protocol",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.636,
+   "stop": 11.637,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "9 client messages (1-9) and 18 server messages (50-67), as in Messages.cs.",
+   "file": "tests/unit/test_messages.py",
+   "line": 33
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Hello]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.639,
+   "stop": 11.64,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[MoveTo]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.641,
+   "stop": 11.643,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Interact]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 11.644,
+   "stop": 11.646,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[DialogueChoice]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.647,
+   "stop": 11.648,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Craft]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.649,
+   "stop": 11.651,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[InventoryAction]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.652,
+   "stop": 11.653,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Unequip]",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.654,
+   "stop": 11.655,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[CombatCommit]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.656,
+   "stop": 11.658,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Chat]",
+   "outcome": "passed",
+   "duration": 0.0012,
+   "call": 0.0003,
+   "start": 11.659,
+   "stop": 11.66,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Welcome]",
+   "outcome": "passed",
+   "duration": 0.0022,
+   "call": 0.0003,
+   "start": 11.661,
+   "stop": 11.664,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Catalog]",
+   "outcome": "passed",
+   "duration": 0.0013,
+   "call": 0.0004,
+   "start": 11.665,
+   "stop": 11.667,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[MapData]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.668,
+   "stop": 11.67,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[EntitySpawn]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.671,
+   "stop": 11.672,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[EntityMoves]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.673,
+   "stop": 11.675,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[EntityDespawn]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.676,
+   "stop": 11.677,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[InventoryState]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.678,
+   "stop": 11.679,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[SkillsState]",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.68,
+   "stop": 11.682,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Dialogue]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.683,
+   "stop": 11.684,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[DialogueClose]",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.685,
+   "stop": 11.686,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Notice]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 11.687,
+   "stop": 11.689,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[ActionStatus]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.69,
+   "stop": 11.692,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[CraftMenu]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.693,
+   "stop": 11.694,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[CombatStart]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0003,
+   "start": 11.695,
+   "stop": 11.697,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[CombatUpdate]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0004,
+   "start": 11.698,
+   "stop": 11.699,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[CombatEnd]",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 11.7,
+   "stop": 11.701,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[Objective]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 11.702,
+   "stop": 11.704,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_default_message_round_trips[ChatLine]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 11.705,
+   "stop": 11.706,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 39
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Hello]",
+   "outcome": "passed",
+   "duration": 0.0906,
+   "call": 0.0898,
+   "start": 11.707,
+   "stop": 11.798,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[MoveTo]",
+   "outcome": "passed",
+   "duration": 0.0525,
+   "call": 0.0517,
+   "start": 11.799,
+   "stop": 11.852,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Interact]",
+   "outcome": "passed",
+   "duration": 0.0488,
+   "call": 0.048,
+   "start": 11.854,
+   "stop": 11.903,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[DialogueChoice]",
+   "outcome": "passed",
+   "duration": 0.0445,
+   "call": 0.0437,
+   "start": 11.904,
+   "stop": 11.949,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Craft]",
+   "outcome": "passed",
+   "duration": 0.0517,
+   "call": 0.0509,
+   "start": 11.951,
+   "stop": 12.003,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[InventoryAction]",
+   "outcome": "passed",
+   "duration": 0.0575,
+   "call": 0.0567,
+   "start": 12.004,
+   "stop": 12.062,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Unequip]",
+   "outcome": "passed",
+   "duration": 0.0439,
+   "call": 0.0432,
+   "start": 12.063,
+   "stop": 12.108,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[CombatCommit]",
+   "outcome": "passed",
+   "duration": 0.0686,
+   "call": 0.0678,
+   "start": 12.109,
+   "stop": 12.178,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Chat]",
+   "outcome": "passed",
+   "duration": 0.0481,
+   "call": 0.0473,
+   "start": 12.179,
+   "stop": 12.228,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Welcome]",
+   "outcome": "passed",
+   "duration": 0.0615,
+   "call": 0.0607,
+   "start": 12.229,
+   "stop": 12.291,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Catalog]",
+   "outcome": "passed",
+   "duration": 0.3648,
+   "call": 0.364,
+   "start": 12.292,
+   "stop": 12.657,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[MapData]",
+   "outcome": "passed",
+   "duration": 0.0714,
+   "call": 0.0706,
+   "start": 12.659,
+   "stop": 12.731,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[EntitySpawn]",
+   "outcome": "passed",
+   "duration": 0.0973,
+   "call": 0.0965,
+   "start": 12.732,
+   "stop": 12.83,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[EntityMoves]",
+   "outcome": "passed",
+   "duration": 0.0905,
+   "call": 0.0897,
+   "start": 12.831,
+   "stop": 12.922,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[EntityDespawn]",
+   "outcome": "passed",
+   "duration": 0.0456,
+   "call": 0.0448,
+   "start": 12.923,
+   "stop": 12.969,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[InventoryState]",
+   "outcome": "passed",
+   "duration": 0.1056,
+   "call": 0.1048,
+   "start": 12.97,
+   "stop": 13.076,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[SkillsState]",
+   "outcome": "passed",
+   "duration": 0.0654,
+   "call": 0.0646,
+   "start": 13.077,
+   "stop": 13.143,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Dialogue]",
+   "outcome": "passed",
+   "duration": 0.085,
+   "call": 0.0842,
+   "start": 13.145,
+   "stop": 13.23,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[DialogueClose]",
+   "outcome": "passed",
+   "duration": 0.0065,
+   "call": 0.0058,
+   "start": 13.231,
+   "stop": 13.238,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Notice]",
+   "outcome": "passed",
+   "duration": 0.0791,
+   "call": 0.0783,
+   "start": 13.239,
+   "stop": 13.319,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[ActionStatus]",
+   "outcome": "passed",
+   "duration": 0.0492,
+   "call": 0.0484,
+   "start": 13.32,
+   "stop": 13.37,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[CraftMenu]",
+   "outcome": "passed",
+   "duration": 0.0931,
+   "call": 0.0923,
+   "start": 13.371,
+   "stop": 13.465,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[CombatStart]",
+   "outcome": "passed",
+   "duration": 0.2455,
+   "call": 0.2447,
+   "start": 13.466,
+   "stop": 13.712,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[CombatUpdate]",
+   "outcome": "passed",
+   "duration": 0.3092,
+   "call": 0.3084,
+   "start": 13.713,
+   "stop": 14.023,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[CombatEnd]",
+   "outcome": "passed",
+   "duration": 0.0512,
+   "call": 0.0503,
+   "start": 14.024,
+   "stop": 14.076,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[Objective]",
+   "outcome": "passed",
+   "duration": 0.0477,
+   "call": 0.0469,
+   "start": 14.077,
+   "stop": 14.125,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_generated_message_round_trips[ChatLine]",
+   "outcome": "passed",
+   "duration": 0.0523,
+   "call": 0.0515,
+   "start": 14.127,
+   "stop": 14.18,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 45
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_hello_known_answer",
+   "outcome": "passed",
+   "duration": 0.0012,
+   "call": 0.0003,
+   "start": 14.181,
+   "stop": 14.183,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Bytes worked out by hand from BinaryWriter's rules: length 9, type 1, \"Ann\", version 1.",
+   "file": "tests/unit/test_messages.py",
+   "line": 52
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_decode_rejects_a_lying_length_prefix",
+   "outcome": "passed",
+   "duration": 0.0014,
+   "call": 0.0005,
+   "start": 14.185,
+   "stop": 14.187,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 57
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_decode_rejects_unknown_type",
+   "outcome": "passed",
+   "duration": 0.0014,
+   "call": 0.0005,
+   "start": 14.188,
+   "stop": 14.19,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 64
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_decode_rejects_trailing_bytes",
+   "outcome": "passed",
+   "duration": 0.0012,
+   "call": 0.0006,
+   "start": 14.192,
+   "stop": 14.193,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_messages.py",
+   "line": 69
+  },
+  {
+   "id": "tests/unit/test_messages.py::test_unknown_field_is_a_type_error",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0004,
+   "start": 14.194,
+   "stop": 14.196,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "A typo in a test (Chat(txt=...)) fails loudly instead of sending an empty string.",
+   "file": "tests/unit/test_messages.py",
+   "line": 76
+  },
+  {
+   "id": "tests/unit/test_results_plugin.py::test_record_has_every_test_with_its_outcome",
+   "outcome": "passed",
+   "duration": 0.274,
+   "call": 0.0003,
+   "start": 14.197,
+   "stop": 14.472,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_results_plugin.py",
+   "line": 47
+  },
+  {
+   "id": "tests/unit/test_results_plugin.py::test_labels_come_from_markers_and_docstrings",
+   "outcome": "passed",
+   "duration": 0.2241,
+   "call": 0.0003,
+   "start": 14.473,
+   "stop": 14.698,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_results_plugin.py",
+   "line": 55
+  },
+  {
+   "id": "tests/unit/test_results_plugin.py::test_failures_and_known_bugs_carry_their_message",
+   "outcome": "passed",
+   "duration": 0.1894,
+   "call": 0.0003,
+   "start": 14.699,
+   "stop": 14.889,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_results_plugin.py",
+   "line": 61
+  },
+  {
+   "id": "tests/unit/test_results_plugin.py::test_times_are_relative_to_the_run_start",
+   "outcome": "passed",
+   "duration": 0.1784,
+   "call": 0.0003,
+   "start": 14.89,
+   "stop": 15.069,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_results_plugin.py",
+   "line": 68
+  },
+  {
+   "id": "tests/unit/test_results_plugin.py::test_record_has_no_home_paths",
+   "outcome": "passed",
+   "duration": 0.1883,
+   "call": 0.0004,
+   "start": 15.07,
+   "stop": 15.259,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "report",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_results_plugin.py",
+   "line": 73
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[0-\\x00]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0002,
+   "start": 15.26,
+   "stop": 15.261,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[1-\\x01]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 15.262,
+   "stop": 15.264,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[127-\\x7f]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0002,
+   "start": 15.265,
+   "stop": 15.266,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[128-\\x80\\x01]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 15.267,
+   "stop": 15.269,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[300-\\xac\\x02]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 15.27,
+   "stop": 15.271,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[16384-\\x80\\x80\\x01]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 15.272,
+   "stop": 15.273,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "Lengths use .NET's 7-bit encoding: low bits first, high bit means 'more'.",
+   "file": "tests/unit/test_wire.py",
+   "line": 11
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_string_is_utf8_byte_length_not_character_count",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 15.274,
+   "stop": 15.276,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "'\u00e9' is one character but two bytes, and the prefix counts bytes.",
+   "file": "tests/unit/test_wire.py",
+   "line": 27
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_int32_is_little_endian",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 15.277,
+   "stop": 15.278,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 34
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_any_nonzero_byte_reads_as_true",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 15.278,
+   "stop": 15.28,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "BinaryReader.ReadBoolean treats every non-zero byte as true.",
+   "file": "tests/unit/test_wire.py",
+   "line": 41
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_strings_round_trip",
+   "outcome": "passed",
+   "duration": 0.0344,
+   "call": 0.0338,
+   "start": 15.28,
+   "stop": 15.315,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 46
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_int_lists_round_trip",
+   "outcome": "passed",
+   "duration": 0.0749,
+   "call": 0.0742,
+   "start": 15.316,
+   "stop": 15.392,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 55
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_malformed_input_raises_wire_error[\\x01\\x00-int32 needs four bytes]",
+   "outcome": "passed",
+   "duration": 0.0011,
+   "call": 0.0003,
+   "start": 15.393,
+   "stop": 15.395,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 62
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_malformed_input_raises_wire_error[\\x05ab-string shorter than its prefix]",
+   "outcome": "passed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 15.396,
+   "stop": 15.397,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 62
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_malformed_input_raises_wire_error[\\xff\\xff\\xff\\xff\\xff\\xff-a 7-bit length longer than five bytes]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 15.398,
+   "stop": 15.4,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 62
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_malformed_input_raises_wire_error[\\xff\\xff\\xff\\x7f-a list count larger than the bytes left]",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 15.401,
+   "stop": 15.402,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 62
+  },
+  {
+   "id": "tests/unit/test_wire.py::test_malformed_input_raises_wire_error[\\x02\\xff\\xfe-invalid UTF-8]",
+   "outcome": "passed",
+   "duration": 0.156,
+   "call": 0.0003,
+   "start": 15.403,
+   "stop": 15.559,
+   "worker": "gw1",
+   "message": "",
+   "layer": "unit",
+   "area": "protocol",
+   "markers": [
+    "unit"
+   ],
+   "doc": "",
+   "file": "tests/unit/test_wire.py",
+   "line": 62
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_lying_length_prefix_is_rejected",
+   "outcome": "xfailed",
+   "duration": 5.0185,
+   "call": 5.0168,
+   "start": 20.14,
+   "stop": 25.168,
+   "worker": "gw0",
+   "message": "BUG-004: over WebSocket the server never checks the length prefix",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 83
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_second_hello_is_ignored",
+   "outcome": "passed",
+   "duration": 0.0287,
+   "call": 0.0141,
+   "start": 25.169,
+   "stop": 25.198,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 57
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_examine_an_npc_describes_it",
+   "outcome": "passed",
+   "duration": 0.1897,
+   "call": 0.0146,
+   "start": 34.05,
+   "stop": 34.24,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 100
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_well_formed_nonsense_is_handled",
+   "outcome": "passed",
+   "duration": 0.9517,
+   "call": 0.9425,
+   "start": 41.216,
+   "stop": 42.169,
+   "worker": "gw3",
+   "message": "",
+   "layer": "property",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "local_only",
+    "property",
+    "robustness"
+   ],
+   "doc": "Property: valid frames with absurd values (slot -7, count 2^31) never break the player's session.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 102
+  }
+ ]
+}

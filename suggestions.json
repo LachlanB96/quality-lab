@@ -1,0 +1,87 @@
+{
+ "suggestions": [
+  {
+   "id": "S-001",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Make the energy-rejection test deterministic",
+   "why": "It calls pytest.skip when the opening hand has fewer than two 2-cost cards. Hands are random, so the rule can go unchecked on any run with no signal beyond a skip. Build the hand or loop over fresh fights until two costly cards appear.",
+   "kind": "flakiness",
+   "effort": "small",
+   "evidence": [
+    "tests/spirescape/test_combat.py::test_a_commit_over_your_energy_is_rejected"
+   ]
+  },
+  {
+   "id": "S-002",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Tighten the turn-advance assertion",
+   "why": "The test passes if the turn advanced or the fight is over, and the event check has the same escape. A commit of no cards that ends the fight early would hide a broken turn counter. Assert one explicit outcome, or split into a turn-advances test and a fight-ends test.",
+   "kind": "weak assertion",
+   "effort": "small",
+   "evidence": [
+    "tests/spirescape/test_combat.py::test_a_turn_resolves_and_advances"
+   ]
+  },
+  {
+   "id": "S-003",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Cut property-test cost without dropping the property",
+   "why": "The random-bytes test opens two connections per example, and the click test waits for the player to settle each time. They took 32 and 23 seconds locally. Reuse one bystander for the whole test and settle on a shorter quiet window, or lower max_examples for the default run and keep the larger count for a nightly run.",
+   "kind": "speed",
+   "effort": "medium",
+   "evidence": [
+    "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+    "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable"
+   ]
+  },
+  {
+   "id": "S-004",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Bound the wander test and its wait",
+   "why": "It waits up to 400 ticks for a chicken to move, which is minutes on the live tick, and it took 25 seconds live. It depends on random NPC behaviour, so it is the likeliest future flake. Watch several NPCs at once, or check that the server's wander rule is enabled, instead of waiting on one chicken.",
+   "kind": "flakiness",
+   "effort": "small",
+   "evidence": [
+    "tests/spirescape/test_world.py::test_npcs_wander_on_their_own"
+   ]
+  },
+  {
+   "id": "S-005",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Add direct tests for inventory and equipment actions",
+   "why": "Equip, Unequip, Bury, Eat and Drop of non-kit items are only exercised inside the long tutorial test, apart from a Drop in the multiplayer test. A failure there shows up as one 39-second live test failing late. Short focused tests would localise failures and run quickly.",
+   "kind": "coverage gap",
+   "effort": "medium",
+   "evidence": [
+    "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+    "tests/spirescape/test_multiplayer.py::test_dropped_items_are_public"
+   ]
+  },
+  {
+   "id": "S-006",
+   "status": "open",
+   "proposed": "2026-10-04",
+   "source": "20261004T062335Z",
+   "title": "Share world constants and cover respawn on live",
+   "why": "The spawn (7, 16) and other coordinates are hard-coded in several files, while LANDFALL_SPAWN exists only in test_session.py. Moving them to one module avoids drift. Separately, respawn is checked only locally, so live has no check that depleted rocks return.",
+   "kind": "maintainability",
+   "effort": "small",
+   "evidence": [
+    "tests/spirescape/test_session.py::test_new_player_spawns_at_landfall",
+    "tests/spirescape/test_world.py::test_out_of_bounds_move_is_ignored",
+    "tests/spirescape/test_gathering.py::test_walking_away_cancels_gathering",
+    "tests/spirescape/test_gathering.py::test_a_depleted_rock_comes_back"
+   ]
+  }
+ ]
+}

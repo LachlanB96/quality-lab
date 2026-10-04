@@ -23,6 +23,14 @@ The test code is drafted with Claude and reviewed by the owner test by test. `RE
 | `qualitylab/results.py` | pytest plugin: `--ql-out run.json` records every test's outcome, timing, worker, layer, area and metrics, plus protocol coverage merged across xdist workers |
 | `tests/unit/` | Tests of this repo's own code. No server |
 | `tests/spirescape/` | The suite. Markers name the layer (`contract`, `integration`, `e2e`, `property`, `robustness`, `data`, `perf`, `ui`) and `area(...)` names the feature |
+| `qualitylab/history.py` | Analytics over run records: summaries, layer and area matrices, known bugs by id, flaky tests, metric series, protocol coverage |
+| `qualitylab/analyst.py` | The AI review: `claude -p` (Sonnet, no tools) over the facts and test sources, then deterministic checks that strike unknown test ids and numbers not in the facts. Suggestions merge into `suggestions.json` without touching decisions |
+| `qualitylab/evals/email_triage.py` | Runs the private Email Dashboard's `classify.llm_verdicts` (found via `EMAIL_DASHBOARD_DIR`) over `evals/email_triage/cases.json`, a made-up labelled inbox, per `BODY_CHARS` variant. Misses are sorted into product issue (truncation, by code) or prompt gap / rubric gap / product issue (Sonnet judge) |
+| `qualitylab/report/` | `build.py` shapes history into JSON, `template.html` renders it (no external loads; fonts self-hosted under OFL) |
+| `history/runs/`, `history/analysis/`, `history/evals/` | Generated records. Committed: they're the page's data |
+| `findings.json` | Write-ups of the bugs the suite found; status comes from the latest runs |
+| `suggestions.json`, `review.json` | The owner's decisions on AI suggestions, and which tests the owner has reviewed. Change them with `ql suggestion` and `ql review`, never by hand-editing someone else's decision |
+| `docs/TOUR.md` | Where each pytest technique is used and why |
 
 ## Targets
 
@@ -39,7 +47,16 @@ $env:SPIRESCAPE_REPO = "<path to a SpireScape checkout>"
 uv run pytest tests -n 4                                            # local, everything
 uv run pytest tests/spirescape --target live -n 4 --dist loadgroup  # the public demo
 uv run pytest tests/unit                                            # no server
+
+uv run ql run --target local|live     # a recorded run into history/runs/
+uv run ql analyse                     # AI review + suggestions
+uv run ql eval email                  # needs EMAIL_DASHBOARD_DIR
+uv run ql build                       # build/index.html
+uv run ql review <id-substring> --status reviewed|rewritten
+uv run ql suggestion S-001 --status accepted|rejected|done --note "..."
 ```
+
+CI (`.github/workflows/`): the leak check, unit tests on every push, and the live suite on every push and nightly. CI can't run the local target (the server source is private).
 
 **Check: `uv run pytest tests -n 4`** (local target). Nothing merges into `main` until it passes.
 

@@ -1,0 +1,52 @@
+# The unit tests on every push, and the SpireScape suite against the live demo on every push and
+# every night. CI can't run the local target: the server's source is private, so CI tests what any
+# player can reach. Each live run's record is kept as an artifact.
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 8 * * *"   # 19:30 in Sydney during daylight saving
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - run: uv run pytest tests/unit -q --junitxml=unit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unit-junit
+          path: unit.xml
+
+  live:
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - name: Install Chromium for the browser tests
+        run: uv run playwright install --with-deps chromium
+      - name: Play the live demo
+        run: uv run ql run --target live --label ci -- --junitxml=live.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-run
+          path: |
+            live.xml
+            history/runs/*-live.json
