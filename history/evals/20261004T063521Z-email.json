@@ -1,0 +1,375 @@
+{
+ "generated": "2026-10-04T06:35:21+00:00",
+ "title": "Email triage: production vs. full body",
+ "summary": "36 made-up emails, each classified 2 times per variant by Claude Haiku through the dashboard's own classify.llm_verdicts. Before: the first 600 characters of each body, as the dashboard sends today. After: the first 4,000 characters.",
+ "legend": "Calendar entries that shouldn't exist: 0 before, 0 after (across all repeats). Rates count only the cases where a field applies: dates caught is over emails that need a calendar entry.",
+ "baseline": "production",
+ "candidate": "full-body",
+ "model": "haiku",
+ "repeats": 2,
+ "cases": 36,
+ "metrics": [
+  {
+   "key": "category",
+   "label": "Category right"
+  },
+  {
+   "key": "job_status",
+   "label": "Job status right"
+  },
+  {
+   "key": "event_recall",
+   "label": "Dates caught"
+  },
+  {
+   "key": "event_precision",
+   "label": "Calendar entries right"
+  },
+  {
+   "key": "urgent",
+   "label": "Urgent flag right"
+  },
+  {
+   "key": "consistency",
+   "label": "Same answer every repeat"
+  }
+ ],
+ "variants": [
+  {
+   "name": "production",
+   "body_chars": 600,
+   "scores": {
+    "category": 1.0,
+    "job_status": 0.9583,
+    "urgent": 0.9667,
+    "event_recall": 0.55,
+    "event_precision": 0.8333,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.75
+   }
+  },
+  {
+   "name": "full-body",
+   "body_chars": 4000,
+   "scores": {
+    "category": 0.9861,
+    "job_status": 0.9444,
+    "urgent": 1.0,
+    "event_recall": 1.0,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.7778
+   }
+  }
+ ],
+ "triage": [
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-long (before): The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-relative (before): The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-screen-ats-long (before): The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-recruiter-cold (before): The instructions define jobStatus only for a job the person applied to and never say how to treat unsolicited recruiter outreach, so the model guessed 'acknowledged' instead of 'none'."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-perth-time (before): The instructions say times are Australia/Sydney but never say to convert emails that state another timezone such as AWST, so the model kept 10:00 instead of 13:00."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "per-delivery-slot (before): The instructions list deliveries with a fixed slot as extractable but don't say how to handle a time window (8am to 12pm) or whether it gets a start time, and the model's null time with high confidence conflicts with the gold 08:00."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-invite-ats-relative (after): The instructions define jobStatus values but never say whether a first conversation with a hiring manager counts as interview or screening, so the model had to guess."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-viewed (after): The instructions don't cover a job board's 'application viewed' notification, which is bulk-sent yet concerns a real application, and they don't say which jobStatus or category it gets, so the model guessed Marketing and none."
+  }
+ ],
+ "misses": {
+  "production": [
+   {
+    "id": "work-invite-ats-long",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "urgent": true,
+     "event": {
+      "date": "2026-10-13",
+      "time": "11:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "interview invitation from Harbourline but no date specified yet",
+     "jobStatus": "interview",
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "job_status",
+     "urgent",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "application moved to next stage but no interview date scheduled",
+     "jobStatus": "screening",
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-screen-ats-long",
+    "fields": [
+     "urgent",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": [
+      "screening",
+      "interview"
+     ],
+     "urgent": true,
+     "event": {
+      "date": "2026-10-05",
+      "time": "09:15"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "phone screen coming but date not yet confirmed",
+     "jobStatus": "screening",
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-recruiter-cold",
+    "fields": [
+     "job_status"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "none",
+     "urgent": null,
+     "event": null
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "recruiter inquiry about contract role, wants to chat this week",
+     "jobStatus": "acknowledged",
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions define jobStatus only for a job the person applied to and never say how to treat unsolicited recruiter outreach, so the model guessed 'acknowledged' instead of 'none'."
+   },
+   {
+    "id": "work-perth-time",
+    "fields": [
+     "event_found",
+     "event_right"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Interview confirmation for Thursday 8 October at 10:00am AWST",
+     "jobStatus": "interview",
+     "event": {
+      "title": "Interview - Spinifex Mining Systems (Test Lead)",
+      "date": "2026-10-08",
+      "time": "10:00",
+      "durationMin": 60,
+      "kind": "interview",
+      "confidence": "high"
+     },
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions say times are Australia/Sydney but never say to convert emails that state another timezone such as AWST, so the model kept 10:00 instead of 13:00."
+   },
+   {
+    "id": "per-delivery-slot",
+    "fields": [
+     "event_found",
+     "event_right"
+    ],
+    "gold": {
+     "category": [
+      "Personal",
+      "Finance"
+     ],
+     "jobStatus": "none",
+     "urgent": false,
+     "event": {
+      "date": "2026-10-05",
+      "time": "08:00"
+     }
+    },
+    "got": {
+     "category": "Personal",
+     "flags": [
+      "IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "delivery requires someone home",
+     "jobStatus": "none",
+     "event": {
+      "title": "Package delivery from Coastline Books",
+      "date": "2026-10-05",
+      "time": null,
+      "durationMin": 60,
+      "kind": "delivery",
+      "confidence": "high"
+     },
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions list deliveries with a fixed slot as extractable but don't say how to handle a time window (8am to 12pm) or whether it gets a start time, and the model's null time with high confidence conflicts with the gold 08:00."
+   }
+  ],
+  "full-body": [
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "job_status"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "first conversation with hiring manager for Test Automation Engineer",
+     "jobStatus": "screening",
+     "event": {
+      "title": "Interview - Northwind Analytics",
+      "date": "2026-10-08",
+      "time": "10:00",
+      "durationMin": 60,
+      "kind": "interview",
+      "confidence": "high"
+     },
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions define jobStatus values but never say whether a first conversation with a hiring manager counts as interview or screening, so the model had to guess."
+   },
+   {
+    "id": "work-viewed",
+    "fields": [
+     "category",
+     "job_status"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": [
+      "acknowledged",
+      "screening"
+     ],
+     "urgent": false,
+     "event": null
+    },
+    "got": {
+     "category": "Marketing",
+     "flags": [],
+     "via": "llm",
+     "reason": "bulk notification that employer viewed profile",
+     "jobStatus": "none",
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions don't cover a job board's 'application viewed' notification, which is bulk-sent yet concerns a real application, and they don't say which jobStatus or category it gets, so the model guessed Marketing and none."
+   }
+  ]
+ }
+}

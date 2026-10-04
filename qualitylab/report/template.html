@@ -219,7 +219,8 @@ details.more ol { margin: 0.5rem 0 0.4rem 1.2rem; padding: 0; color: var(--ink-2
 details.more .fix { font-size: 0.93rem; color: var(--ink-2); }
 details.more .fix b { color: var(--ink); }
 .pins { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
-.pin { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.45rem; border-radius: 6px; background: var(--bg-3); color: var(--ink-2); }
+.pin { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.15rem 0.45rem; border-radius: 6px; background: var(--bg-3); color: var(--ink-2); max-width: 100%; overflow-wrap: anywhere; }
+.sug .effort { color: var(--muted); font-size: 0.85rem; }
 
 /* ---------- charts ---------- */
 .chart { margin-top: 0.6rem; }
@@ -271,9 +272,9 @@ details.more .fix b { color: var(--ink); }
 .scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
 .score { padding: 0.9rem 1rem; }
 .score .label { color: var(--muted); font-size: 0.88rem; }
-.score .pair { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.2rem; }
-.score .value { font-size: 1.6rem; font-weight: 600; }
-.score .was { color: var(--muted); font-size: 0.9rem; }
+.score .value { font-size: 1.7rem; font-weight: 600; line-height: 1.2; margin-top: 0.15rem; }
+.score .was { color: var(--muted); font-size: 0.86rem; display: flex; flex-wrap: wrap; gap: 0 0.45rem; }
+.score .was span { white-space: nowrap; }
 .delta-up { color: var(--good); font-weight: 600; font-size: 0.9rem; }
 .delta-down { color: var(--bad); font-weight: 600; font-size: 0.9rem; }
 .triage { display: grid; gap: 0.6rem; margin-top: 1rem; }
@@ -985,6 +986,11 @@ function renderSlowFlaky() {
 }
 
 // ---------- AI ----------
+function modelName(id) {
+  // "claude-sonnet-5-5" -> "Claude Sonnet 5.5"; anything unexpected is shown as given
+  const m = /^claude-([a-z]+)-(\d+)(?:-(\d+))?/.exec(id || "");
+  return m ? `Claude ${m[1][0].toUpperCase()}${m[1].slice(1)} ${m[2]}${m[3] && m[3].length < 3 ? "." + m[3] : ""}` : (id || "Claude");
+}
 function renderAI() {
   const box = $("ai-overview");
   box.replaceChildren();
@@ -992,9 +998,9 @@ function renderAI() {
   if (!a) { box.append(el("p", { class: "empty-note" }, "The first AI review runs after the next nightly run.")); return; }
   const ch = a.checks || {};
   box.append(el("div", { class: "ai-meta" },
-    el("span", null, `Written by ${a.model || "Claude"} · ${when(a.generated)}`),
+    el("span", null, `Written by ${modelName(a.model)} · ${when(a.generated)}`),
     el("span", { class: "ok" }, glyph(ch.failed ? "known" : "pass"), `${ch.passed ?? 0} of ${ch.total ?? 0} claims checked against the records`),
-    a.runs ? el("span", null, `from ${a.runs.join(" and ")}`) : null));
+    a.runs ? el("span", null, `from the latest ${a.runs.length > 1 ? "local and live runs" : "run"}`) : null));
   const o = a.overview || {};
   if (o.headline) box.append(el("div", { class: "ai-headline" }, o.headline));
   box.append(el("div", { class: "ai-body" }, (o.paragraphs || []).map((p) => el("p", null, p))));
@@ -1013,9 +1019,10 @@ function renderAI() {
   for (const s of sugs.slice().sort((x, y) => (order[x.status] ?? 0) - (order[y.status] ?? 0))) {
     const label = { open: "Waiting on me", accepted: "Accepted", done: "Done", rejected: "Rejected" }[s.status] || s.status;
     sw.append(el("article", { class: "card sug reveal" },
-      el("div", { class: "tags" }, el("span", { class: "tag" }, s.kind || "idea"), s.effort ? el("span", { class: "tag" }, s.effort + " effort") : null, el("span", { class: "decision " + s.status }, label)),
+      el("div", { class: "tags" }, el("span", { class: "tag" }, s.kind || "idea"), el("span", { class: "decision " + s.status }, label)),
       el("h3", null, s.title),
       el("p", null, s.why),
+      s.effort ? el("span", { class: "effort" }, `${s.id} · ${s.effort} effort · proposed ${s.proposed || ""}`) : null,
       s.evidence && s.evidence.length ? el("div", { class: "pins" }, s.evidence.map((e) => el("span", { class: "pin" }, e.split("::").pop()))) : null,
       s.note ? el("p", { class: "note" }, el("b", null, "My call: "), s.note) : null));
   }
@@ -1037,9 +1044,10 @@ function renderEvals() {
     const now = best.scores[m.key], was = base && base !== best ? base.scores[m.key] : null;
     const d = was == null || now == null ? null : now - was;
     scores.append(el("div", { class: "card score" }, el("div", { class: "label" }, m.label),
-      el("div", { class: "pair" }, el("span", { class: "value" }, pct(now)),
-        was != null ? el("span", { class: "was" }, "was " + pct(was)) : null,
-        d ? el("span", { class: d > 0 ? "delta-up" : "delta-down" }, (d > 0 ? "▲ " : "▼ ") + (Math.abs(d) * 100).toFixed(1) + " pts") : null)));
+      el("div", { class: "value" }, pct(now)),
+      was != null ? el("div", { class: "was" },
+        d ? el("span", { class: d > 0 ? "delta-up" : "delta-down" }, (d > 0 ? "▲ " : "▼ ") + (Math.abs(d) * 100).toFixed(1) + " pts") : el("span", null, "no change"),
+        el("span", null, "from " + pct(was))) : null));
   }
   card.append(scores);
   if (e.legend) card.append(el("p", { class: "meta", style: "margin-top:0.8rem" }, e.legend));

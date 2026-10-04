@@ -1,0 +1,191 @@
+{
+ "generated": "2026-10-04T06:23:35+00:00",
+ "model": "claude-sonnet-5-5",
+ "cost_usd": 0.234902,
+ "seconds": 28.8,
+ "runs": [
+  "20261004T060803Z-b2daab",
+  "20261004T060847Z-85385d"
+ ],
+ "overview": {
+  "headline": "Both targets are green: 194 passed locally, 87 live, and every known bug is pinned by a strict xfail.",
+  "paragraphs": [
+   "The local run took 42 seconds on 4 workers with 207 tests, 9 known-bug xfails and 4 skips. The live run took 143 seconds with 109 tests, 6 known and 16 skipped. No failures and no flaky tests are recorded, but only one run per target exists, so flakiness is unproven rather than absent.",
+   "The system under test is healthy on timing. The local tick median is 15.32 ms against a 20 ms tick, and live sits at 598.56 ms against 600 ms. Examine round trips are about 10 to 15 ms. The open defects are protocol hardening (BUG-004, BUG-005, BUG-006), a tutorial soft-lock (BUG-001), name length (BUG-002), and two cosmetic text bugs (BUG-003, BUG-007)."
+  ],
+  "points": [
+   {
+    "kind": "good",
+    "text": "Known bugs are strict xfails, so a fix turns the run red until the marker comes off. Each is traceable to a BUG id.",
+    "tests": [
+     "tests/spirescape/test_robustness.py::test_chat_is_rate_limited",
+     "tests/spirescape/test_session.py::test_names_never_exceed_twelve_characters"
+    ]
+   },
+   {
+    "kind": "good",
+    "text": "The protocol is tested at three levels: wire codec known answers, round trips generated from the message layouts, and live contract checks on login order and entity data.",
+    "tests": [
+     "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[300-\\xac\\x02]",
+     "tests/unit/test_messages.py::test_hello_known_answer",
+     "tests/spirescape/test_contract.py::test_every_server_frame_decodes_strictly"
+    ]
+   },
+   {
+    "kind": "risk",
+    "text": "On live, all 10 robustness tests and all 3 property tests are skipped, so the public server gets no hostile-input coverage from this suite. Local covers it only while the local build matches what is deployed.",
+    "tests": [
+     "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server"
+    ]
+   },
+   {
+    "kind": "risk",
+    "text": "The two property tests dominate local time. The random-bytes test took 32 seconds and the walkable-click test 23 seconds, in a run that took 42 seconds overall on 4 workers.",
+    "tests": [
+     "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+     "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable"
+    ]
+   },
+   {
+    "kind": "bad",
+    "text": "A kicked client lingers for about 10 seconds (kick_close_s 10.01) because the server never finishes the close handshake. This is BUG-006, and the test itself takes 10 seconds.",
+    "tests": [
+     "tests/spirescape/test_robustness.py::test_a_kicked_client_is_fully_disconnected"
+    ]
+   },
+   {
+    "kind": "risk",
+    "text": "Live is slow and wait-heavy. The full tutorial took 39 seconds and the arrow chain 32 seconds, and several single-purpose tests take about 10 seconds each because they wait on a 600 ms tick.",
+    "tests": [
+     "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+     "tests/spirescape/test_crafting.py::test_arrows_take_three_inputs_from_three_places"
+    ]
+   }
+  ]
+ },
+ "checks": {
+  "total": 65,
+  "passed": 65,
+  "failed": 0,
+  "struck": []
+ },
+ "raw": {
+  "overview": {
+   "headline": "Both targets are green: 194 passed locally, 87 live, and every known bug is pinned by a strict xfail.",
+   "paragraphs": [
+    "The local run took 42 seconds on 4 workers with 207 tests, 9 known-bug xfails and 4 skips. The live run took 143 seconds with 109 tests, 6 known and 16 skipped. No failures and no flaky tests are recorded, but only one run per target exists, so flakiness is unproven rather than absent.",
+    "The system under test is healthy on timing. The local tick median is 15.32 ms against a 20 ms tick, and live sits at 598.56 ms against 600 ms. Examine round trips are about 10 to 15 ms. The open defects are protocol hardening (BUG-004, BUG-005, BUG-006), a tutorial soft-lock (BUG-001), name length (BUG-002), and two cosmetic text bugs (BUG-003, BUG-007)."
+   ],
+   "points": [
+    {
+     "kind": "good",
+     "text": "Known bugs are strict xfails, so a fix turns the run red until the marker comes off. Each is traceable to a BUG id.",
+     "tests": [
+      "tests/spirescape/test_robustness.py::test_chat_is_rate_limited",
+      "tests/spirescape/test_session.py::test_names_never_exceed_twelve_characters"
+     ]
+    },
+    {
+     "kind": "good",
+     "text": "The protocol is tested at three levels: wire codec known answers, round trips generated from the message layouts, and live contract checks on login order and entity data.",
+     "tests": [
+      "tests/unit/test_wire.py::test_varint_matches_dotnet_7bit_encoding[300-\\xac\\x02]",
+      "tests/unit/test_messages.py::test_hello_known_answer",
+      "tests/spirescape/test_contract.py::test_every_server_frame_decodes_strictly"
+     ]
+    },
+    {
+     "kind": "risk",
+     "text": "On live, all 10 robustness tests and all 3 property tests are skipped, so the public server gets no hostile-input coverage from this suite. Local covers it only while the local build matches what is deployed.",
+     "tests": [
+      "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server"
+     ]
+    },
+    {
+     "kind": "risk",
+     "text": "The two property tests dominate local time. The random-bytes test took 32 seconds and the walkable-click test 23 seconds, in a run that took 42 seconds overall on 4 workers.",
+     "tests": [
+      "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+      "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable"
+     ]
+    },
+    {
+     "kind": "bad",
+     "text": "A kicked client lingers for about 10 seconds (kick_close_s 10.01) because the server never finishes the close handshake. This is BUG-006, and the test itself takes 10 seconds.",
+     "tests": [
+      "tests/spirescape/test_robustness.py::test_a_kicked_client_is_fully_disconnected"
+     ]
+    },
+    {
+     "kind": "risk",
+     "text": "Live is slow and wait-heavy. The full tutorial took 39 seconds and the arrow chain 32 seconds, and several single-purpose tests take about 10 seconds each because they wait on a 600 ms tick.",
+     "tests": [
+      "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+      "tests/spirescape/test_crafting.py::test_arrows_take_three_inputs_from_three_places"
+     ]
+    }
+   ]
+  },
+  "suggestions": [
+   {
+    "title": "Make the energy-rejection test deterministic",
+    "why": "It calls pytest.skip when the opening hand has fewer than two 2-cost cards. Hands are random, so the rule can go unchecked on any run with no signal beyond a skip. Build the hand or loop over fresh fights until two costly cards appear.",
+    "kind": "flakiness",
+    "effort": "small",
+    "evidence": [
+     "tests/spirescape/test_combat.py::test_a_commit_over_your_energy_is_rejected"
+    ]
+   },
+   {
+    "title": "Tighten the turn-advance assertion",
+    "why": "The test passes if the turn advanced or the fight is over, and the event check has the same escape. A commit of no cards that ends the fight early would hide a broken turn counter. Assert one explicit outcome, or split into a turn-advances test and a fight-ends test.",
+    "kind": "weak assertion",
+    "effort": "small",
+    "evidence": [
+     "tests/spirescape/test_combat.py::test_a_turn_resolves_and_advances"
+    ]
+   },
+   {
+    "title": "Cut property-test cost without dropping the property",
+    "why": "The random-bytes test opens two connections per example, and the click test waits for the player to settle each time. They took 32 and 23 seconds locally. Reuse one bystander for the whole test and settle on a shorter quiet window, or lower max_examples for the default run and keep the larger count for a nightly run.",
+    "kind": "speed",
+    "effort": "medium",
+    "evidence": [
+     "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+     "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable"
+    ]
+   },
+   {
+    "title": "Bound the wander test and its wait",
+    "why": "It waits up to 400 ticks for a chicken to move, which is minutes on the live tick, and it took 25 seconds live. It depends on random NPC behaviour, so it is the likeliest future flake. Watch several NPCs at once, or check that the server's wander rule is enabled, instead of waiting on one chicken.",
+    "kind": "flakiness",
+    "effort": "small",
+    "evidence": [
+     "tests/spirescape/test_world.py::test_npcs_wander_on_their_own"
+    ]
+   },
+   {
+    "title": "Add direct tests for inventory and equipment actions",
+    "why": "Equip, Unequip, Bury, Eat and Drop of non-kit items are only exercised inside the long tutorial test, apart from a Drop in the multiplayer test. A failure there shows up as one 39-second live test failing late. Short focused tests would localise failures and run quickly.",
+    "kind": "coverage gap",
+    "effort": "medium",
+    "evidence": [
+     "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+     "tests/spirescape/test_multiplayer.py::test_dropped_items_are_public"
+    ]
+   },
+   {
+    "title": "Share world constants and cover respawn on live",
+    "why": "The spawn (7, 16) and other coordinates are hard-coded in several files, while LANDFALL_SPAWN exists only in test_session.py. Moving them to one module avoids drift. Separately, respawn is checked only locally, so live has no check that depleted rocks return.",
+    "kind": "maintainability",
+    "effort": "small",
+    "evidence": [
+     "tests/spirescape/test_session.py::test_new_player_spawns_at_landfall",
+     "tests/spirescape/test_world.py::test_out_of_bounds_move_is_ignored",
+     "tests/spirescape/test_gathering.py::test_walking_away_cancels_gathering",
+     "tests/spirescape/test_gathering.py::test_a_depleted_rock_comes_back"
+    ]
+   }
+  ]
+ }
+}
