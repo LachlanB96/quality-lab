@@ -1,0 +1,42 @@
+# Blocks secrets and personal data. The blocklist comes from the QL_BLOCKLIST repository secret (one
+# string per line); public commit identities that contain a blocklisted string come from the optional
+# QL_ALLOWED_IDENTITIES secret. The check never prints either.
+name: Leak check
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  leak-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        env:
+          GITLEAKS_VERSION: 8.30.1
+        run: |
+          cd "$RUNNER_TEMP"
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfLO "$base/$tarball"
+          curl -sSfLO "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          sha256sum --check --ignore-missing "gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          mkdir -p bin
+          tar -xzf "$tarball" -C bin gitleaks
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Check every commit for secrets and personal data
+        env:
+          QL_BLOCKLIST: ${{ secrets.QL_BLOCKLIST }}
+          QL_ALLOWED_IDENTITIES: ${{ secrets.QL_ALLOWED_IDENTITIES }}
+        run: |
+          printf '%s\n' "$QL_BLOCKLIST" > "$RUNNER_TEMP/blocklist.txt"
+          printf '%s\n' "$QL_ALLOWED_IDENTITIES" > "$RUNNER_TEMP/allowed-identities.txt"
+          export QL_BLOCKLIST_FILE="$RUNNER_TEMP/blocklist.txt"
+          export QL_ALLOWED_IDENTITIES_FILE="$RUNNER_TEMP/allowed-identities.txt"
+          bash scripts/leak-check.sh --all

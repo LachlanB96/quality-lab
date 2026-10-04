@@ -31,7 +31,7 @@ def cmd_run(args: argparse.Namespace) -> int:
            "-W", "ignore::DeprecationWarning", f"--ql-out={out}", f"--ql-label={args.label}"]
     if args.workers > 1:
         cmd += ["-n", str(args.workers), "--dist", "loadgroup"]
-    cmd += args.pytest_args
+    cmd += [a for i, a in enumerate(args.pytest_args) if not (i == 0 and a == "--")]
     print("$ " + " ".join(cmd[2:]))
     code = subprocess.call(cmd, cwd=ROOT)
     if out.exists():
