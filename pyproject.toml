@@ -1,0 +1,43 @@
+[project]
+name = "quality-lab"
+version = "0.1.0"
+description = "A pytest suite for the SpireScape game server, evals for an AI email classifier, and the page that reports on both."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pytest>=8.3",
+  "pytest-xdist>=3.6",
+  "pytest-timeout>=2.3",
+  "hypothesis>=6.112",
+  "websockets>=13.1",
+  "pytest-playwright>=0.6",
+]
+
+[project.scripts]
+ql = "qualitylab.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["qualitylab"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -p no:cacheprovider"
+timeout = 600
+xfail_strict = true
+markers = [
+  "unit: tests of this repo's own code, no server",
+  "contract: the wire protocol: frames, codecs, every message type",
+  "integration: one feature through a real server (login, crafting, combat...)",
+  "e2e: a whole player journey",
+  "property: generated inputs (Hypothesis)",
+  "robustness: hostile or malformed input",
+  "data: invariants over the game's content catalog",
+  "perf: timing and latency budgets",
+  "ui: the WebGL client in a real browser",
+  "local_only: needs the local server (seeded, fast tick, or disruptive); skipped on live",
+  "slow: long on the live target",
+]

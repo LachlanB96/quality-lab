@@ -1,0 +1,29 @@
+# Rebuildable: dependencies, build output, caches, logs
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+*.log
+
+# Secrets never go in a repo
+.env
+.env.*
+*.pem
+*.key
+
+# Claude Code: per-machine permissions and worktrees
+.claude/settings.local.json
+.claude/worktrees/
+
+# OS clutter
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# This project: the built page and scratch output
+build/
+test-results/
+*.tmp
