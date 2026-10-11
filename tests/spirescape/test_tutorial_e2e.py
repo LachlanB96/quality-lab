@@ -47,7 +47,8 @@ def test_full_tutorial_from_landfall_to_wardenhall(player, budget, record_proper
     end = play.fight(c, "rat", budget)
     assert end.won, "lost the rat fight: " + " | ".join(c.read(lambda s: s.notices[-8:]))
     assert c.count("bronze_arrows") < 15, "arrows are spent when fired"
-    assert c.xp(Skill.RANGED) > 0, "D-047: Ranged XP from arrow damage"
+    # the skills update can land just after CombatEnd, so wait for it rather than read
+    c.wait_until(lambda s: s.skills.xp[Skill.RANGED] > 0, budget.ticks(5), "D-047: Ranged XP from arrow damage")
     expect_objective(c, budget, "back to Old Bram")
 
     pile = c.wait_until(lambda s: next((e for e in s.entities.values() if e.kind == EntityKind.GROUND_ITEM

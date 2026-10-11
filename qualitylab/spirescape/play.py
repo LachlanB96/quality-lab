@@ -58,38 +58,52 @@ LOST_THE_RACE = ("That isn't there any more.", "There's nothing left here right 
                  "Someone else is already fighting that.", "You can't reach that.")
 
 
-def _attempt_outcome(c: GameClient, start: int, done) -> object:
-    """'done', 'retry' (lost a race, or the action was cancelled under us), or None (still going)."""
+_RETRY = object()
+
+
+def _attempt_outcome(start: int, done):
+    """done's value once it holds, _RETRY (lost a race, or the action was cancelled under us), or None (still going)."""
     def check(s):
-        if done(s):
-            return "done"
+        value = done(s)
+        if value:
+            return value
         started = False
         for r in s.log[start:]:
             msg = r.msg
             if isinstance(msg, m.Notice) and msg.text in LOST_THE_RACE:
-                return "retry"
+                return _RETRY
             if isinstance(msg, m.ActionStatus):
                 if msg.ticks > 0:
                     started = True
                 elif started:
-                    return "retry"  # our verb began, then was cancelled: the node depleted under us
+                    return _RETRY  # our verb began, then was cancelled: the node depleted under us
         return None
     return check
 
 
-def gather(c: GameClient, kind: EntityKind, def_id: str, verb: str, card: str, at_least: int, budget: Budget,
-           ticks: int = 120, attempts: int = 4) -> None:
-    done = lambda s: _count(s, card) >= at_least  # noqa: E731
+def interact(c: GameClient, kind: EntityKind, def_id: str, verb: str, done, budget: Budget, what: str, *,
+             ticks: int = 120, attempts: int = 4):
+    """Use `verb` on the nearest free `def_id` until done(state) holds, and return done's value.
+
+    On the live demo someone else can get there first, so a lost race tries again on whichever one is free.
+    Only nodes deplete (and respawn); only creatures fight.
+    """
     for _ in range(attempts):
-        # every node may be depleted right now; they respawn, so wait for one
         c.wait_until(lambda s: any(e.kind == kind and e.def_id == def_id and not e.depleted and not e.in_combat
                                    for e in s.entities.values()), budget.ticks(60), f"an available {def_id}")
         target = c.nearest(kind, def_id, lambda e: not e.depleted and not e.in_combat)
         start = c.mark()
         c.send(m.Interact(entity_id=target.id, action=verb))
-        if c.wait_until(_attempt_outcome(c, start, done), budget.ticks(ticks), f"{at_least}+ {card}") == "done":
-            return
+        outcome = c.wait_until(_attempt_outcome(start, done), budget.ticks(ticks), what)
+        if outcome is not _RETRY:
+            return outcome
     raise AssertionError(f"lost the race for a {def_id} {attempts} times running")
+
+
+def gather(c: GameClient, kind: EntityKind, def_id: str, verb: str, card: str, at_least: int, budget: Budget,
+           ticks: int = 120, attempts: int = 4) -> None:
+    interact(c, kind, def_id, verb, lambda s: _count(s, card) >= at_least, budget, f"{at_least}+ {card}",
+             ticks=ticks, attempts=attempts)
 
 
 def open_station(c: GameClient, station: str, budget: Budget) -> m.CraftMenu:
@@ -144,16 +158,8 @@ def pick_cards(c: GameClient, snap: m.CombatSnapshot) -> list[int]:
 
 def start_fight(c: GameClient, creature: str, budget: Budget, attempts: int = 4) -> m.CombatSnapshot:
     """Attack the nearest free creature, retrying if someone else gets it first."""
-    in_fight = lambda s: s.combat is not None and s.combat_end is None  # noqa: E731
-    for _ in range(attempts):
-        c.wait_until(lambda s: any(e.kind == EntityKind.CREATURE and e.def_id == creature and not e.in_combat
-                                   for e in s.entities.values()), budget.ticks(60), f"a free {creature}")
-        enemy = c.nearest(EntityKind.CREATURE, creature, lambda e: not e.in_combat)
-        start = c.mark()
-        c.send(m.Interact(entity_id=enemy.id, action="Attack"))
-        if c.wait_until(_attempt_outcome(c, start, in_fight), budget.ticks(120), "combat to start") == "done":
-            return c.read(lambda s: s.combat)
-    raise AssertionError(f"lost the race for a {creature} {attempts} times running")
+    return interact(c, EntityKind.CREATURE, creature, "Attack",
+                    lambda s: s.combat_end is None and s.combat, budget, "combat to start", attempts=attempts)
 
 
 def fight(c: GameClient, creature: str, budget: Budget, *, strategy=pick_cards, max_turns: int = 40) -> m.CombatEnd:
