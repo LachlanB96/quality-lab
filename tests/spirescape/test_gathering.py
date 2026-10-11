@@ -25,11 +25,7 @@ def test_plucking_a_chicken_gives_feathers_and_leaves_it_alive(player, budget):
 ], ids=["pluck", "mine", "chop"])
 def test_gathering_shows_a_progress_status(player, budget, kind, def_id, verb, text, ticks):
     play.get_starter_kit(player, budget)
-    c = player
-    c.wait_until(lambda s: any(e.def_id == def_id and not e.depleted for e in s.entities.values()),
-                 budget.ticks(60), f"an available {def_id}")
-    c.send(m.Interact(entity_id=c.nearest(kind, def_id, lambda e: not e.depleted).id, action=verb))
-    status = c.wait_until(lambda s: s.action, budget.ticks(60), "an action status")
+    status = play.interact(player, kind, def_id, verb, lambda s: s.action, budget, "an action status", ticks=60)
     assert (status.text, status.ticks) == (text, ticks)
 
 
@@ -76,8 +72,8 @@ def test_a_depleted_rock_comes_back(player, budget):
 
 def test_walking_away_cancels_gathering(player, budget):
     play.get_starter_kit(player, budget)
-    player.send(m.Interact(entity_id=player.nearest(EntityKind.CREATURE, "chicken").id, action="Pluck"))
-    player.wait_until(lambda s: s.action, budget.ticks(60), "plucking to start")
+    play.interact(player, EntityKind.CREATURE, "chicken", "Pluck", lambda s: s.action, budget, "plucking to start",
+                  ticks=60)
     player.send(m.MoveTo(x=7, y=16))
     player.wait_until(lambda s: s.action is None, budget.ticks(5), "the action to cancel")
     assert player.count("feathers") == 0

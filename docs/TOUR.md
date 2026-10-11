@@ -36,7 +36,7 @@ Timeouts are counted in server ticks (`Budget.ticks` in `play.py`), so the same 
 
 ## Shared environments
 
-On the live demo the world is shared with real players. `play.gather` and `play.start_fight` watch for the server's "someone got there first" notices, or for an action that started and was then cancelled, and retry with another rock or rat. That's not hiding flakiness: the retry only fires on a specific, expected race, and anything else still fails. The combat tests also share an `xdist_group("rats")` and run with `--dist loadgroup`, so they don't fight each other for the two rats.
+On the live demo the world is shared with real players. Every step that uses a rock, tree, chicken or rat goes through `play.interact`, which watches for the server's "someone got there first" notices, or for an action that started and was then cancelled, and retries with another one. That's not hiding flakiness: the retry only fires on a specific, expected race, and anything else still fails. The combat tests also share an `xdist_group("rats")` and run with `--dist loadgroup`, so they don't fight each other for the two rats.
 
 ## Hypothesis
 
