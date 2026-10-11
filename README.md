@@ -2,7 +2,7 @@
 
 A pytest suite that plays my game, SpireScape, over the network, plus evals for an AI email classifier, and the page that reports on both.
 
-**The report:** [lachlanb.com/quality-lab](https://lachlanb.com/quality-lab/) · **The game:** [spirescape.lachlanb.com](https://spirescape.lachlanb.com/)
+**The report:** [spirescape.lachlanb.com/pytest-suite](https://spirescape.lachlanb.com/pytest-suite/) · **The game:** [spirescape.lachlanb.com](https://spirescape.lachlanb.com/)
 
 ## What's here
 
