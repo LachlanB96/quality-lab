@@ -55,6 +55,7 @@ def test_dropped_items_are_public(connect, budget):
     spawn = b.wait_for(m.EntitySpawn, budget.ticks(10), "b to see the bread land under a", after=since,
                        where=lambda msg: msg.entity.kind == EntityKind.GROUND_ITEM
                        and (msg.entity.x, msg.entity.y) == (me.x, me.y))
-    assert "Bread" in spawn.entity.name
+    # a pile is named for its first item, so bread merged into an older pile reads "Hammer and more"
+    assert "Bread" in spawn.entity.name or spawn.entity.name.endswith(" and more"), spawn.entity.name
     b.send(m.Interact(entity_id=spawn.entity.id, action="Take"))
     b.wait_until(lambda s: play._count(s, "bread") >= 1, budget.ticks(80), "b to take it")
