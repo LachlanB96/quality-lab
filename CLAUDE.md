@@ -60,6 +60,8 @@ CI (`.github/workflows/`): the leak check, unit tests on every push, and the liv
 
 **Check: `uv run pytest tests -n 4`** (local target). Nothing merges into `main` until it passes.
 
+**Actions:** no dashboard yet; every action is a command above: pytest, and `ql run`, `analyse`, `eval`, `build`, `review` and `suggestion`. `ql review` and `ql suggestion` record the owner's own decisions, so they run only on the owner's word, and `ql analyse` and `ql eval` call Claude. Putting the built page online belongs to the private site's publishing, not to this repo.
+
 ## Git
 
 Feature branch, `git merge --no-ff` into `main`. Pushing to GitHub is a publish: only when the owner asks.
