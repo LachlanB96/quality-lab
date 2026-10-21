@@ -26,7 +26,7 @@ The test code is drafted with Claude and reviewed by the owner test by test. `re
 | `qualitylab/history.py` | Analytics over run records: summaries, layer and area matrices, known bugs by id, flaky tests, metric series, protocol coverage |
 | `qualitylab/analyst.py` | The AI review: `claude -p` (Sonnet, no tools) over the facts and test sources, then deterministic checks that strike unknown test ids and numbers not in the facts. Suggestions merge into `suggestions.json` without touching decisions |
 | `qualitylab/evals/email_triage.py` | Runs the private Email Dashboard's `classify.llm_verdicts` (found via `EMAIL_DASHBOARD_DIR`) over `evals/email_triage/cases.json`, a made-up labelled inbox, per `BODY_CHARS` variant. Misses are sorted into product issue (truncation, by code) or prompt gap / rubric gap / product issue (Sonnet judge) |
-| `qualitylab/report/` | `build.py` shapes history into JSON, `template.html` renders it (no external loads; fonts self-hosted under OFL) |
+| `qualitylab/report/` | `build.py` shapes history into JSON and builds the page: `template.html` is its markup and style, `page.ts` its script (TypeScript 7, type-checked by `tests/unit/test_page.py`, bundled into the page by esbuild; both from `package.json`, so `npm ci` once after cloning). No external loads; fonts self-hosted under OFL |
 | `history/runs/`, `history/analysis/`, `history/evals/` | Generated records. Committed: they're the page's data |
 | `findings.json` | Write-ups of the bugs the suite found; status comes from the latest runs |
 | `suggestions.json`, `review.json` | The owner's decisions on AI suggestions, and which tests the owner has reviewed. Change them with `ql suggestion` and `ql review`, never by hand-editing someone else's decision |
@@ -43,6 +43,7 @@ Known bugs are `xfail(strict=True)` with a `BUG-nnn` id in the reason, so a fix 
 
 ```powershell
 uv sync
+npm ci                                                              # esbuild and TypeScript 7, for the report page's script
 $env:SPIRESCAPE_REPO = "<path to a SpireScape checkout>"
 uv run pytest tests -n 4                                            # local, everything
 uv run pytest tests/spirescape --target live -n 4 --dist loadgroup  # the public demo

@@ -1,0 +1,16 @@
+{
+  // TypeScript 7 over the report page's script: a browser page, so DOM types and no Node types. esbuild bundles it
+  // (build.py); this only type-checks (tests/unit/test_page.py).
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2023", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": [],
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["page.ts"]
+}
