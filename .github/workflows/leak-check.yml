@@ -1,6 +1,6 @@
-# Blocks secrets and personal data. The blocklist comes from the QL_BLOCKLIST repository secret (one
-# string per line); public commit identities that contain a blocklisted string come from the optional
-# QL_ALLOWED_IDENTITIES secret. The check never prints either.
+# Blocks secrets: gitleaks over every commit. The personal-data half of the leak check (the private
+# blocklist of names, emails and machine names) runs only in the local git hooks, because the
+# blocklist is personal data itself and never leaves the owner's machine. No repository secrets.
 name: Leak check
 
 on: [push, pull_request]
@@ -30,13 +30,5 @@ jobs:
           tar -xzf "$tarball" -C bin gitleaks
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
-      - name: Check every commit for secrets and personal data
-        env:
-          QL_BLOCKLIST: ${{ secrets.QL_BLOCKLIST }}
-          QL_ALLOWED_IDENTITIES: ${{ secrets.QL_ALLOWED_IDENTITIES }}
-        run: |
-          printf '%s\n' "$QL_BLOCKLIST" > "$RUNNER_TEMP/blocklist.txt"
-          printf '%s\n' "$QL_ALLOWED_IDENTITIES" > "$RUNNER_TEMP/allowed-identities.txt"
-          export QL_BLOCKLIST_FILE="$RUNNER_TEMP/blocklist.txt"
-          export QL_ALLOWED_IDENTITIES_FILE="$RUNNER_TEMP/allowed-identities.txt"
-          bash scripts/leak-check.sh --all
+      - name: Check every commit for secrets
+        run: gitleaks git --redact --no-banner
