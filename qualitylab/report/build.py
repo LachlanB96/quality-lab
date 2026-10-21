@@ -1,13 +1,15 @@
 """Build the report page: run history in, one self-contained index.html (plus fonts/) out.
 
 The page loads nothing from other origins. All data is embedded as JSON and rendered by the page's
-own script, so the build is a data-shaping step; the look lives in template.html.
+own script, so the build is a data-shaping step; the look lives in template.html, and the script is
+page.ts (TypeScript), which esbuild bundles into the page here. `npm ci` once after cloning installs it.
 """
 from __future__ import annotations
 
 import json
 import re
 import shutil
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -107,6 +109,25 @@ def collect(root: Path = ROOT) -> dict:
     }
 
 
+def tool(name: str, root: Path = ROOT) -> str:
+    """A tool `npm ci` installed in node_modules/.bin (esbuild, tsc): the .cmd shim on Windows."""
+    found = shutil.which(name, path=str(root / "node_modules" / ".bin"))
+    if not found:
+        raise RuntimeError(f"{name} isn't installed: run `npm ci` in {root} first")
+    return found
+
+
+def page_script(root: Path = ROOT) -> str:
+    """page.ts as one plain script for the page, bundled by esbuild."""
+    r = subprocess.run([tool("esbuild", root), str(HERE / "page.ts"), "--bundle", "--format=iife", "--target=es2022", "--log-level=warning"],
+                       capture_output=True, text=True, encoding="utf-8")
+    if r.returncode or not r.stdout.strip():
+        raise RuntimeError(f"esbuild couldn't bundle page.ts (exit {r.returncode}):\n{r.stderr.strip()}")
+    if "</script" in r.stdout.lower():
+        raise ValueError("the bundled page script would close its script element early")
+    return r.stdout
+
+
 def render(data: dict) -> str:
     template = (HERE / "template.html").read_text(encoding="utf-8")
     fonts = (HERE / "fonts" / "fonts.css").read_text(encoding="utf-8")
@@ -114,6 +135,7 @@ def render(data: dict) -> str:
     payload = payload.replace("</", "<\\/").replace("<!--", "<\\!--")  # can't close the script element early
     html = template.replace("/*@@FONTS@@*/", fonts)
     html = html.replace("/*@@DATA@@*/", payload)
+    html = html.replace("<!--@@PAGE@@-->", "<script>\n" + page_script() + "</script>")
     if "@@" in re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.S):
         raise ValueError("an unreplaced placeholder is left in the template")
     return html

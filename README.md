@@ -43,6 +43,7 @@ I built this with Claude Code: it drafted the tests and the tooling, and I revie
 
 ```sh
 uv sync
+npm ci                                                              # esbuild and TypeScript 7, for the report page's script
 uv run pytest tests/unit                                            # no server needed
 uv run pytest tests/spirescape --target live -n 4 --dist loadgroup  # the public demo
 SPIRESCAPE_REPO=<checkout> uv run pytest tests -n 4                 # local: needs the private server source
