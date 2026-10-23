@@ -37,7 +37,7 @@ Seven, all real, all pinned by `xfail(strict=True)` tests carrying the bug's id.
 - **Suggestions** (`suggestions.json`): Claude proposes, I decide. Each one stays on the page with its status and my reason.
 - **Evals** (`qualitylab/evals/email_triage.py`): my email dashboard sorts mail with Claude Haiku and puts interview times in a calendar. The eval runs its real classifier over a made-up, labelled inbox, compares variants, and sorts every miss into a prompt gap, a rubric gap or a product issue.
 
-I built this with Claude Code: it drafted the tests and the tooling, and I review every test (`review.json` records which).
+I built this with Claude Code: it drafted the tests and the tooling. Right now it runs with no human review, as an experiment. Claude drafts the tests and reviews every run, a script checks each claim the review makes, and the page counts how many tests I've reviewed myself (`review.json` records which), so you can see exactly where that stands.
 
 ## Running it
 

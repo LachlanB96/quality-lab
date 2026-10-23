@@ -6,7 +6,7 @@ Guidance for Claude Code in this repo.
 
 A **public** GitHub repo: a pytest suite for the SpireScape game server (tested from outside, over the same WebSocket protocol the browser client uses), evals for an AI email classifier, and a generator for the report page that shows both. The SpireScape source and the classifier live in private repos; nothing here may copy from them beyond what any player's browser already receives.
 
-The test code is drafted with Claude and reviewed by the owner test by test. `review.json` (written by `ql review`) records which tests the owner has reviewed or rewritten, and the page shows that split honestly.
+The test code is drafted with Claude. Since October 2026 the suite runs with no human review, as an experiment: Claude reviews every run, the deterministic checks decide what the review may claim, and the owner hasn't reviewed tests yet. Never write that the owner reviews every test, or that decisions sit on suggestions that are still open. `review.json` (written by `ql review`) records any test the owner does review or rewrite, and the page shows that count honestly.
 
 ## Never commit personal data
 
