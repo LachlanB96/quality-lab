@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-exec bash "$(git rev-parse --show-toplevel)/scripts/leak-check.sh" --all
+# The machine's pre-push reads the refs being pushed on stdin, so read them once and hand them on.
+input="$(cat)"
+top="$(git rev-parse --show-toplevel)"
+printf '%s\n' "$input" | bash "$top/scripts/machine-hook.sh" pre-push "$@" || exit 1
+exec bash "$top/scripts/leak-check.sh" --all
