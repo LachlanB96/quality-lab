@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-exec bash "$(git rev-parse --show-toplevel)/scripts/leak-check.sh" --staged
+top="$(git rev-parse --show-toplevel)"
+bash "$top/scripts/machine-hook.sh" pre-commit "$@" || exit 1
+exec bash "$top/scripts/leak-check.sh" --staged
