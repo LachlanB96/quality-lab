@@ -1,6 +1,6 @@
 """Evals for the email dashboard's AI classifier, run through its real code path.
 
-The classifier (`classify.llm_verdicts` in the private Email Dashboard repo, located by
+The classifier (`classify.llm_verdicts` in the private Comms repo, located by
 EMAIL_DASHBOARD_DIR) sends batches of emails to Claude Haiku and gets back a category, a job status,
 an importance and maybe a calendar event. Here it classifies a labelled, made-up inbox
 (evals/email_triage/cases.json) under named variants, several times each, and the answers are
@@ -30,7 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 CASES = ROOT / "evals" / "email_triage" / "cases.json"
 VARIANTS = {"production": 600, "full-body": 4000}
-MODEL, BATCH = "haiku", 12  # Email Dashboard config.json: classify.model, classify.batchSize
+MODEL, BATCH = "haiku", 12  # Comms' config.json: classify.model, classify.batchSize
 
 METRICS = [
     {"key": "category", "label": "Category right"},
@@ -154,7 +154,7 @@ def misses(cases: list[dict], scores: list[dict], verdicts: dict) -> list[dict]:
 def load_classifier():
     raw = os.environ.get("EMAIL_DASHBOARD_DIR", "")
     if not raw or not (Path(raw) / "classify.py").exists():
-        raise RuntimeError("Set EMAIL_DASHBOARD_DIR to the Email Dashboard folder (it holds classify.py).")
+        raise RuntimeError("Set EMAIL_DASHBOARD_DIR to the Comms folder (it holds classify.py).")
     if raw not in sys.path:
         sys.path.insert(0, raw)
     return importlib.import_module("classify")
