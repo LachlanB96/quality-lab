@@ -120,6 +120,18 @@ def test_optional_events_are_neither_required_nor_penalised():
     assert et.score_case(case, verdict())["event_right"] is True
 
 
+def test_an_optional_entry_with_no_gold_date_counts_neither_way():
+    """fin-overdue: 'pay today' may get an entry, and there's no date to hold it to, so it isn't a wrong one."""
+    case = {**INTERVIEW, "gold": {**INTERVIEW["gold"], "event": None, "event_optional": True}}
+    s = et.score_case(case, verdict())
+    assert (s["event_found"], s["event_right"], s["false_entry"]) == (None, None, False)
+
+
+def test_an_optional_entry_on_the_wrong_date_is_still_wrong():
+    case = {**INTERVIEW, "gold": {**INTERVIEW["gold"], "event_optional": True}}
+    assert et.score_case(case, verdict(event={"date": "2026-10-14", "time": "11:00"}))["event_right"] is False
+
+
 def test_a_list_of_gold_values_accepts_any():
     case = {**INTERVIEW, "gold": {**INTERVIEW["gold"], "jobStatus": ["screening", "interview"]}}
     assert et.score_case(case, verdict())["job_status"] is True
