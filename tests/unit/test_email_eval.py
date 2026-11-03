@@ -31,6 +31,7 @@ def test_gold_labels_use_the_classifiers_vocabulary(case):
     assert set(as_list(g["category"])) <= CATEGORIES
     assert set(as_list(g["jobStatus"])) <= STATUSES
     assert g.get("urgent") in (True, False, None)
+    assert g["replyExpected"] in (True, False), "every case says whether the sender is waiting on a reply"
     if g.get("event"):
         date.fromisoformat(g["event"]["date"])
         assert g["event"]["time"] is None or re.fullmatch(r"\d{2}:\d{2}", g["event"]["time"])
@@ -58,19 +59,43 @@ def test_the_inbox_is_fictional():
 # ---------- scoring ----------
 
 INTERVIEW = {"id": "x", "evidence": "", "body": "", "gold": {"category": "Work", "jobStatus": "interview", "urgent": True,
+                                                             "replyExpected": True,
                                                              "event": {"date": "2026-10-13", "time": "11:00"}}}
 
 
 def verdict(**kw):
-    base = {"category": "Work", "jobStatus": "interview", "flags": ["SUPER IMPORTANT"],
+    base = {"category": "Work", "jobStatus": "interview", "flags": ["SUPER IMPORTANT"], "replyExpected": True,
             "event": {"date": "2026-10-13", "time": "11:00"}}
     return {**base, **kw}
 
 
 def test_a_perfect_verdict_scores_everything():
     s = et.score_case(INTERVIEW, verdict())
-    assert (s["category"], s["job_status"], s["urgent"], s["event_found"], s["event_right"], s["false_entry"]) == \
-        (True, True, True, True, True, False)
+    assert (s["category"], s["job_status"], s["urgent"], s["reply"], s["event_found"], s["event_right"],
+            s["false_entry"]) == (True, True, True, True, True, True, False)
+
+
+def test_the_wrong_reply_answer_is_a_miss():
+    s = et.score_case(INTERVIEW, verdict(replyExpected=False))
+    assert s["reply"] is False
+    assert et.misses([INTERVIEW], [s], {"x": verdict(replyExpected=False)})[0]["fields"] == ["reply"]
+
+
+def test_a_reply_the_model_left_open_counts_as_wrong():
+    """llm_verdicts gives None when the model said neither yes nor no. That's a miss, not a skip."""
+    assert et.score_case(INTERVIEW, verdict(replyExpected=None))["reply"] is False
+    assert et.score_case(INTERVIEW, {k: v for k, v in verdict().items() if k != "replyExpected"})["reply"] is False
+
+
+def test_a_case_without_a_reply_gold_is_not_scored_on_it():
+    case = {**INTERVIEW, "gold": {k: v for k, v in INTERVIEW["gold"].items() if k != "replyExpected"}}
+    assert et.score_case(case, verdict(replyExpected=False))["reply"] is None
+
+
+def test_the_reply_rate_is_over_the_cases_that_have_one():
+    a = {"x": verdict(), "y": verdict(replyExpected=False)}
+    scores = [[et.score_case(INTERVIEW, v) for v in a.values()]]
+    assert et.aggregate(scores, [a])["reply"] == 0.5
 
 
 def test_a_missed_date_hurts_recall_not_precision():
@@ -110,3 +135,10 @@ def test_consistency_compares_repeats():
     b = {"x": verdict(), "y": verdict(category="Personal")}
     scores = [[et.score_case(INTERVIEW, v) for v in vs.values()] for vs in (a, b)]
     assert et.aggregate(scores, [a, b])["consistency"] == 0.5
+
+
+def test_a_reply_answer_that_changes_between_repeats_is_inconsistent():
+    a = {"x": verdict()}
+    b = {"x": verdict(replyExpected=False)}
+    scores = [[et.score_case(INTERVIEW, v) for v in vs.values()] for vs in (a, b)]
+    assert et.aggregate(scores, [a, b])["consistency"] == 0.0
