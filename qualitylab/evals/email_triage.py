@@ -2,9 +2,9 @@
 
 The classifier (`classify.llm_verdicts` in the private Comms repo, located by
 EMAIL_DASHBOARD_DIR) sends batches of emails to Claude Haiku and gets back a category, a job status,
-an importance and maybe a calendar event. Here it classifies a labelled, made-up inbox
-(evals/email_triage/cases.json) under named variants, several times each, and the answers are
-scored against the gold labels.
+an importance, whether the sender expects a reply and maybe a calendar event. Here it classifies a
+labelled, made-up inbox (evals/email_triage/cases.json) under named variants, several times each, and
+the answers are scored against the gold labels.
 
 Variants change one thing: how many characters of each body the model sees (classify.BODY_CHARS).
 Production sends 600. ATS emails often put the interview date further in than that.
@@ -38,6 +38,7 @@ METRICS = [
     {"key": "event_recall", "label": "Dates caught"},
     {"key": "event_precision", "label": "Calendar entries right"},
     {"key": "urgent", "label": "Urgent flag right"},
+    {"key": "reply", "label": "Reply expected right"},
     {"key": "consistency", "label": "Same answer every repeat"},
 ]
 
@@ -98,6 +99,8 @@ def score_case(case: dict, verdict: dict | None) -> dict:
         "category": accepts(g["category"], v.get("category")),
         "job_status": accepts(g["jobStatus"], v.get("jobStatus", "none")),
         "urgent": None if g.get("urgent") is None else (("SUPER IMPORTANT" in (v.get("flags") or [])) == g["urgent"]),
+        # replyExpected is True, False, or None when the model said neither, which counts as wrong
+        "reply": None if g.get("replyExpected") is None else accepts(g["replyExpected"], v.get("replyExpected")),
         # recall: a required event was found with the right date (and time, when the gold has one)
         "event_found": None if (gold_ev is None or optional) else bool(pred_ev and event_matches(gold_ev, pred_ev)),
         # precision: an event the model produced is a right one
@@ -119,13 +122,14 @@ def aggregate(case_scores: list[list[dict]], verdict_sets: list[dict]) -> dict:
     ids = list(verdict_sets[0]) if verdict_sets else []
     same = []
     for cid in ids:
-        sig = {json.dumps([vs.get(cid, {}).get(k) for k in ("category", "jobStatus", "flags")]
+        sig = {json.dumps([vs.get(cid, {}).get(k) for k in ("category", "jobStatus", "flags", "replyExpected")]
                           + [event_key(vs.get(cid, {}).get("event"))]) for vs in verdict_sets}
         same.append(len(sig) == 1)
     return {
         "category": rate([s["category"] for s in flat]),
         "job_status": rate([s["job_status"] for s in flat]),
         "urgent": rate([s["urgent"] for s in flat]),
+        "reply": rate([s["reply"] for s in flat]),
         "event_recall": rate([s["event_found"] for s in flat]),
         "event_precision": rate([s["event_right"] for s in flat]),
         "false_entries": sum(s["false_entry"] for s in flat),
@@ -137,7 +141,8 @@ def aggregate(case_scores: list[list[dict]], verdict_sets: list[dict]) -> dict:
 def misses(cases: list[dict], scores: list[dict], verdicts: dict) -> list[dict]:
     out = []
     for case, s in zip(cases, scores):
-        wrong = [k for k in ("category", "job_status", "urgent", "event_found", "event_right") if s[k] is False]
+        wrong = [k for k in ("category", "job_status", "urgent", "reply", "event_found", "event_right")
+                 if s[k] is False]
         if s["false_entry"]:
             wrong.append("false_entry")
         if not s["answered"]:
