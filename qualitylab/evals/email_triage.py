@@ -103,8 +103,10 @@ def score_case(case: dict, verdict: dict | None) -> dict:
         "reply": None if g.get("replyExpected") is None else accepts(g["replyExpected"], v.get("replyExpected")),
         # recall: a required event was found with the right date (and time, when the gold has one)
         "event_found": None if (gold_ev is None or optional) else bool(pred_ev and event_matches(gold_ev, pred_ev)),
-        # precision: an event the model produced is a right one
-        "event_right": None if not pred_ev else bool(gold_ev and event_matches(gold_ev, pred_ev)),
+        # precision: an event the model produced is a right one. An optional entry with no gold date to check
+        # it against is allowed, so it isn't scored either way
+        "event_right": None if not pred_ev or (gold_ev is None and optional)
+        else bool(gold_ev and event_matches(gold_ev, pred_ev)),
         "false_entry": bool(pred_ev and gold_ev is None and not optional),
         "answered": verdict is not None,
     }

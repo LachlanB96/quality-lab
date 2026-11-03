@@ -21,6 +21,13 @@
    "gold": {"category": "Work", "jobStatus": "interview", "replyExpected": false, "urgent": true, "event": {"date": "2026-10-08", "time": "10:00"}},
    "evidence": "next Thursday at 10am"},
 
+  {"id": "work-invite-ats-slot", "from": ["Wombat Freight via HireFlow", "no-reply@hireflow.example.com"], "bulk": false,
+   "subject": "Book your interview with Wombat Freight",
+   "body": "Hi Sam,\n\nThanks for applying for the QA Automation Engineer role at Wombat Freight. We'd love to meet you for a 30-minute video interview with our Engineering Manager.\n\nPlease choose a time that suits you using the booking link below. Slots are open from Tuesday 6 October to Friday 9 October.\n\nBook your interview\n\nWe look forward to meeting you.\n\nWombat Freight Talent",
+   "gold": {"category": "Work", "jobStatus": "interview", "replyExpected": false, "urgent": true, "event": null},
+   "evidence": "choose a time that suits you using the booking link",
+   "note": "Reply: no. The answer is a booking through the link, not a written reply, and it comes from a no-reply address. No calendar entry: nothing is set until a slot is booked, and the slot window isn't an appointment."},
+
   {"id": "work-screen-ats-long", "from": ["Bellbird Health Careers", "careers@bellbird.example.org"], "bulk": false,
    "subject": "Your application for Software Tester",
    "body": "Dear Sam,\n\nThank you for applying for the Software Tester role with Bellbird Health. We know that applying for a job takes time and effort, and we appreciate your interest in joining our team.\n\nBellbird Health runs telehealth software for more than 300 clinics. Our testers sit inside product teams and help shape what 'done' means, from the first conversation about a feature to the release itself. We're proud of a culture where testers are listened to.\n\nWe have reviewed your application and would like to learn more. The next step is a short phone screen with our recruiter, who will talk you through the role, the team, salary expectations and your availability. It usually takes about 20 minutes and there's nothing you need to prepare.\n\nYour phone screen is booked for Monday 5 October at 9:15am. We'll call the mobile number on your application. If that time doesn't suit, reply and we'll rearrange.\n\nWarm regards,\nBellbird Talent Acquisition",
@@ -73,8 +80,9 @@
   {"id": "work-assessment-deadline", "from": ["Quokka Labs Hiring", "hiring@quokka.example.com"], "bulk": false,
    "subject": "Your take-home assessment",
    "body": "Hi Sam,\n\nThanks for the chat yesterday. As discussed, here's the take-home exercise: a small API test suite for our booking service. Please submit your repository link by 11:59pm on Sunday 4 October.\n\nGood luck,\nEsme",
-   "gold": {"category": "Work", "jobStatus": ["screening", "interview"], "replyExpected": true, "urgent": true, "event": {"date": "2026-10-04", "time": "23:59"}},
-   "evidence": "by 11:59pm on Sunday 4 October"},
+   "gold": {"category": "Work", "jobStatus": ["screening", "interview"], "replyExpected": true, "urgent": null, "event": {"date": "2026-10-04", "time": "23:59"}},
+   "evidence": "by 11:59pm on Sunday 4 October",
+   "note": "Urgency isn't scored: the deadline is two days after the mail arrives, so super (needs action today) and important (matters but is not urgent) are both fair readings of the prompt."},
 
   {"id": "work-perth-time", "from": ["Spinifex Mining Systems", "recruit@spinifex.example.com.au"], "bulk": false,
    "subject": "Interview confirmed",
