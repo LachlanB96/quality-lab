@@ -23,6 +23,10 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["qualitylab"]
 
+[tool.uv]
+# certifi comes in through requests. 2026.10.18 took out CA roots certifi no longer trusts, so nothing older.
+constraint-dependencies = ["certifi>=2026.10.18"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra --strict-markers -p no:cacheprovider"
