@@ -68,4 +68,4 @@ CI (`.github/workflows/`): the leak check, unit tests on every push, and the liv
 
 ## Git
 
-Feature branch, `git merge --no-ff` into `main`. Pushing to GitHub is a publish: only when the owner asks.
+A feature branch (`feat/...`, `fix/...`, `docs/...`) in a worktree under `.claude/worktrees/` (git-ignored), however small the change: the main checkout never leaves `main`. Drive the worktree with `git -C <worktree>` rather than changing into it. Commit each working step, then land the branch once the check passes, with the owner's `land` command: `land <branch> -m "<what it does>. Check passed"`. It makes the `--no-ff` merge into `main` itself, brings the main checkout forward, and removes the worktree and the branch; never merge into `main` by hand. It doesn't push this repo. Pushing to GitHub is a publish: only when the owner asks.
