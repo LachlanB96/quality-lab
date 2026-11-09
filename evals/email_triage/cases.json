@@ -72,11 +72,12 @@
    "gold": {"category": "Work", "jobStatus": ["acknowledged", "screening"], "replyExpected": false, "urgent": false, "event": null},
    "evidence": "has viewed your application"},
 
-  {"id": "work-reschedule", "from": ["Kestrel Payments Talent", "talent@kestrel.example.com"], "bulk": false,
+  {"id": "work-reschedule", "from": ["Numbat Software Talent", "talent@numbat.example.com"], "bulk": false,
    "subject": "Change of time: your interview",
-   "body": "Hi Sam,\n\nSorry for the shuffle. Priya is away on Tuesday, so we need to move your interview from Tuesday 6 October to Wednesday 14 October at 3pm. Same video link. Let me know if the new time works.\n\nThanks,\nMaya",
+   "body": "Hi Sam,\n\nSorry for the shuffle. Daniel is away on Tuesday, so we need to move your interview from Tuesday 6 October to Wednesday 14 October at 3pm. Same video link. Let me know if the new time works.\n\nThanks,\nGrace",
    "gold": {"category": "Work", "jobStatus": "interview", "replyExpected": true, "urgent": true, "event": {"date": "2026-10-14", "time": "15:00"}},
-   "evidence": "Wednesday 14 October at 3pm"},
+   "evidence": "Wednesday 14 October at 3pm",
+   "note": "A company of its own. Until 2026-11-10 it was Kestrel's, like work-invite-short, and moved a Tuesday 6 October interview when the invite in the same inbox said Wednesday 7: the two contradicted each other, and Haiku dropped or doubted one or both dates when they shared a batch."},
 
   {"id": "work-assessment-deadline", "from": ["Quokka Labs Hiring", "hiring@quokka.example.com"], "bulk": false,
    "subject": "Your take-home assessment",
