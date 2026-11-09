@@ -7,6 +7,7 @@
     ql review <test-id-substring> --status reviewed|rewritten [--note ...]
     ql suggestion <id> --status accepted|rejected|done [--note ...]
     ql nightly                                                run local + live, eval, analyse, build
+    ql pull [--since YYYY-MM-DD] [--limit 40]                 CI's live run records (its live-run artifacts) into history/runs
 """
 from __future__ import annotations
 
@@ -98,6 +99,19 @@ def cmd_suggestion(args: argparse.Namespace) -> int:
     return 0 if found else 1
 
 
+def cmd_pull(args: argparse.Namespace) -> int:
+    """CI's run records into history/runs: the live-run artifact of each finished Tests run on GitHub.
+
+    CI can't commit to main, so this is how a night's record reaches the page: `ql pull`, then `ql build`. A
+    record history/runs already has is left as it is. Needs gh, logged in."""
+    from . import pull
+    added = pull.merge(RUNS, pull.fetch(args.repo, limit=args.limit, since=args.since))
+    for name in added:
+        print(f"  {name}")
+    print(f"pulled {len(added)} new record(s) into {RUNS.relative_to(ROOT).as_posix()}")
+    return 0
+
+
 def cmd_nightly(args: argparse.Namespace) -> int:
     codes = [cmd_run(argparse.Namespace(target="local", workers=4, label="nightly", pytest_args=[])),
              cmd_run(argparse.Namespace(target="live", workers=4, label="nightly", pytest_args=[]))]
@@ -146,6 +160,12 @@ def main(argv: list[str] | None = None) -> int:
     sg.add_argument("--status", choices=("accepted", "rejected", "done", "open"), required=True)
     sg.add_argument("--note", default="")
     sg.set_defaults(fn=cmd_suggestion)
+
+    pl = sub.add_parser("pull", help="CI's live run records from GitHub into history/runs")
+    pl.add_argument("--repo", default="LachlanB96/quality-lab")
+    pl.add_argument("--limit", type=int, default=40, help="how many finished Tests runs to look at (default 40)")
+    pl.add_argument("--since", default="", help="only runs from this date on (YYYY-MM-DD)")
+    pl.set_defaults(fn=cmd_pull)
 
     n = sub.add_parser("nightly", help="run everything and rebuild the page")
     n.add_argument("--no-ai", action="store_true")
