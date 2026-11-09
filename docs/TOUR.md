@@ -22,7 +22,7 @@ Where each pytest technique lives, and why it's there. File and function names r
 
 ## Markers
 
-Registered in `pyproject.toml` with `--strict-markers`, so a typo in a marker name is an error, not a silently ignored mark. Every test gets a layer marker (module-level `pytestmark = [...]`) and an `area("...")` marker with an argument. `local_only` tests are skipped on the live target by `pytest_collection_modifyitems` in `conftest.py`, with the reason in the skip message.
+Registered in `pyproject.toml` with `--strict-markers`, so a typo in a marker name is an error, not a silently ignored mark. Every test gets a layer marker (module-level `pytestmark = [...]`) and an `area("...")` marker with an argument. `local_only` tests are skipped on the live target by `pytest_collection_modifyitems` in `conftest.py`, with the reason in the skip message. The same hook turns `xfail_live(reason)` into a strict xfail on the live target only: a bug the demo has and the local server doesn't (BUG-009, the close handshake), so the test is pinned where the bug is and has to pass where it isn't.
 
 ## Known bugs as strict xfails
 

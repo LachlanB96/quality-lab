@@ -57,14 +57,6 @@ def test_a_tiny_frame_is_ignored_not_fatal(connect, budget):
     c.wait_until(lambda s: any(x.text == "after tiny" for x in s.chat), budget.ticks(10), "the next message")
 
 
-def test_a_client_that_says_goodbye_is_let_go_promptly(target):
-    """Client-initiated close: the server answers the close frame and the connection is gone at once."""
-    c = GameClient(target.ws_url, close_timeout=10).login("qa-goodbye")
-    t0 = time.monotonic()
-    c.close()
-    assert time.monotonic() - t0 < 2
-
-
 @pytest.mark.xfail(reason="BUG-006: when the server kicks a client, it never finishes the close handshake",
                    strict=True)
 def test_a_kicked_client_is_fully_disconnected(target, record_property):

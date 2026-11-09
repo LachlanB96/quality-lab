@@ -1,4 +1,5 @@
 """Logging in: names, protocol versions, duplicate hellos, capacity, and leaving."""
+import time
 import uuid
 
 import pytest
@@ -102,6 +103,20 @@ def test_a_full_server_turns_new_players_away():
             assert srv.health(server.target.health_url) == "ok 2 online"
     finally:
         server.stop()
+
+
+@pytest.mark.xfail_live("BUG-009: after a client's goodbye the live demo answers the close frame but leaves the "
+                        "connection open, or drops the connection without a close frame")
+def test_a_client_that_says_goodbye_is_let_go_properly(target):
+    """RFC 6455 7.1.1, the client-initiated close: the server answers the close frame and then closes the
+    connection, at once. Locally both happen. The live demo does one or the other (BUG-009), so a patient
+    client waits out its close timeout, or never sees the server's close frame."""
+    c = GameClient(target.ws_url, close_timeout=10, health_url=target.health_url).login("qa-goodbye")
+    t0 = time.monotonic()
+    c.close()
+    elapsed = time.monotonic() - t0
+    assert c.close_code == 1000, f"the connection ended with close code {c.close_code}: no close frame from the server"
+    assert elapsed < 2, f"the connection lingered {elapsed:.1f} s after the close handshake"
 
 
 def test_health_endpoint_counts_players(target, connect):

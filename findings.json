@@ -125,6 +125,21 @@
     "GET /healthz in the same seconds is answered at once"
    ],
    "fix": "Server side, once the demo's logs say whether a dropped request reaches the game server's listener. Meanwhile the suite names the cause (ConnectTimeout, phase upgrade, with /healthz's answer from the same moment), tries a stalled connect once more on the live target only, and counts every stall it saw, so a run stays green with the bug on the page rather than hidden. An intermittent bug can't be pinned by a strict xfail: its status here is whether the latest live run saw it, never 'fixed' on its own."
+  },
+  {
+   "id": "BUG-009",
+   "title": "After a client's goodbye the live demo never finishes closing the connection",
+   "severity": "low",
+   "area": "session",
+   "found": "2026-11-09",
+   "how": "Reading the demo's box for BUG-008 showed the server's side of finished sessions still open hours later. Timing closes from outside: in 14 of 14, the server either answered the client's close frame and then left the connection open until the client gave up (9), or dropped the connection with no close frame at all (5). The local server does both halves of the close handshake at once, which is why the goodbye test had always passed: it had never run on the live target.",
+   "impact": "A patient client waits out its close timeout after every normal goodbye, and each finished session leaves a connection open on the server until the next restart. The suite's client already uses a 1 s close timeout for BUG-006, which is why this one stayed hidden.",
+   "repro": [
+    "Connect to the live demo, log in, send a close frame",
+    "The server's close frame arrives, then nothing: the connection is still open 10 s later",
+    "Or the connection drops at once with no close frame"
+   ],
+   "fix": "Close the socket once the close handshake completes on the client-initiated path too, the same fix as BUG-006. Pinned by test_a_client_that_says_goodbye_is_let_go_properly: a strict xfail on the live target only (xfail_live), a plain test on the local server."
   }
  ]
 }
