@@ -1,0 +1,2127 @@
+{
+ "schema": 1,
+ "id": "20261029T083708Z-1e96ea",
+ "label": "ci",
+ "started": "2026-10-29T08:37:08+00:00",
+ "wall": 150.77,
+ "target": "live",
+ "tick_ms": 600,
+ "seeded": false,
+ "workers": 4,
+ "exitstatus": 0,
+ "counts": {
+  "passed": 87,
+  "xfailed": 6,
+  "skipped": 16
+ },
+ "env": {
+  "python": "3.12.3",
+  "pytest": "9.1.1",
+  "os": "Linux",
+  "lab_commit": "e448e7d",
+  "sut_commit": ""
+ },
+ "protocol": {
+  "sent": {
+   "Hello": 95,
+   "Interact": 100,
+   "Craft": 11,
+   "DialogueChoice": 118,
+   "Chat": 12,
+   "InventoryAction": 3,
+   "MoveTo": 11,
+   "CombatCommit": 14
+  },
+  "received": {
+   "Welcome": 93,
+   "Catalog": 93,
+   "MapData": 95,
+   "EntitySpawn": 2557,
+   "InventoryState": 158,
+   "SkillsState": 120,
+   "Objective": 135,
+   "Notice": 186,
+   "EntityDespawn": 207,
+   "EntityMoves": 537,
+   "CraftMenu": 26,
+   "Dialogue": 118,
+   "DialogueClose": 24,
+   "ActionStatus": 54,
+   "ChatLine": 40,
+   "CombatStart": 12,
+   "CombatUpdate": 14,
+   "CombatEnd": 2
+  }
+ },
+ "tests": [
+  {
+   "id": "tests/spirescape/test_combat.py::test_attacking_starts_combat_visible_to_the_world",
+   "outcome": "passed",
+   "duration": 10.609,
+   "call": 4.7154,
+   "start": 0.879,
+   "stop": 11.489,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-028: both the player and the rat show as in combat on the world map.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 24
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_recipes_only_reference_real_cards",
+   "outcome": "passed",
+   "duration": 4.6824,
+   "call": 0.0002,
+   "start": 0.879,
+   "stop": 5.562,
+   "worker": "gw1",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 24
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_every_card_has_a_name_and_examine_text",
+   "outcome": "passed",
+   "duration": 4.8925,
+   "call": 0.0002,
+   "start": 0.882,
+   "stop": 5.775,
+   "worker": "gw2",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "D-016: the examine text is how players learn what a card is for.",
+   "file": "tests/spirescape/test_content.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_accuracy_is_a_percentage",
+   "outcome": "passed",
+   "duration": 4.6855,
+   "call": 0.0002,
+   "start": 0.882,
+   "stop": 5.568,
+   "worker": "gw3",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 40
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_costs_and_counts_are_positive",
+   "outcome": "passed",
+   "duration": 0.0008,
+   "call": 0.0002,
+   "start": 5.568,
+   "stop": 5.569,
+   "worker": "gw1",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 46
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_equipment_points_at_real_slots",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 5.569,
+   "stop": 5.571,
+   "worker": "gw3",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_content.py",
+   "line": 63
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[shortbow]",
+   "outcome": "passed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 5.57,
+   "stop": 5.571,
+   "worker": "gw1",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[bronze_axe]",
+   "outcome": "xfailed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 5.572,
+   "stop": 5.602,
+   "worker": "gw3",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[bronze_pickaxe]",
+   "outcome": "xfailed",
+   "duration": 0.001,
+   "call": 0.0003,
+   "start": 5.572,
+   "stop": 5.602,
+   "worker": "gw1",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_a_lost_starter_tool_can_be_made_again[hammer]",
+   "outcome": "xfailed",
+   "duration": 0.0009,
+   "call": 0.0002,
+   "start": 5.603,
+   "stop": 5.609,
+   "worker": "gw3",
+   "message": "BUG-001: tutorial soft-lock",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data",
+    "xfail"
+   ],
+   "doc": "Old Bram gives the kit once. If a kit item can't be crafted, losing it (dropped, or left in a",
+   "file": "tests/spirescape/test_content.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_dropping_the_hammer_does_not_strand_the_player",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 5.604,
+   "stop": 5.604,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "e2e",
+   "area": "tutorial",
+   "markers": [
+    "data",
+    "e2e",
+    "local_only",
+    "skip",
+    "xfail"
+   ],
+   "doc": "The behaviour behind BUG-001: drop the hammer, let the pile despawn (300 ticks), ask Bram again.",
+   "file": "tests/spirescape/test_content.py",
+   "line": 84
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_login_ends_with_inventory_skills_and_objective",
+   "outcome": "passed",
+   "duration": 1.8814,
+   "call": 0.0003,
+   "start": 5.605,
+   "stop": 7.487,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "After the map and its entities come the player's own state, then the tutorial objective.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 18
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_login_starts_with_welcome_catalog_then_map",
+   "outcome": "passed",
+   "duration": 1.8771,
+   "call": 0.0002,
+   "start": 5.61,
+   "stop": 7.488,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "The first three messages are always Welcome, Catalog, MapData, in that order.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 12
+  },
+  {
+   "id": "tests/spirescape/test_content.py::test_ammo_and_bulk_materials_stack",
+   "outcome": "passed",
+   "duration": 0.0006,
+   "call": 0.0002,
+   "start": 5.776,
+   "stop": 5.777,
+   "worker": "gw2",
+   "message": "",
+   "layer": "data",
+   "area": "content",
+   "markers": [
+    "data"
+   ],
+   "doc": "D-023: arrows and the like stack. Anything a recipe makes or needs fifteen of must stack, or 15",
+   "file": "tests/spirescape/test_content.py",
+   "line": 54
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_inventory_has_28_slots_and_3_equipment_slots",
+   "outcome": "passed",
+   "duration": 1.8539,
+   "call": 0.0002,
+   "start": 5.778,
+   "stop": 7.632,
+   "worker": "gw2",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 38
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_welcome_reports_the_tick_this_target_runs_at",
+   "outcome": "passed",
+   "duration": 1.84,
+   "call": 0.0002,
+   "start": 7.489,
+   "stop": 9.329,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_player_entity_is_spawned_for_its_owner",
+   "outcome": "passed",
+   "duration": 1.8463,
+   "call": 0.0002,
+   "start": 7.49,
+   "stop": 9.336,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 31
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_empty_slots_are_empty_strings_with_zero_counts",
+   "outcome": "passed",
+   "duration": 1.8314,
+   "call": 0.0007,
+   "start": 7.634,
+   "stop": 9.466,
+   "worker": "gw2",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 45
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_skills_cover_all_sixteen",
+   "outcome": "passed",
+   "duration": 1.8999,
+   "call": 0.0002,
+   "start": 9.331,
+   "stop": 11.231,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 51
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_map_tiles_match_its_dimensions",
+   "outcome": "passed",
+   "duration": 1.8637,
+   "call": 0.0002,
+   "start": 9.338,
+   "stop": 11.202,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 57
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_entity_is_on_the_map",
+   "outcome": "passed",
+   "duration": 1.8614,
+   "call": 0.0002,
+   "start": 9.467,
+   "stop": 11.329,
+   "worker": "gw2",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 64
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_entity_ids_are_unique_and_positive",
+   "outcome": "passed",
+   "duration": 1.8243,
+   "call": 0.0003,
+   "start": 11.204,
+   "stop": 13.029,
+   "worker": "gw3",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 76
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_entity_offers_examine",
+   "outcome": "passed",
+   "duration": 1.8153,
+   "call": 0.0002,
+   "start": 11.233,
+   "stop": 13.049,
+   "worker": "gw1",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "Examine is on every entity's action list (the client's right-click always has it).",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_contract.py::test_every_server_frame_decodes_strictly",
+   "outcome": "passed",
+   "duration": 2.5622,
+   "call": 0.6867,
+   "start": 11.331,
+   "stop": 13.893,
+   "worker": "gw2",
+   "message": "",
+   "layer": "contract",
+   "area": "protocol",
+   "markers": [
+    "contract"
+   ],
+   "doc": "The strict decoder (length prefix exact, no trailing bytes) accepted everything the server sent.",
+   "file": "tests/spirescape/test_contract.py",
+   "line": 82
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_opening_hand_is_five_cards_with_two_energy",
+   "outcome": "passed",
+   "duration": 7.8069,
+   "call": 4.6998,
+   "start": 11.49,
+   "stop": 19.298,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-022 hand of 5, D-024 energy held at 2. Six cards in the deck, so one is left to draw.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_each_station_offers_its_recipes[bench-recipes0]",
+   "outcome": "passed",
+   "duration": 3.8565,
+   "call": 2.032,
+   "start": 13.031,
+   "stop": 16.888,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_each_station_offers_its_recipes[forge-recipes1]",
+   "outcome": "passed",
+   "duration": 3.8364,
+   "call": 1.9147,
+   "start": 13.051,
+   "stop": 16.888,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[bench-cut_shafts-Needs Logs]",
+   "outcome": "passed",
+   "duration": 4.1957,
+   "call": 2.3343,
+   "start": 13.895,
+   "stop": 18.091,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[forge-smelt_bronze-Needs Copper Ore]",
+   "outcome": "passed",
+   "duration": 3.6065,
+   "call": 1.5488,
+   "start": 16.89,
+   "stop": 20.497,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[bench-fletch_bronze_arrows-Needs 15 Arrow Shafts]",
+   "outcome": "passed",
+   "duration": 4.2043,
+   "call": 2.3611,
+   "start": 16.89,
+   "stop": 21.095,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_empty_handed_player_is_told_what_is_missing[forge-smith_arrowheads-Needs a Hammer]",
+   "outcome": "passed",
+   "duration": 3.6004,
+   "call": 1.7553,
+   "start": 18.093,
+   "stop": 21.694,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_your_draw_pile_is_browsable_but_not_its_order",
+   "outcome": "passed",
+   "duration": 7.7888,
+   "call": 4.7065,
+   "start": 19.299,
+   "stop": 27.089,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-153: you can see what's in your draw pile, sorted, so its order gives nothing away.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_menu_reasons_line_up_with_recipes",
+   "outcome": "passed",
+   "duration": 4.1932,
+   "call": 2.3704,
+   "start": 20.498,
+   "stop": 24.692,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Three parallel arrays: one entry per recipe in each, and a reason only when it can't be made.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 33
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_crafting_away_from_the_station_is_refused",
+   "outcome": "passed",
+   "duration": 2.0759,
+   "call": 0.2112,
+   "start": 21.096,
+   "stop": 23.173,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "A Craft for a forge recipe with no forge nearby gets a warning, not an item.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_an_unknown_recipe_is_ignored",
+   "outcome": "passed",
+   "duration": 2.0611,
+   "call": 0.2077,
+   "start": 21.696,
+   "stop": 23.757,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 47
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_bronze_needs_both_ores",
+   "outcome": "passed",
+   "duration": 14.1129,
+   "call": 12.2511,
+   "start": 23.174,
+   "stop": 37.288,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 61
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_arrows_take_three_inputs_from_three_places",
+   "outcome": "passed",
+   "duration": 38.1381,
+   "call": 36.2453,
+   "start": 23.759,
+   "stop": 61.898,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration",
+    "slow"
+   ],
+   "doc": "D-076: shafts, heads and feathers converge at the bench. All 45 inputs are spent for 15 arrows.",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 69
+  },
+  {
+   "id": "tests/spirescape/test_crafting.py::test_one_log_makes_fifteen_shafts",
+   "outcome": "passed",
+   "duration": 11.9945,
+   "call": 10.1679,
+   "start": 24.694,
+   "stop": 36.689,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "crafting",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_crafting.py",
+   "line": 54
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_the_enemy_hand_is_hidden",
+   "outcome": "passed",
+   "duration": 7.7977,
+   "call": 4.7303,
+   "start": 27.09,
+   "stop": 34.889,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-103: hidden intents. Only counts are sent for the enemy, never its cards.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_commit_over_your_energy_is_rejected",
+   "outcome": "passed",
+   "duration": 8.0021,
+   "call": 4.9387,
+   "start": 34.89,
+   "stop": 42.893,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "Two cards costing 2 each (pickaxe, axe) need 4 energy; you have 2.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 56
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[mine]",
+   "outcome": "passed",
+   "duration": 8.4064,
+   "call": 6.5434,
+   "start": 36.691,
+   "stop": 45.098,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_plucking_a_chicken_gives_feathers_and_leaves_it_alive",
+   "outcome": "passed",
+   "duration": 10.8012,
+   "call": 8.9754,
+   "start": 37.29,
+   "stop": 48.092,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-075: plucking is non-lethal. Fifteen feathers per pluck, and the chicken stays.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_card_you_dont_hold_is_rejected",
+   "outcome": "passed",
+   "duration": 8.4073,
+   "call": 5.2247,
+   "start": 42.894,
+   "stop": 51.302,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 70
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[chop]",
+   "outcome": "xfailed",
+   "duration": 5.9982,
+   "call": 4.1164,
+   "start": 45.099,
+   "stop": 51.102,
+   "worker": "gw1",
+   "message": "BUG-003: the status line reads 'Choping...'",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_chopping_without_an_axe_is_refused",
+   "outcome": "passed",
+   "duration": 4.7972,
+   "call": 2.9144,
+   "start": 48.093,
+   "stop": 52.891,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 32
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_chopping_gives_logs_and_woodcutting_xp",
+   "outcome": "passed",
+   "duration": 8.9866,
+   "call": 7.1623,
+   "start": 51.103,
+   "stop": 60.091,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 39
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_a_turn_resolves_and_advances",
+   "outcome": "passed",
+   "duration": 6.5864,
+   "call": 3.5528,
+   "start": 51.304,
+   "stop": 57.891,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 79
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_tools_are_not_used_up",
+   "outcome": "passed",
+   "duration": 11.3945,
+   "call": 9.5601,
+   "start": 52.893,
+   "stop": 64.288,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-013: a tool is carried, never consumed.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 45
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_you_cant_move_while_fighting",
+   "outcome": "passed",
+   "duration": 7.1986,
+   "call": 4.148,
+   "start": 57.893,
+   "stop": 65.092,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 90
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_a_copper_rock_depletes_after_one_ore",
+   "outcome": "passed",
+   "duration": 11.407,
+   "call": 9.5109,
+   "start": 60.092,
+   "stop": 71.5,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-106: copper rocks have a 100% deplete chance, so one ore empties the rock.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 52
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_gathering_shows_a_progress_status[pluck]",
+   "outcome": "passed",
+   "duration": 9.5972,
+   "call": 7.7465,
+   "start": 61.9,
+   "stop": 71.497,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 20
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_a_depleted_rock_comes_back",
+   "outcome": "skipped",
+   "duration": 0.0003,
+   "call": 0.0,
+   "start": 64.29,
+   "stop": 64.29,
+   "worker": "gw3",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration",
+    "local_only",
+    "skip"
+   ],
+   "doc": "Respawn is 5 ticks for copper: about a tenth of a second on the fast local tick.",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 62
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_reaches_everyone_in_the_region",
+   "outcome": "passed",
+   "duration": 3.8467,
+   "call": 1.8444,
+   "start": 64.291,
+   "stop": 68.138,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 19
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_someone_elses_rat_cant_be_attacked",
+   "outcome": "passed",
+   "duration": 12.1938,
+   "call": 10.1916,
+   "start": 65.094,
+   "stop": 77.288,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "D-107: single combat. A rat already fighting is off limits to a second player.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 100
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[trim]",
+   "outcome": "passed",
+   "duration": 3.8785,
+   "call": 1.8762,
+   "start": 68.141,
+   "stop": 72.02,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_players_see_each_other_move",
+   "outcome": "passed",
+   "duration": 4.5907,
+   "call": 2.5882,
+   "start": 71.499,
+   "stop": 76.091,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 11
+  },
+  {
+   "id": "tests/spirescape/test_gathering.py::test_walking_away_cancels_gathering",
+   "outcome": "passed",
+   "duration": 9.1872,
+   "call": 7.3644,
+   "start": 71.502,
+   "stop": 80.69,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "gathering",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_gathering.py",
+   "line": 73
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[control-chars]",
+   "outcome": "passed",
+   "duration": 3.9107,
+   "call": 1.9085,
+   "start": 72.023,
+   "stop": 75.934,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_dropped_items_are_public",
+   "outcome": "passed",
+   "duration": 5.3002,
+   "call": 3.2981,
+   "start": 75.936,
+   "stop": 81.237,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "D-119: a drop is instantly a pile anyone can take.",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 45
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_chat_is_cleaned_before_it_is_broadcast[length-cap]",
+   "outcome": "passed",
+   "duration": 3.8489,
+   "call": 1.8464,
+   "start": 76.093,
+   "stop": 79.942,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_leaving_mid_fight_frees_the_creature",
+   "outcome": "passed",
+   "duration": 10.2035,
+   "call": 9.202,
+   "start": 77.29,
+   "stop": 87.494,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 111
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_examine_round_trip",
+   "outcome": "passed",
+   "duration": 5.8281,
+   "call": 4.0017,
+   "start": 79.945,
+   "stop": 85.774,
+   "worker": "gw2",
+   "message": "",
+   "metrics": [
+    {
+     "name": "examine_rtt_p50_ms",
+     "value": 200.0,
+     "unit": "ms"
+    },
+    {
+     "name": "examine_rtt_p95_ms",
+     "value": 200.71,
+     "unit": "ms"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Examine is answered from the inbound queue (every 5 ms), so it costs a network round trip, not a tick.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 43
+  },
+  {
+   "id": "tests/spirescape/test_multiplayer.py::test_blank_chat_is_dropped",
+   "outcome": "passed",
+   "duration": 3.9423,
+   "call": 1.9401,
+   "start": 80.692,
+   "stop": 84.634,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "multiplayer",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_multiplayer.py",
+   "line": 37
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_tick_cadence_matches_the_announced_tick",
+   "outcome": "passed",
+   "duration": 7.6548,
+   "call": 5.8163,
+   "start": 81.24,
+   "stop": 88.895,
+   "worker": "gw3",
+   "message": "",
+   "metrics": [
+    {
+     "name": "tick_median_ms",
+     "value": 599.84,
+     "unit": "ms"
+    },
+    {
+     "name": "tick_p95_ms",
+     "value": 604.53,
+     "unit": "ms"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Gaps between the player's own movement updates on a long walk should sit on the tick.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[unknown-type]",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.637,
+   "stop": 84.638,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[huge-string]",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.638,
+   "stop": 84.639,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[negative-count]",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.639,
+   "stop": 84.64,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_an_oversized_frame_is_cut_off",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.64,
+   "stop": 84.641,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 44
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_tiny_frame_is_ignored_not_fatal",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.641,
+   "stop": 84.642,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "Under five bytes can't hold a length and a type; the server skips it and keeps the connection.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 52
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_client_that_says_goodbye_is_let_go_promptly",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.642,
+   "stop": 84.643,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "Client-initiated close: the server answers the close frame and the connection is gone at once.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 60
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_kicked_client_is_fully_disconnected",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.644,
+   "stop": 84.644,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip",
+    "xfail"
+   ],
+   "doc": "RFC 6455 7.1.1: after the closing handshake the server SHOULD close TCP at once. When the server",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 68
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_lying_length_prefix_is_rejected",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.645,
+   "stop": 84.645,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 83
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_random_bytes_never_hurt_the_server",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.646,
+   "stop": 84.646,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "property",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "local_only",
+    "property",
+    "robustness",
+    "skip"
+   ],
+   "doc": "Property: whatever bytes arrive, /healthz still answers and a bystander still plays.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 91
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_well_formed_nonsense_is_handled",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.647,
+   "stop": 84.647,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "property",
+   "area": "protocol",
+   "markers": [
+    "hypothesis",
+    "local_only",
+    "property",
+    "robustness",
+    "skip"
+   ],
+   "doc": "Property: valid frames with absurd values (slot -7, count 2^31) never break the player's session.",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 102
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_chat_is_rate_limited",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 84.648,
+   "stop": 84.648,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 121
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_new_player_spawns_at_landfall",
+   "outcome": "passed",
+   "duration": 1.8498,
+   "call": 0.0002,
+   "start": 84.649,
+   "stop": 86.5,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 16
+  },
+  {
+   "id": "tests/spirescape/test_performance.py::test_login_time",
+   "outcome": "passed",
+   "duration": 1.8265,
+   "call": 1.826,
+   "start": 85.776,
+   "stop": 87.603,
+   "worker": "gw2",
+   "message": "",
+   "metrics": [
+    {
+     "name": "login_ms",
+     "value": 823.6,
+     "unit": "ms"
+    },
+    {
+     "name": "login_kb",
+     "value": 6.42,
+     "unit": "KB"
+    }
+   ],
+   "layer": "perf",
+   "area": "performance",
+   "markers": [
+    "perf"
+   ],
+   "doc": "Connect, Hello, and everything up to the first objective.",
+   "file": "tests/spirescape/test_performance.py",
+   "line": 60
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_new_player_starts_with_an_empty_pack",
+   "outcome": "passed",
+   "duration": 1.8473,
+   "call": 0.0002,
+   "start": 86.501,
+   "stop": 88.349,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 22
+  },
+  {
+   "id": "tests/spirescape/test_combat.py::test_losing_keeps_your_three_most_valuable_items",
+   "outcome": "passed",
+   "duration": 10.8185,
+   "call": 7.7859,
+   "start": 87.497,
+   "stop": 98.316,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "combat",
+   "markers": [
+    "integration",
+    "slow",
+    "xdist_group"
+   ],
+   "doc": "D-042/D-122: stand still and lose. Keep the bow (60), pickaxe (40) and axe (40); drop the rest.",
+   "file": "tests/spirescape/test_combat.py",
+   "line": 121
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[markup]",
+   "outcome": "passed",
+   "duration": 1.8253,
+   "call": 0.8238,
+   "start": 87.604,
+   "stop": 89.43,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[blank]",
+   "outcome": "passed",
+   "duration": 1.8159,
+   "call": 0.8144,
+   "start": 88.351,
+   "stop": 90.167,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_robustness.py::test_a_malformed_frame_costs_only_the_sender_their_connection[truncated]",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 88.897,
+   "stop": 88.897,
+   "worker": "gw3",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "robustness",
+   "area": "protocol",
+   "markers": [
+    "local_only",
+    "robustness",
+    "skip"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_robustness.py",
+   "line": 30
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_taken_name_gets_a_number",
+   "outcome": "passed",
+   "duration": 3.7068,
+   "call": 1.7047,
+   "start": 88.898,
+   "stop": 92.605,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 41
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[padded]",
+   "outcome": "passed",
+   "duration": 1.8158,
+   "call": 0.8143,
+   "start": 89.431,
+   "stop": 91.247,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[control]",
+   "outcome": "passed",
+   "duration": 1.8253,
+   "call": 0.8239,
+   "start": 90.169,
+   "stop": 91.995,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_second_hello_is_ignored",
+   "outcome": "passed",
+   "duration": 2.1633,
+   "call": 0.2081,
+   "start": 91.249,
+   "stop": 93.413,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 57
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_intents_before_hello_are_ignored",
+   "outcome": "passed",
+   "duration": 1.8222,
+   "call": 0.8208,
+   "start": 91.997,
+   "stop": 93.819,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 65
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_wrong_protocol_version_is_refused",
+   "outcome": "passed",
+   "duration": 1.8379,
+   "call": 1.8372,
+   "start": 92.608,
+   "stop": 94.446,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_never_exceed_twelve_characters",
+   "outcome": "xfailed",
+   "duration": 3.6786,
+   "call": 1.6765,
+   "start": 93.415,
+   "stop": 97.118,
+   "worker": "gw2",
+   "message": "BUG-002: the duplicate-name number is added after the 12-character cap",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration",
+    "xfail"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 73
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_leaving_despawns_the_player_for_others",
+   "outcome": "passed",
+   "duration": 3.6632,
+   "call": 2.6618,
+   "start": 93.821,
+   "stop": 97.485,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 81
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_a_full_server_turns_new_players_away",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 94.447,
+   "stop": 94.448,
+   "worker": "gw3",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration",
+    "local_only",
+    "skip"
+   ],
+   "doc": "A dedicated server with room for two: the third player gets a notice and is disconnected.",
+   "file": "tests/spirescape/test_session.py",
+   "line": 90
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_the_tab_is_titled_spirescape[chromium]",
+   "outcome": "xfailed",
+   "duration": 1.4673,
+   "call": 0.8576,
+   "start": 94.448,
+   "stop": 95.919,
+   "worker": "gw3",
+   "message": "BUG-007: the browser tab says 'Unity Web Player | client'",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui",
+    "xfail"
+   ],
+   "doc": "What a visitor sees in the tab and in bookmarks. Unity's WebGL template default is left in.",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 37
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_wasm_and_data_are_served[chromium]",
+   "outcome": "passed",
+   "duration": 9.9551,
+   "call": 9.9096,
+   "start": 95.92,
+   "stop": 105.876,
+   "worker": "gw3",
+   "message": "",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "The two big downloads, fetched for real (Caddy compresses them on the fly).",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 44
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_health_endpoint_counts_players",
+   "outcome": "passed",
+   "duration": 2.4304,
+   "call": 1.4279,
+   "start": 97.119,
+   "stop": 99.55,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 107
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_page_loads_the_unity_player[chromium]",
+   "outcome": "passed",
+   "duration": 1.3383,
+   "call": 0.8752,
+   "start": 97.487,
+   "stop": 98.826,
+   "worker": "gw1",
+   "message": "",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 28
+  },
+  {
+   "id": "tests/spirescape/test_tutorial_e2e.py::test_full_tutorial_from_landfall_to_wardenhall",
+   "outcome": "passed",
+   "duration": 48.389,
+   "call": 46.5297,
+   "start": 98.318,
+   "stop": 146.707,
+   "worker": "gw0",
+   "message": "",
+   "metrics": [
+    {
+     "name": "tutorial_messages",
+     "value": 237,
+     "unit": "messages"
+    }
+   ],
+   "layer": "e2e",
+   "area": "tutorial",
+   "markers": [
+    "e2e",
+    "slow",
+    "xdist_group"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_tutorial_e2e.py",
+   "line": 15
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_players_run_two_tiles_per_tick",
+   "outcome": "passed",
+   "duration": 3.8693,
+   "call": 2.0274,
+   "start": 98.827,
+   "stop": 102.697,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Rules.PlayerTilesPerTick = 2: each EntityMoves update moves the player up to two tiles.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 49
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_move_to_walks_the_player_there",
+   "outcome": "passed",
+   "duration": 3.7386,
+   "call": 1.8975,
+   "start": 99.553,
+   "stop": 103.292,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 43
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_clicking_water_next_to_the_shore_walks_to_the_shore",
+   "outcome": "passed",
+   "duration": 3.5911,
+   "call": 1.746,
+   "start": 102.7,
+   "stop": 106.292,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "(1,16) is water but (2,16) is beside it, so the server paths to the neighbour instead.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 69
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_clicking_deep_water_is_refused",
+   "outcome": "passed",
+   "duration": 2.8226,
+   "call": 0.2085,
+   "start": 103.298,
+   "stop": 106.121,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "(0,16) has no walkable neighbour, so there's no path at all.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 76
+  },
+  {
+   "id": "tests/spirescape/test_ui.py::test_build_files_must_revalidate[chromium]",
+   "outcome": "passed",
+   "duration": 6.8971,
+   "call": 6.8458,
+   "start": 105.882,
+   "stop": 112.78,
+   "worker": "gw3",
+   "message": "",
+   "layer": "ui",
+   "area": "client",
+   "markers": [
+    "ui"
+   ],
+   "doc": "Unity keeps file names across builds, so the Caddyfile sends no-cache on /Build/*.",
+   "file": "tests/spirescape/test_ui.py",
+   "line": 56
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_examine_an_npc_describes_it",
+   "outcome": "passed",
+   "duration": 2.9857,
+   "call": 0.2028,
+   "start": 106.123,
+   "stop": 109.11,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 100
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_wherever_you_click_you_end_up_somewhere_walkable",
+   "outcome": "skipped",
+   "duration": 0.0002,
+   "call": 0.0,
+   "start": 106.294,
+   "stop": 106.294,
+   "worker": "gw1",
+   "message": "Skipped: local_only: needs the seeded, fast-tick local server",
+   "layer": "property",
+   "area": "world",
+   "markers": [
+    "hypothesis",
+    "integration",
+    "local_only",
+    "property",
+    "skip"
+   ],
+   "doc": "Property: after any MoveTo inside the map, the player stands on a walkable tile.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 84
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_the_boat_waits_until_bram_has_seen_you_after_the_rat",
+   "outcome": "passed",
+   "duration": 3.597,
+   "call": 0.9878,
+   "start": 106.295,
+   "stop": 109.893,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 122
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_an_action_the_entity_doesnt_offer_is_ignored",
+   "outcome": "passed",
+   "duration": 2.0739,
+   "call": 0.2012,
+   "start": 109.112,
+   "stop": 111.187,
+   "worker": "gw2",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "Old Bram can't be attacked: the server ignores the request rather than starting a fight.",
+   "file": "tests/spirescape/test_world.py",
+   "line": 113
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_npcs_wander_on_their_own",
+   "outcome": "passed",
+   "duration": 2.4759,
+   "call": 0.5307,
+   "start": 109.895,
+   "stop": 112.371,
+   "worker": "gw1",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 129
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_interacting_with_something_that_isnt_there",
+   "outcome": "passed",
+   "duration": 2.075,
+   "call": 0.2002,
+   "start": 112.787,
+   "stop": 114.863,
+   "worker": "gw3",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 108
+  },
+  {
+   "id": "tests/spirescape/test_session.py::test_names_are_sanitised[long]",
+   "outcome": "passed",
+   "duration": 1.8628,
+   "call": 0.861,
+   "start": 146.709,
+   "stop": 148.572,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "session",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_session.py",
+   "line": 26
+  },
+  {
+   "id": "tests/spirescape/test_world.py::test_out_of_bounds_move_is_ignored",
+   "outcome": "passed",
+   "duration": 2.0208,
+   "call": 0.1979,
+   "start": 148.574,
+   "stop": 150.595,
+   "worker": "gw0",
+   "message": "",
+   "layer": "integration",
+   "area": "world",
+   "markers": [
+    "integration"
+   ],
+   "doc": "",
+   "file": "tests/spirescape/test_world.py",
+   "line": 59
+  }
+ ]
+}

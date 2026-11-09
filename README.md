@@ -49,6 +49,7 @@ uv run pytest tests/spirescape --target live -n 4 --dist loadgroup  # the public
 SPIRESCAPE_REPO=<checkout> uv run pytest tests -n 4                 # local: needs the private server source
 
 uv run ql run --target live      # a recorded run, into history/runs/
+uv run ql pull                   # CI's live run records (its live-run artifacts), into history/runs/
 uv run ql analyse                # the AI review (needs the claude CLI, signed in)
 uv run ql eval email             # the evals (needs the private classifier: EMAIL_DASHBOARD_DIR)
 uv run ql build                  # the report page, into build/

@@ -55,16 +55,17 @@ uv run pytest tests/unit                                            # no server
 uv run ql run --target local|live     # a recorded run into history/runs/
 uv run ql analyse                     # AI review + suggestions
 uv run ql eval email                  # needs EMAIL_DASHBOARD_DIR
+uv run ql pull                        # CI's live run records (its live-run artifacts) into history/runs; gh, logged in
 uv run ql build                       # build/index.html
 uv run ql review <id-substring> --status reviewed|rewritten
 uv run ql suggestion S-001 --status accepted|rejected|done --note "..."
 ```
 
-CI (`.github/workflows/`): the leak check, unit tests on every push, and the live suite on every push and nightly. CI can't run the local target (the server source is private).
+CI (`.github/workflows/`): the leak check, unit tests on every push, and the live suite on every push and nightly. CI can't run the local target (the server source is private), and it can't commit, so its run records come back with `ql pull` (each run's `live-run` artifact) and get committed like any record.
 
 **Check: `uv run pytest tests -n 4`** (local target). Nothing merges into `main` until it passes.
 
-**Actions:** no dashboard yet; every action is a command above: pytest, and `ql run`, `analyse`, `eval`, `build`, `review` and `suggestion`. `ql review` and `ql suggestion` record the owner's own decisions, so they run only on the owner's word, and `ql analyse` and `ql eval` call Claude. Putting the built page online belongs to the private site's publishing, not to this repo.
+**Actions:** no dashboard yet; every action is a command above: pytest, and `ql run`, `pull`, `analyse`, `eval`, `build`, `review` and `suggestion`. `ql review` and `ql suggestion` record the owner's own decisions, so they run only on the owner's word, and `ql analyse` and `ql eval` call Claude. Putting the built page online belongs to the private site's publishing, not to this repo.
 
 ## Git
 
