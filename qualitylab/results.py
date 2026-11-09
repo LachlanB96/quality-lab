@@ -143,7 +143,26 @@ class Recorder:
         self.out.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.out.with_suffix(".tmp")
         tmp.write_text(json.dumps(record, indent=1), encoding="utf-8")
-        os.replace(tmp, self.out)
+        replace_whole(tmp, self.out)
+
+
+def replace_whole(tmp: Path, target: Path, wait: float = 2.0, step: float = 0.01) -> None:
+    """Rename a finished temp file over the target, the megaproject's rule for state files.
+
+    Windows refuses the rename for a moment while another process has the target open (a reader of the
+    history, a dashboard), so a PermissionError is tried again every `step` seconds for up to `wait`. After
+    that the temp file is removed and the error raised. Nothing else is retried.
+    """
+    deadline = time.monotonic() + wait
+    while True:
+        try:
+            os.replace(tmp, target)
+            return
+        except PermissionError:
+            if time.monotonic() >= deadline:
+                tmp.unlink(missing_ok=True)
+                raise
+            time.sleep(step)
 
 
 def _git_sha(repo: Path) -> str:
