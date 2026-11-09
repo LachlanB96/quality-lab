@@ -64,4 +64,4 @@ The plugin has its own tests in `tests/unit/test_results_plugin.py`, written wit
 
 ## Testing the AI parts
 
-The model's output can't be unit tested, but the guardrails around it can. `tests/unit/test_analyst.py` checks that invented numbers and invented test names get struck, and that new suggestions never overwrite a decision. `tests/unit/test_email_eval.py` checks the scoring rules and the eval dataset itself: valid labels, evidence present in every body, and the long cases really past the 600-character cut.
+The model's output can't be unit tested, but the guardrails around it can. `tests/unit/test_analyst.py` checks that invented numbers and invented test names get struck, and that new suggestions never overwrite a decision. `tests/unit/test_email_eval.py` checks the scoring rules and the eval dataset itself: valid labels, evidence present in every body, each long case's deciding text inside the band of lengths it exists to test, and tags that agree with the gold reply. The token meter is tested with a fake subprocess module, and the calibration maths with hand-worked Brier and calibration-error numbers.

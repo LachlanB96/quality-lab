@@ -35,7 +35,7 @@ Nine, all real, one of them fixed since (BUG-006, the server's half of the close
 
 - **Review** (`qualitylab/analyst.py`): after the runs, Claude reads the run records and the test code, then writes an overview and suggestions. A script checks every test it names and every number it quotes against the records before anything is published, and strikes what doesn't match. The guardrails have their own unit tests.
 - **Suggestions** (`suggestions.json`): Claude proposes, I decide. Each one stays on the page with its status and my reason.
-- **Evals** (`qualitylab/evals/email_triage.py`): my email dashboard sorts mail with Claude Haiku and puts interview times in a calendar. The eval runs its real classifier over a made-up, labelled inbox, compares variants, and sorts every miss into a prompt gap, a rubric gap or a product issue.
+- **Evals** (`qualitylab/evals/email_triage.py`): my email dashboard sorts mail with Claude Haiku and puts interview times in a calendar. The eval runs its real classifier over a made-up, labelled inbox at each length of email body it might be cut to, and sorts every miss into a prompt gap, a rubric gap or a product issue. Each length also records its token cost per mail and whether the certainty the model puts on each date matches how often those dates are right.
 
 I built this with Claude Code: it drafted the tests and the tooling. Right now it runs with no human review, as an experiment. Claude drafts the tests and reviews every run, a script checks each claim the review makes, and the page counts how many tests I've reviewed myself (`review.json` records which), so you can see exactly where that stands.
 
