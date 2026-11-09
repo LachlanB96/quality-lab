@@ -57,12 +57,10 @@ def test_a_tiny_frame_is_ignored_not_fatal(connect, budget):
     c.wait_until(lambda s: any(x.text == "after tiny" for x in s.chat), budget.ticks(10), "the next message")
 
 
-@pytest.mark.xfail(reason="BUG-006: when the server kicks a client, it never finishes the close handshake",
-                   strict=True)
 def test_a_kicked_client_is_fully_disconnected(target, record_property):
-    """RFC 6455 7.1.1: after the closing handshake the server SHOULD close TCP at once. When the server
-    starts the close (here, after a bad frame) its read loop has already exited, so nothing reads the
-    client's reply: a patient client (10 s close timeout) waits the whole timeout."""
+    """RFC 6455 7.1.1: after the closing handshake the server SHOULD close TCP at once. BUG-006, fixed on
+    2026-11-09: when the server started the close (here, after a bad frame) its read loop had already exited,
+    so nothing read the client's reply and a patient client (10 s close timeout) waited the whole timeout."""
     c = GameClient(target.ws_url, close_timeout=10).login("qa-kicked")
     t0 = time.monotonic()
     c.send_raw(frame(200, b""))

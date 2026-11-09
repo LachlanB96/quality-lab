@@ -93,9 +93,10 @@ def collect(root: Path = ROOT) -> dict:
                     for mt in t.get("metrics", []) if mt["name"] in f["metrics"] and mt["value"]]
             f["tests"] = sorted(set(f["tests"]) | {tid for tid, _ in seen})
             f["seen"] = int(sum(v for _, v in seen))
-            f["status"] = "open" if (pinned or seen) else "unseen"
+            f["status"] = "fixed" if f.get("fixed") else ("open" if (pinned or seen) else "unseen")
             continue
-        f["status"] = "fixed" if any(b["fixed"] for b in pinned) else ("open" if pinned else "untested")
+        # a `fixed` date is the owner closing the finding once the marker came off; an XPASS is the fix showing up
+        f["status"] = "fixed" if f.get("fixed") or any(b["fixed"] for b in pinned) else ("open" if pinned else "untested")
     review = _load(root / "review.json", {})
     distinct = sorted({t["id"] for tgt in targets.values() for t in tgt["tests"]})
     return {

@@ -105,18 +105,25 @@ def test_a_full_server_turns_new_players_away():
         server.stop()
 
 
-@pytest.mark.xfail_live("BUG-009: after a client's goodbye the live demo answers the close frame but leaves the "
-                        "connection open, or drops the connection without a close frame")
-def test_a_client_that_says_goodbye_is_let_go_properly(target):
+def test_a_client_that_says_goodbye_is_let_go_properly(target, record_property):
     """RFC 6455 7.1.1, the client-initiated close: the server answers the close frame and then closes the
-    connection, at once. Locally both happen. The live demo does one or the other (BUG-009), so a patient
-    client waits out its close timeout, or never sees the server's close frame."""
+    connection, at once. Locally both happen. The live demo ends a session in one of three ways (BUG-009):
+    the close frame and then nothing until the client's timeout, a drop with no close frame, or now and then
+    the proper close, so a strict xfail can't pin it: the outcome is recorded, and an unfinished close on
+    live is filed under the bug's id. Anywhere else it's a failure."""
     c = GameClient(target.ws_url, close_timeout=10, health_url=target.health_url).login("qa-goodbye")
     t0 = time.monotonic()
     c.close()
     elapsed = time.monotonic() - t0
-    assert c.close_code == 1000, f"the connection ended with close code {c.close_code}: no close frame from the server"
-    assert elapsed < 2, f"the connection lingered {elapsed:.1f} s after the close handshake"
+    code = c.close_code
+    unfinished = code != 1000 or elapsed >= 2
+    record_property("metric", {"name": "goodbye_close_s", "value": round(elapsed, 2), "unit": "s"})
+    record_property("metric", {"name": "goodbye_unfinished", "value": int(unfinished), "unit": "closes"})
+    what = (f"the connection dropped with close code {code}, no close frame from the server" if code != 1000
+            else f"the server's close frame came, then the connection lingered {elapsed:.1f} s")
+    if unfinished and target.is_live:
+        pytest.xfail(f"BUG-009: {what}")
+    assert not unfinished, what
 
 
 def test_health_endpoint_counts_players(target, connect):

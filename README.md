@@ -29,7 +29,7 @@ Each test carries a layer and an area:
 
 ## Bugs it found
 
-Nine, all real. Eight are pinned by `xfail(strict=True)` tests carrying the bug's id (one of them on the live target only, where the local server behaves): a fix makes the test pass, which fails the run until the marker comes off, so nothing gets fixed or broken quietly. The ninth is intermittent (some WebSocket upgrades to the demo are never answered), so a test measures it every run and the page says whether the latest run saw it. The write-ups are in [`findings.json`](findings.json). The worst: losing a starter tool can leave the tutorial impossible to finish.
+Nine, all real, one of them fixed since (BUG-006, the server's half of the close handshake, fixed on 2026-11-09 along with its newly found twin). Six are pinned by `xfail(strict=True)` tests carrying the bug's id: a fix makes the test pass, which fails the run until the marker comes off, so nothing gets fixed or broken quietly. Two are intermittent (some WebSocket upgrades to the demo are never answered; a goodbye is rarely closed properly), so a test measures each of them every run and the page says whether the latest run saw it. The write-ups are in [`findings.json`](findings.json). The worst: losing a starter tool can leave the tutorial impossible to finish.
 
 ## The AI parts
 

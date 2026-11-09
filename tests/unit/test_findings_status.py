@@ -21,7 +21,7 @@ def rec(test_id: str, outcome: str = "passed", message: str = "", metrics: list 
     return t
 
 
-def lab(root, tests: list[dict]) -> dict[str, dict]:
+def lab(root, tests: list[dict], fixed: str = "") -> dict[str, dict]:
     """A lab folder with one live run and two findings: BUG-008 (intermittent) and BUG-001 (pinned by xfail)."""
     (root / "history" / "runs").mkdir(parents=True)
     run = {"schema": 1, "id": "20261109T083000Z-abc123", "label": "ci", "started": "2026-11-09T08:30:00+00:00",
@@ -31,8 +31,9 @@ def lab(root, tests: list[dict]) -> dict[str, dict]:
     blank = {"title": "t", "severity": "high", "how": "", "impact": "", "repro": [], "fix": ""}
     (root / "findings.json").write_text(json.dumps({"note": "", "findings": [
         {"id": "BUG-008", "area": "session", "found": "2026-11-09",
-         "metrics": ["handshake_stalls", "handshake_stalls_of_10"], **blank},
+         "metrics": ["handshake_stalls", "handshake_stalls_of_10"], **({"fixed": fixed} if fixed else {}), **blank},
         {"id": "BUG-001", "area": "tutorial", "found": "2026-10-04", **blank},
+        {"id": "BUG-006", "area": "protocol", "found": "2026-10-04", "fixed": "2026-11-09", **blank},
     ]}), encoding="utf-8")
     return {f["id"]: f for f in build.collect(root)["findings"]}
 
@@ -55,9 +56,15 @@ def test_unseen_when_the_latest_live_run_recorded_no_stall(tmp_path):
     found = lab(tmp_path, [rec(PROBE, metrics=stalls(0, of_ten=True)), rec(CHAT)])
     assert (found["BUG-008"]["status"], found["BUG-008"]["seen"], found["BUG-008"]["tests"]) == ("unseen", 0, [])
     assert found["BUG-001"]["status"] == "untested", "a pinned finding keeps the xfail rule"
+    assert found["BUG-006"]["status"] == "fixed", "a fixed date closes a finding whose marker came off"
     assert "seen" not in found["BUG-001"]
 
 
 def test_a_pinned_xfail_with_the_id_counts_as_seen_too(tmp_path):
     f = lab(tmp_path, [rec(PROBE, "xfailed", "BUG-008: 1 of 10 never answered")])["BUG-008"]
     assert (f["status"], f["seen"], f["tests"]) == ("open", 0, [PROBE])
+
+
+def test_a_measured_finding_closed_by_hand_is_fixed_whatever_the_run_says(tmp_path):
+    found = lab(tmp_path, [rec(PROBE, metrics=stalls(2, of_ten=True))], fixed="2026-11-20")
+    assert (found["BUG-008"]["status"], found["BUG-008"]["seen"]) == ("fixed", 2)

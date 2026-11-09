@@ -1,5 +1,5 @@
 {
- "note": "Defects the suite found in SpireScape. Each is pinned by strict xfail tests carrying its id, so a fix turns them into XPASS failures until the marker is removed. An intermittent one (it has a `metrics` list) is measured instead: open when the latest live run saw it, unseen when it didn't.",
+ "note": "Defects the suite found in SpireScape. Each is pinned by strict xfail tests carrying its id, so a fix turns them into XPASS failures until the marker is removed; a fixed one keeps its write-up with a `fixed` date. An intermittent one (it has a `metrics` list) is measured instead: open when the latest live run saw it, unseen when it didn't.",
  "findings": [
   {
    "id": "BUG-001",
@@ -91,7 +91,8 @@
     "Send a malformed frame",
     "The close frame arrives at once, but the connection takes 10 s to end"
    ],
-   "fix": "Close or abort the socket once the close handshake completes on the server-initiated path."
+   "fix": "Close or abort the socket once the close handshake completes on the server-initiated path. Fixed on the server's main on 2026-11-09 (the reader keeps reading after its own close frame until the peer's arrives, then the WebSocket is disposed), on the box from 07:21 UTC that day; the local test passed against the fixed server, so its marker came off and it runs as a plain test.",
+   "fixed": "2026-11-09"
   },
   {
    "id": "BUG-007",
@@ -132,14 +133,17 @@
    "severity": "low",
    "area": "session",
    "found": "2026-11-09",
-   "how": "Reading the demo's box for BUG-008 showed the server's side of finished sessions still open hours later. Timing closes from outside: in 14 of 14, the server either answered the client's close frame and then left the connection open until the client gave up (9), or dropped the connection with no close frame at all (5). The local server does both halves of the close handshake at once, which is why the goodbye test had always passed: it had never run on the live target.",
-   "impact": "A patient client waits out its close timeout after every normal goodbye, and each finished session leaves a connection open on the server until the next restart. The suite's client already uses a 1 s close timeout for BUG-006, which is why this one stayed hidden.",
+   "how": "Reading the demo's box for BUG-008 showed the server's side of finished sessions still open hours later. Timing closes from outside, 24 from one machine: 17 times the server answered the client's close frame and then left the connection open until the client gave up, 7 times the connection dropped with no close frame at all; from GitHub's runner the first try got the proper close. The local server does both halves of the close handshake at once every time, which is why the goodbye test had always passed: it had never run on the live target.",
+   "impact": "A patient client usually waits out its close timeout after a normal goodbye, or sees the connection drop without a close frame, and each unfinished close leaves a connection open on the server until the next restart. The suite's client already uses a 1 s close timeout for BUG-006, which is why this one stayed hidden.",
    "repro": [
     "Connect to the live demo, log in, send a close frame",
     "The server's close frame arrives, then nothing: the connection is still open 10 s later",
     "Or the connection drops at once with no close frame"
    ],
-   "fix": "Close the socket once the close handshake completes on the client-initiated path too, the same fix as BUG-006. Pinned by test_a_client_that_says_goodbye_is_let_go_properly: a strict xfail on the live target only (xfail_live), a plain test on the local server."
+   "fix": "Dispose the WebSocket once the close handshake completes, on both sides' goodbye; on the box since 2026-11-09 07:21 UTC, when the server was pushed with that change. Measured by test_a_client_that_says_goodbye_is_let_go_properly each run: an unfinished close on live is filed under this id and counted, a proper one passes. An intermittent bug can't be pinned by a strict xfail, so this one is closed by hand (a fixed date) once the live runs stop seeing it.",
+   "metrics": [
+    "goodbye_unfinished"
+   ]
   }
  ]
 }
