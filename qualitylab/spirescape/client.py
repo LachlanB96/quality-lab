@@ -154,6 +154,12 @@ class GameClient:
         finally:
             self.closed.wait(5)
 
+    @property
+    def close_code(self) -> int | None:
+        """How the WebSocket ended: 1000 when the close handshake completed, 1006 when the connection dropped
+        without a close frame, None while it's open."""
+        return self._ws.protocol.close_code
+
     def __enter__(self) -> "GameClient":
         return self
 

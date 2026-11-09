@@ -63,6 +63,9 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item
     for item in items:
         if "local_only" in item.keywords:
             item.add_marker(skip)
+        live_bug = item.get_closest_marker("xfail_live")
+        if live_bug is not None:  # a bug the demo has and the local server doesn't: pinned on live, passing locally
+            item.add_marker(pytest.mark.xfail(strict=True, reason=live_bug.args[0]))
 
 
 @pytest.fixture(scope="session")
