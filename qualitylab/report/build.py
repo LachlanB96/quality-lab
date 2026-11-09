@@ -82,9 +82,19 @@ def collect(root: Path = ROOT) -> dict:
     runs = h.load_runs(root / "history" / "runs")
     targets = {t: shape_target(r) for t in ("local", "live") if (r := h.latest(runs, t))}
     findings = _load(root / "findings.json", {"findings": []})["findings"]
+    live = h.latest(runs, "live")
     for f in findings:  # status comes from the latest runs: still pinned by an xfail, or now passing
         pinned = [b for tgt in targets.values() for k, b in tgt["bugs"].items() if k == f["id"]]
         f["tests"] = sorted({tid for b in pinned for tid in b["tests"]})
+        if f.get("metrics"):
+            # an intermittent defect can't be pinned by a strict xfail: it's open when the latest live run saw it
+            # (a test recorded one of its metrics, or xfailed with its id) and "unseen" when that run didn't
+            seen = [(t["id"], mt["value"]) for t in (live["tests"] if live else [])
+                    for mt in t.get("metrics", []) if mt["name"] in f["metrics"] and mt["value"]]
+            f["tests"] = sorted(set(f["tests"]) | {tid for tid, _ in seen})
+            f["seen"] = int(sum(v for _, v in seen))
+            f["status"] = "open" if (pinned or seen) else "unseen"
+            continue
         f["status"] = "fixed" if any(b["fixed"] for b in pinned) else ("open" if pinned else "untested")
     review = _load(root / "review.json", {})
     distinct = sorted({t["id"] for tgt in targets.values() for t in tgt["tests"]})

@@ -20,10 +20,53 @@ from websockets.sync.client import ClientConnection, connect
 
 from . import messages as m
 from .messages import EntityKind
+from .server import health as healthz
 
 
 class WaitTimeout(AssertionError):
     """A wait_until that ran out of time. An AssertionError, so pytest reports it as a test failure."""
+
+
+# websockets.sync.client's wording when TCP and TLS are up but the server never answers the HTTP Upgrade
+UPGRADE_TIMEOUT_TEXT = "timed out while waiting for handshake response"
+
+
+class ConnectTimeout(Exception):
+    """GameClient couldn't open its WebSocket in time.
+
+    `phase` says where it stopped: "tcp/tls" (no connection, or no TLS session, within the timeout) or "upgrade"
+    (TCP and TLS came up, then the server never answered the HTTP Upgrade: BUG-008 on the live demo). `health`
+    is what /healthz said in the same moment, when the client was given a health_url, so the message itself
+    tells a dropped upgrade from a server that's down. `attempts` is how many connects ended this way in a row.
+    """
+
+    def __init__(self, url: str, timeout: float, elapsed: float, phase: str, health: str | None = None,
+                 attempts: int = 1) -> None:
+        self.url, self.timeout, self.elapsed, self.phase = url, timeout, elapsed, phase
+        self.health, self.attempts = health, attempts
+        super().__init__(self.describe())
+
+    def describe(self) -> str:
+        if self.phase == "upgrade":
+            what = f"TCP and TLS connected, then the WebSocket upgrade got no answer in {self.elapsed:.1f} s"
+        else:
+            what = f"no TCP/TLS connection within {self.timeout:.0f} s"
+        if self.attempts > 1:
+            what += f" ({self.attempts} attempts in a row)"
+        bits = [f"{self.url}: {what}"]
+        if self.health is not None:
+            bits.append(self.health)
+        return "; ".join(bits)
+
+
+def health_now(url: str, timeout: float = 5.0) -> str:
+    """What /healthz says right now, as a clause for a failure message."""
+    started = time.monotonic()
+    try:
+        answer = healthz(url, timeout)
+    except (OSError, ValueError) as e:  # ValueError: not an http(s) URL
+        return f"meanwhile /healthz did not answer in {time.monotonic() - started:.1f} s: {e!r}"
+    return f"meanwhile /healthz answered {answer!r} in {time.monotonic() - started:.2f} s"
 
 
 # Protocol coverage for the whole process: which message types every client sent and received.
@@ -70,9 +113,11 @@ class State:
 
 class GameClient:
     def __init__(self, url: str, *, connect_timeout: float = 15.0, close_timeout: float = 1.0,
-                 origin: str | None = None) -> None:
+                 origin: str | None = None, health_url: str | None = None) -> None:
         """close_timeout: how long to wait for the server to drop TCP after the close handshake. The
-        server never does (BUG-006), so the websockets default of 10 s would cost every disconnect 10 s."""
+        server never does (BUG-006), so the websockets default of 10 s would cost every disconnect 10 s.
+        health_url: when given, a connect that times out asks it what the server says at that moment, and
+        the ConnectTimeout carries the answer."""
         self.url = url
         self.state = State()
         self.closed = threading.Event()
@@ -80,9 +125,16 @@ class GameClient:
         self.decode_errors: list[str] = []
         self._cv = threading.Condition()
         self._stack = contextlib.ExitStack()
-        self._ws: ClientConnection = self._stack.enter_context(
-            connect(url, open_timeout=connect_timeout, close_timeout=close_timeout, max_size=m.MAX_FRAME * 2,
-                    origin=origin, compression=None))
+        started = time.perf_counter()
+        try:
+            self._ws: ClientConnection = self._stack.enter_context(
+                connect(url, open_timeout=connect_timeout, close_timeout=close_timeout, max_size=m.MAX_FRAME * 2,
+                        origin=origin, compression=None))
+        except TimeoutError as e:
+            phase = "upgrade" if str(e) == UPGRADE_TIMEOUT_TEXT else "tcp/tls"
+            raise ConnectTimeout(url, connect_timeout, time.perf_counter() - started, phase,
+                                 health_now(health_url) if health_url else None) from e
+        self.connected_in = time.perf_counter() - started  # seconds from the first packet to the open WebSocket
         self._reader = threading.Thread(target=self._read_loop, name="spirescape-reader", daemon=True)
         self._reader.start()
 
@@ -291,3 +343,29 @@ class GameClient:
 
     def messages(self, msg_type: type[m.Message] | None = None) -> Iterable[Received]:
         return self.read(lambda s: [r for r in s.log if msg_type is None or isinstance(r.msg, msg_type)])
+
+
+def open_client(url: str, *, retry_upgrade_stall: bool = False,
+                on_stall: Callable[[ConnectTimeout], None] | None = None, **kwargs) -> GameClient:
+    """A GameClient, with one more try when the upgrade stalled and the caller says that's a known cause there.
+
+    Only a ConnectTimeout in the "upgrade" phase is retried, and only once: on the live demo that's BUG-008, a
+    request the server never answers, and the next connection goes through. A TCP/TLS timeout, a refused
+    connection or a second stall in a row is raised as it is. `on_stall` sees the first stall, so the caller
+    can record it: a retry that leaves no trace would hide the bug.
+    """
+    try:
+        return GameClient(url, **kwargs)
+    except ConnectTimeout as e:
+        if not (retry_upgrade_stall and e.phase == "upgrade"):
+            raise
+        first = e
+    if on_stall is not None:
+        on_stall(first)
+    try:
+        return GameClient(url, **kwargs)
+    except ConnectTimeout as again:
+        if again.phase == "upgrade":
+            raise ConnectTimeout(again.url, again.timeout, again.elapsed, again.phase, again.health,
+                                 attempts=2) from again
+        raise

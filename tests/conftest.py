@@ -8,13 +8,14 @@ from __future__ import annotations
 
 import os
 import uuid
+import warnings
 from types import SimpleNamespace
 
 import pytest
 from hypothesis import HealthCheck, settings
 
 from qualitylab.spirescape import server as srv
-from qualitylab.spirescape.client import GameClient
+from qualitylab.spirescape.client import ConnectTimeout, GameClient, open_client
 from qualitylab.spirescape.play import Budget
 
 pytest_plugins = ["qualitylab.results"]
@@ -26,6 +27,11 @@ settings.register_profile("live", deadline=None, max_examples=15,
 
 LOCAL_TICK_MS = 20
 LOCAL_SEED = 7
+
+
+class HandshakeStall(UserWarning):
+    """A connect the live demo never answered (BUG-008) was tried once more. Raised so the run's warnings
+    summary shows every retry."""
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -84,19 +90,29 @@ def local_server(request: pytest.FixtureRequest, target) -> srv.LocalServer:
 
 
 @pytest.fixture
-def connect(request: pytest.FixtureRequest, target):
+def connect(request: pytest.FixtureRequest, target, record_property):
     """Factory: connect(name) -> a logged-in GameClient.
 
     After the test every client is closed, and two checks run on what happened during it: every frame
     the server sent decoded strictly, and (locally) the server logged no exception. So every test that
     plays the game is also a protocol-contract and server-health check.
+
+    On the live demo a connect whose WebSocket upgrade is never answered (BUG-008) is tried once more, and
+    the stall is recorded on the test as a metric and raised as a warning, so a retry never passes unseen.
+    Nothing else is retried: a second stall, a TCP/TLS timeout or a refused connection fails the test with
+    the cause in the message, /healthz's answer from the same moment included.
     """
     opened: list[GameClient] = []
     server = getattr(request.config, "_ql_local_server", None)
     errors_before = len(server.errors) if server else 0
 
+    def _stalled(stall: ConnectTimeout) -> None:
+        record_property("metric", {"name": "handshake_stalls", "value": 1, "unit": "stalls"})
+        warnings.warn(f"BUG-008: {stall}. Connect retried once.", HandshakeStall)
+
     def _connect(name: str | None = None, *, login: bool = True) -> GameClient:
-        c = GameClient(target.ws_url)
+        c = open_client(target.ws_url, health_url=target.health_url, retry_upgrade_stall=target.is_live,
+                        on_stall=_stalled)
         opened.append(c)
         if login:
             c.login(name or unique_name())

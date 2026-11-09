@@ -28,6 +28,8 @@ Registered in `pyproject.toml` with `--strict-markers`, so a typo in a marker na
 
 `xfail_strict = true` in `pyproject.toml`. A known bug is a test that asserts the *right* behaviour and is marked xfail with the bug id in the reason. While the bug exists, the test fails and the run stays green. When someone fixes it, the test passes, and strict mode turns that XPASS into a failure. Fixes can't go unnoticed, and the marker has to be removed on purpose. The report reads the `BUG-nnn` ids from the reasons to build the bug list.
 
+**One that can't be strict.** BUG-008 is intermittent: a share of WebSocket upgrades to the live demo are never answered. A strict xfail would XPASS on any night it didn't happen, so `test_every_upgrade_is_answered` in `test_session.py` measures instead: ten connects with a 5 s limit, the stalls counted as a metric, and `pytest.xfail` with the bug's id only when the live target stalled. Its status on the page is whether the latest live run saw it, never "fixed" on its own.
+
 ## Waiting without sleeping
 
 There's no `time.sleep` in a test. `GameClient.wait_until` in `qualitylab/spirescape/client.py` waits on a `threading.Condition` that the reader thread notifies on every message, so a wait ends the moment the state is right. When it times out it says what it was waiting for, the current objective and the last few server notices, which is usually enough to see what went wrong without rerunning.
@@ -37,6 +39,8 @@ Timeouts are counted in server ticks (`Budget.ticks` in `play.py`), so the same 
 ## Shared environments
 
 On the live demo the world is shared with real players. Every step that uses a rock, tree, chicken or rat goes through `play.interact`, which watches for the server's "someone got there first" notices, or for an action that started and was then cancelled, and retries with another one. That's not hiding flakiness: the retry only fires on a specific, expected race, and anything else still fails. The combat tests also share an `xdist_group("rats")` and run with `--dist loadgroup`, so they don't fight each other for the two rats.
+
+The other retry is a connect the live demo never answers (BUG-008). `connect` in `conftest.py` opens through `open_client`, which tries once more, on the live target only and only when `ConnectTimeout.phase` is `upgrade`: TCP and TLS came up, the HTTP Upgrade got no reply, and what `/healthz` said in the same moment is in the message. The stall is recorded on the test as a metric and raised as a warning, so the retry never passes unseen. A second stall, a TCP/TLS timeout or a refused connection fails the test as it is.
 
 ## Hypothesis
 

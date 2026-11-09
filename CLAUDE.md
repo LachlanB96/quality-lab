@@ -40,7 +40,7 @@ The test code is drafted with Claude. Since October 2026 the suite runs with no 
 - `--target local` (default): builds the server from a SpireScape checkout named by `SPIRESCAPE_REPO`, one server per xdist worker, 20 ms tick, seed 7. Runs everything.
 - `--target live`: the public demo at its real 600 ms tick. Skips `local_only` tests (hostile input, seeded or time-skipping checks). Use `--dist loadgroup`: combat tests share an `xdist_group` because the map has two rats.
 
-Known bugs are `xfail(strict=True)` with a `BUG-nnn` id in the reason, so a fix shows up as an XPASS failure and the marker has to be removed on purpose.
+Known bugs are `xfail(strict=True)` with a `BUG-nnn` id in the reason, so a fix shows up as an XPASS failure and the marker has to be removed on purpose. BUG-008 is the exception: intermittent (some upgrades to the live demo are never answered), so `test_every_upgrade_is_answered` measures it and xfails imperatively on live when it's seen, `connect` tries a stalled connect once more on live and records it (a metric and a warning), and the page shows the finding as seen or unseen from its `metrics` list.
 
 ## Commands
 

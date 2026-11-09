@@ -5,7 +5,7 @@ import pytest
 
 from qualitylab.spirescape import messages as m
 from qualitylab.spirescape import server as srv
-from qualitylab.spirescape.client import GameClient
+from qualitylab.spirescape.client import ConnectTimeout, GameClient
 from qualitylab.spirescape.messages import EntityKind
 
 pytestmark = [pytest.mark.integration, pytest.mark.area("session")]
@@ -109,3 +109,26 @@ def test_health_endpoint_counts_players(target, connect):
     status = srv.health(target.health_url)
     assert status.startswith("ok ") and status.endswith(" online")
     assert int(status.split()[1]) >= 1
+
+
+def test_every_upgrade_is_answered(target, record_property):
+    """Ten fresh connections, 5 s each. An answered upgrade takes well under a second from anywhere, and one
+    the server drops never answers at all (BUG-008 on the live demo, measured out to 90 s), so 5 s tells them
+    apart. Records how many stalled and the slowest answer. On the live target a stall is the known bug: an
+    xfail with its id, so the run stays green and the bug stays on the page. Anywhere else it's a failure."""
+    answered_ms, stalls, last = [], 0, None
+    for _ in range(10):
+        try:
+            with GameClient(target.ws_url, connect_timeout=5, health_url=target.health_url) as c:
+                answered_ms.append(c.connected_in * 1000)
+        except ConnectTimeout as e:
+            if e.phase != "upgrade":
+                raise
+            stalls, last = stalls + 1, e
+    record_property("metric", {"name": "handshake_stalls_of_10", "value": stalls, "unit": "stalls"})
+    if answered_ms:
+        record_property("metric", {"name": "upgrade_max_ms", "value": round(max(answered_ms), 1), "unit": "ms"})
+    if stalls and target.is_live:
+        pytest.xfail(f"BUG-008: {stalls} of 10 WebSocket upgrades never answered; the last: {last}")
+    assert stalls == 0, f"{stalls} of 10 WebSocket upgrades never answered; the last: {last}"
+    assert max(answered_ms) < (3000 if target.is_live else 1000), f"slowest answered upgrade {max(answered_ms):.0f} ms"
