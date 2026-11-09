@@ -1,0 +1,655 @@
+{
+ "generated": "2026-11-09T14:51:48+00:00",
+ "title": "Email triage experiment: reply-confirm-line",
+ "summary": "50 made-up emails, each classified 8 times at each cut (the first 600 characters) by Claude Haiku through the dashboard's own classify.llm_verdicts. Before: the first 600 characters of each body, as the dashboard sends today.",
+ "legend": "Calendar entries that shouldn't exist: 0 before, 0 after (across all repeats). Rates count only the cases where a field applies: dates caught is over emails that need a calendar entry.",
+ "experiment": "reply-confirm-line",
+ "classifier": {
+  "commit": "6e7f826"
+ },
+ "baseline": "600",
+ "candidate": "600",
+ "model": "haiku",
+ "repeats": 8,
+ "cases": 50,
+ "metrics": [
+  {
+   "key": "category",
+   "label": "Category right"
+  },
+  {
+   "key": "job_status",
+   "label": "Job status right"
+  },
+  {
+   "key": "event_recall",
+   "label": "Dates caught"
+  },
+  {
+   "key": "event_precision",
+   "label": "Calendar entries right"
+  },
+  {
+   "key": "urgent",
+   "label": "Urgent flag right"
+  },
+  {
+   "key": "reply",
+   "label": "Reply expected right"
+  },
+  {
+   "key": "consistency",
+   "label": "Same answer every repeat"
+  }
+ ],
+ "variants": [
+  {
+   "name": "600",
+   "body_chars": 600,
+   "chars_sent": 279.2,
+   "scores": {
+    "reply_steady": 0.86,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 0.997,
+    "reply": 0.9475,
+    "event_recall": 0.55,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.56
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 0.975,
+     "reply_steady": 0.8
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 0.9688,
+     "reply_steady": 0.75
+    }
+   },
+   "tokens": {
+    "calls": 40,
+    "unmetered": 0,
+    "input_per_mail": 2671.2,
+    "input_per_call": 26712,
+    "cache_read_share": 0.955,
+    "output_per_mail": 392.7,
+    "usd_per_1000_mails": 0.246
+   },
+   "calibration": {
+    "entries": 92,
+    "unrated": 0,
+    "cases": 14,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 7,
+      "certainty": 37.9,
+      "right": 1.0
+     },
+     {
+      "band": "60-69",
+      "entries": 1,
+      "certainty": 60.0,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 2,
+      "certainty": 70.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 14,
+      "certainty": 83.6,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 20,
+      "certainty": 90.5,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 48,
+      "certainty": 95.1,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0413,
+    "ece": 0.1293,
+    "certainty": 87.1,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.625,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 0.875
+    },
+    "work-screen-ats-long": {
+     "event_found": 0.0,
+     "reply": 0.625
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.625,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 0.875
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 0.0,
+     "reply": 0.5
+    },
+    "work-panel-interview": {
+     "event_found": 0.0,
+     "reply": 0.5
+    },
+    "work-assessment-day": {
+     "event_found": 0.0,
+     "reply": 0.5
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 0.5
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.875,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.875,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  }
+ ],
+ "triage": [
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-long (before): The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-relative (before): The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-screen-ats-long (before): The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-invite-teams (before): The deciding text ends at character 1302, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-panel-interview (before): The deciding text ends at character 1572, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-assessment-day (before): The deciding text ends at character 2222, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-final-onsite (before): The deciding text ends at character 3237, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-confirmed-zoom (before): The deciding text ends at character 4228, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-invite-short (before): The instructions never say what to do when a later email in the same batch changes the time of an earlier invite, so the model chose to drop the event instead of lowering certainty."
+  }
+ ],
+ "misses": {
+  "600": [
+   {
+    "id": "work-invite-ats-long",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-13",
+      "time": "11:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "technical interview invite for Quality Engineer; no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "advanced to interview stages for Test Automation Engineer; no booked time in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-screen-ats-long",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": [
+      "screening",
+      "interview"
+     ],
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-05",
+      "time": "09:15"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "phone screen with recruiter is the next step; no time given",
+     "jobStatus": "screening",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-teams",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-09",
+      "time": "14:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to next interview stage for Senior QA Engineer, no time given",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1302, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-panel-interview",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-12",
+      "time": "10:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "shortlisted for panel interview for Test Lead, no time given",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1572, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-assessment-day",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-15",
+      "time": "09:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to assessment day for QA Engineer, no date given",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 2222, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to final-stage half-day interview, no date given",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "interview for Platform QA Engineer confirmed, date not in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-short",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-07",
+      "time": "14:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "video interview invite for Wed 7 Oct; superseded by the change-of-time email (11), so no calendar entry",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions never say what to do when a later email in the same batch changes the time of an earlier invite, so the model chose to drop the event instead of lowering certainty."
+   }
+  ]
+ }
+}

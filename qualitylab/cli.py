@@ -3,7 +3,7 @@
     ql run --target local|live [--workers 4] [--label why]   one recorded run
     ql build [--out build/]                                   the report page from history
     ql analyse                                                Claude reviews the latest runs (see analyst.py)
-    ql eval email                                             the email-triage evals (see evals/)
+    ql eval email [--chars 600 full] [--repeats 2] [--experiment name]   the email-triage evals (see evals/)
     ql review <test-id-substring> --status reviewed|rewritten [--note ...]
     ql suggestion <id> --status accepted|rejected|done [--note ...]
     ql nightly                                                run local + live, eval, analyse, build
@@ -55,7 +55,8 @@ def cmd_analyse(args: argparse.Namespace) -> int:
 
 def cmd_eval(args: argparse.Namespace) -> int:
     from .evals import email_triage
-    return email_triage.main(repeats=args.repeats, variants=args.variants)
+    return email_triage.main(repeats=args.repeats, chars=email_triage.parse_chars(args.chars),
+                             experiment=args.experiment)
 
 
 def _edit_json(path: Path, update) -> None:
@@ -116,7 +117,7 @@ def cmd_nightly(args: argparse.Namespace) -> int:
     codes = [cmd_run(argparse.Namespace(target="local", workers=4, label="nightly", pytest_args=[])),
              cmd_run(argparse.Namespace(target="live", workers=4, label="nightly", pytest_args=[]))]
     if not args.no_eval:
-        codes.append(cmd_eval(argparse.Namespace(repeats=2, variants=["production", "full-body"])))
+        codes.append(cmd_eval(argparse.Namespace(repeats=2, chars=["600", "full"], experiment="")))
     if not args.no_ai:
         codes.append(cmd_analyse(argparse.Namespace(model="sonnet")))
     codes.append(cmd_build(argparse.Namespace(out=str(ROOT / "build"))))
@@ -146,7 +147,11 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("eval", help="AI evals")
     e.add_argument("suite", choices=("email",))
     e.add_argument("--repeats", type=int, default=2)
-    e.add_argument("--variants", nargs="+", default=["production", "full-body"])
+    e.add_argument("--chars", nargs="+", default=["600", "full"],
+                   help="the cuts to compare, the first against the last: characters of each body, or full")
+    e.add_argument("--experiment", default="",
+                   help="names a run that isn't the production classifier's record (a branch of classify.py, say): "
+                        "it's kept in history/evals/experiments, off the page")
     e.set_defaults(fn=cmd_eval)
 
     rv = sub.add_parser("review", help="mark tests as reviewed by the owner")
