@@ -22,13 +22,13 @@ Where each pytest technique lives, and why it's there. File and function names r
 
 ## Markers
 
-Registered in `pyproject.toml` with `--strict-markers`, so a typo in a marker name is an error, not a silently ignored mark. Every test gets a layer marker (module-level `pytestmark = [...]`) and an `area("...")` marker with an argument. `local_only` tests are skipped on the live target by `pytest_collection_modifyitems` in `conftest.py`, with the reason in the skip message. The same hook turns `xfail_live(reason)` into a strict xfail on the live target only: a bug the demo has and the local server doesn't (BUG-009, the close handshake), so the test is pinned where the bug is and has to pass where it isn't.
+Registered in `pyproject.toml` with `--strict-markers`, so a typo in a marker name is an error, not a silently ignored mark. Every test gets a layer marker (module-level `pytestmark = [...]`) and an `area("...")` marker with an argument. `local_only` tests are skipped on the live target by `pytest_collection_modifyitems` in `conftest.py`, with the reason in the skip message.
 
 ## Known bugs as strict xfails
 
 `xfail_strict = true` in `pyproject.toml`. A known bug is a test that asserts the *right* behaviour and is marked xfail with the bug id in the reason. While the bug exists, the test fails and the run stays green. When someone fixes it, the test passes, and strict mode turns that XPASS into a failure. Fixes can't go unnoticed, and the marker has to be removed on purpose. The report reads the `BUG-nnn` ids from the reasons to build the bug list.
 
-**One that can't be strict.** BUG-008 is intermittent: a share of WebSocket upgrades to the live demo are never answered. A strict xfail would XPASS on any night it didn't happen, so `test_every_upgrade_is_answered` in `test_session.py` measures instead: ten connects with a 5 s limit, the stalls counted as a metric, and `pytest.xfail` with the bug's id only when the live target stalled. Its status on the page is whether the latest live run saw it, never "fixed" on its own.
+**Two that can't be strict.** BUG-008 is intermittent: a share of WebSocket upgrades to the live demo are never answered. A strict xfail would XPASS on any night it didn't happen, so `test_every_upgrade_is_answered` in `test_session.py` measures instead: ten connects with a 5 s limit, the stalls counted as a metric, and `pytest.xfail` with the bug's id only when the live target stalled. BUG-009 works the same way: `test_a_client_that_says_goodbye_is_let_go_properly` records how the close ended and files an unfinished one under the id on live. Their status on the page is whether the latest live run saw them, and they're closed by hand, with a `fixed` date in `findings.json`, once the live runs stop seeing them.
 
 ## Waiting without sleeping
 

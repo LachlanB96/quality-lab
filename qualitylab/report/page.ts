@@ -440,7 +440,8 @@ function renderBugs(): void {
   const wrap = $("bug-cards");
   wrap.replaceChildren();
   for (const f of D.findings) {
-    const state = f.status === "fixed" ? ["fixed", "Fixed, test now passes"]
+    const state = f.status === "fixed" && f.seen != null ? ["fixed", "Fixed, no longer seen"]
+      : f.status === "fixed" ? ["fixed", "Fixed, test now passes"]
       : f.status === "open" && f.seen ? ["known", `Open, seen ${f.seen} ${f.seen === 1 ? "time" : "times"} in the latest live run`]
       : f.status === "open" ? ["known", "Open, pinned by xfail"]
       : f.status === "unseen" ? ["skip", "Not seen in the latest live run"]

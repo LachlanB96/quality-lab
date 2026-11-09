@@ -44,5 +44,4 @@ markers = [
   "ui: the WebGL client in a real browser",
   "local_only: needs the local server (seeded, fast tick, or disruptive); skipped on live",
   "slow: long on the live target",
-  "xfail_live(reason): a bug of the live demo only: a strict xfail with this reason there, a test that must pass locally",
 ]
