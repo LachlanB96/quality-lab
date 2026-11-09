@@ -1,0 +1,3105 @@
+{
+ "generated": "2026-11-09T15:09:07+00:00",
+ "title": "Email triage: how much of each body to send",
+ "summary": "50 made-up emails, each classified 5 times at each cut (the first 600, 1,000, 1,500, 2,000, 3,000 and 4,000 characters and the whole body) by Claude Haiku through the dashboard's own classify.llm_verdicts. Before: the first 600 characters of each body, as the dashboard sends today. After: the whole body.",
+ "legend": "Calendar entries that shouldn't exist: 0 before, 0 after (across all repeats). Rates count only the cases where a field applies: dates caught is over emails that need a calendar entry.",
+ "experiment": null,
+ "classifier": {
+  "commit": "2c16155"
+ },
+ "baseline": "600",
+ "candidate": "full",
+ "model": "haiku",
+ "repeats": 5,
+ "cases": 50,
+ "metrics": [
+  {
+   "key": "category",
+   "label": "Category right"
+  },
+  {
+   "key": "job_status",
+   "label": "Job status right"
+  },
+  {
+   "key": "event_recall",
+   "label": "Dates caught"
+  },
+  {
+   "key": "event_precision",
+   "label": "Calendar entries right"
+  },
+  {
+   "key": "urgent",
+   "label": "Urgent flag right"
+  },
+  {
+   "key": "reply",
+   "label": "Reply expected right"
+  },
+  {
+   "key": "consistency",
+   "label": "Same answer every repeat"
+  }
+ ],
+ "variants": [
+  {
+   "name": "600",
+   "body_chars": 600,
+   "chars_sent": 279.2,
+   "scores": {
+    "reply_steady": 0.88,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 1.0,
+    "reply": 0.972,
+    "event_recall": 0.55,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.62
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 0.96,
+     "reply_steady": 0.8
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2667.4,
+    "input_per_call": 26674,
+    "cache_read_share": 0.972,
+    "output_per_mail": 386.2,
+    "usd_per_1000_mails": 0.234
+   },
+   "calibration": {
+    "entries": 59,
+    "unrated": 0,
+    "cases": 14,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 3,
+      "certainty": 48.3,
+      "right": 1.0
+     },
+     {
+      "band": "60-69",
+      "entries": 4,
+      "certainty": 61.2,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 1,
+      "certainty": 75.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 6,
+      "certainty": 85.0,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 14,
+      "certainty": 90.3,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 31,
+      "certainty": 95.5,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.031,
+    "ece": 0.119,
+    "certainty": 88.1,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 0.8
+    },
+    "work-screen-ats-long": {
+     "event_found": 0.0,
+     "reply": 0.6
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.4,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-panel-interview": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-assessment-day": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "1000",
+   "body_chars": 1000,
+   "chars_sent": 374.1,
+   "scores": {
+    "reply_steady": 0.88,
+    "category": 1.0,
+    "job_status": 0.996,
+    "urgent": 0.9951,
+    "reply": 0.976,
+    "event_recall": 0.64,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.58
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 0.96,
+     "reply_steady": 0.8
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 0.95,
+     "reply_steady": 0.75
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2697.0,
+    "input_per_call": 26970,
+    "cache_read_share": 0.907,
+    "output_per_mail": 392.5,
+    "usd_per_1000_mails": 0.271
+   },
+   "calibration": {
+    "entries": 69,
+    "unrated": 0,
+    "cases": 16,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 10,
+      "certainty": 45.5,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 1,
+      "certainty": 70.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 9,
+      "certainty": 83.9,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 14,
+      "certainty": 90.3,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 35,
+      "certainty": 95.3,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0518,
+    "ece": 0.1477,
+    "certainty": 85.2,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 0.8
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.4,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 0.8
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-panel-interview": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-assessment-day": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "1500",
+   "body_chars": 1500,
+   "chars_sent": 462.6,
+   "scores": {
+    "reply_steady": 1.0,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 1.0,
+    "reply": 1.0,
+    "event_recall": 0.75,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.66
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2725.0,
+    "input_per_call": 27250,
+    "cache_read_share": 0.969,
+    "output_per_mail": 421.6,
+    "usd_per_1000_mails": 0.254
+   },
+   "calibration": {
+    "entries": 80,
+    "unrated": 0,
+    "cases": 19,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 7,
+      "certainty": 45.0,
+      "right": 1.0
+     },
+     {
+      "band": "60-69",
+      "entries": 2,
+      "certainty": 60.0,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 1,
+      "certainty": 70.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 8,
+      "certainty": 83.1,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 26,
+      "certainty": 90.3,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 36,
+      "certainty": 95.2,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0388,
+    "ece": 0.1318,
+    "certainty": 86.8,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 1.0
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-panel-interview": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-assessment-day": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "2000",
+   "body_chars": 2000,
+   "chars_sent": 518.3,
+   "scores": {
+    "reply_steady": 0.96,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 1.0,
+    "reply": 0.992,
+    "event_recall": 0.81,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.78
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2742.8,
+    "input_per_call": 27428,
+    "cache_read_share": 0.982,
+    "output_per_mail": 424.3,
+    "usd_per_1000_mails": 0.249
+   },
+   "calibration": {
+    "entries": 84,
+    "unrated": 0,
+    "cases": 19,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 9,
+      "certainty": 44.4,
+      "right": 1.0
+     },
+     {
+      "band": "60-69",
+      "entries": 1,
+      "certainty": 60.0,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 2,
+      "certainty": 70.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 8,
+      "certainty": 83.9,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 21,
+      "certainty": 90.6,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 43,
+      "certainty": 95.4,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0442,
+    "ece": 0.1338,
+    "certainty": 86.6,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 1.0
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-panel-interview": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-day": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "3000",
+   "body_chars": 3000,
+   "chars_sent": 585.3,
+   "scores": {
+    "reply_steady": 0.98,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 1.0,
+    "reply": 0.996,
+    "event_recall": 0.76,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.72
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2763.8,
+    "input_per_call": 27638,
+    "cache_read_share": 0.98,
+    "output_per_mail": 415.0,
+    "usd_per_1000_mails": 0.245
+   },
+   "calibration": {
+    "entries": 78,
+    "unrated": 0,
+    "cases": 20,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 8,
+      "certainty": 43.8,
+      "right": 1.0
+     },
+     {
+      "band": "70-79",
+      "entries": 1,
+      "certainty": 75.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 4,
+      "certainty": 83.2,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 28,
+      "certainty": 90.6,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 37,
+      "certainty": 95.4,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0395,
+    "ece": 0.1253,
+    "certainty": 87.5,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.4,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 1.0
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-panel-interview": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-day": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-final-onsite": {
+     "event_found": 0.0,
+     "reply": 0.8
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.2,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.2,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "4000",
+   "body_chars": 4000,
+   "chars_sent": 632.9,
+   "scores": {
+    "reply_steady": 1.0,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 1.0,
+    "reply": 1.0,
+    "event_recall": 0.87,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.7
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2779.2,
+    "input_per_call": 27792,
+    "cache_read_share": 0.979,
+    "output_per_mail": 413.1,
+    "usd_per_1000_mails": 0.245
+   },
+   "calibration": {
+    "entries": 89,
+    "unrated": 0,
+    "cases": 21,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 8,
+      "certainty": 43.8,
+      "right": 1.0
+     },
+     {
+      "band": "60-69",
+      "entries": 1,
+      "certainty": 60.0,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 8,
+      "certainty": 85.0,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 20,
+      "certainty": 90.8,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 52,
+      "certainty": 95.2,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0359,
+    "ece": 0.1174,
+    "certainty": 88.3,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 1.0
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.6,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-panel-interview": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-day": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-final-onsite": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-confirmed-zoom": {
+     "event_found": 0.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  },
+  {
+   "name": "full",
+   "body_chars": null,
+   "chars_sent": 645.0,
+   "scores": {
+    "reply_steady": 0.96,
+    "category": 1.0,
+    "job_status": 1.0,
+    "urgent": 0.9951,
+    "reply": 0.992,
+    "event_recall": 0.93,
+    "event_precision": 1.0,
+    "false_entries": 0,
+    "unanswered": 0,
+    "consistency": 0.66
+   },
+   "tags": {
+    "automated-no-reply": {
+     "cases": 5,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    },
+    "confirm-by-reply": {
+     "cases": 4,
+     "reply": 1.0,
+     "reply_steady": 1.0
+    }
+   },
+   "tokens": {
+    "calls": 25,
+    "unmetered": 0,
+    "input_per_mail": 2783.6,
+    "input_per_call": 27836,
+    "cache_read_share": 0.979,
+    "output_per_mail": 398.4,
+    "usd_per_1000_mails": 0.238
+   },
+   "calibration": {
+    "entries": 95,
+    "unrated": 0,
+    "cases": 21,
+    "bands": [
+     {
+      "band": "0-59",
+      "entries": 7,
+      "certainty": 48.6,
+      "right": 1.0
+     },
+     {
+      "band": "80-89",
+      "entries": 10,
+      "certainty": 85.1,
+      "right": 1.0
+     },
+     {
+      "band": "90-94",
+      "entries": 31,
+      "certainty": 90.6,
+      "right": 1.0
+     },
+     {
+      "band": "95-100",
+      "entries": 47,
+      "certainty": 95.7,
+      "right": 1.0
+     }
+    ],
+    "brier": 0.0261,
+    "ece": 0.1057,
+    "certainty": 89.4,
+    "right": 1.0
+   },
+   "per_case": {
+    "work-invite-short": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-relative": {
+     "event_found": 0.4,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-ats-slot": {
+     "reply": 1.0
+    },
+    "work-screen-ats-long": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 0.8
+    },
+    "work-reject-short": {
+     "reply": 1.0
+    },
+    "work-reject-long": {
+     "reply": 1.0
+    },
+    "work-ack": {
+     "reply": 1.0
+    },
+    "work-offer": {
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-cold": {
+     "reply": 1.0
+    },
+    "work-viewed": {
+     "reply": 1.0
+    },
+    "work-reschedule": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-deadline": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 0.8
+    },
+    "work-perth-time": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-job-alert": {
+     "reply": 1.0
+    },
+    "work-tips-webinar": {
+     "reply": 1.0
+    },
+    "sec-code": {
+     "reply": 1.0
+    },
+    "sec-new-signin": {
+     "reply": 1.0
+    },
+    "sec-breach": {
+     "reply": 1.0
+    },
+    "sec-password-changed": {
+     "reply": 1.0
+    },
+    "fin-receipt": {
+     "reply": 1.0
+    },
+    "fin-bill-due": {
+     "reply": 1.0
+    },
+    "fin-overdue": {
+     "reply": 1.0
+    },
+    "fin-statement": {
+     "reply": 1.0
+    },
+    "fin-refund": {
+     "reply": 1.0
+    },
+    "rel-tool": {
+     "reply": 1.0
+    },
+    "rel-github": {
+     "reply": 1.0
+    },
+    "mkt-sale": {
+     "reply": 1.0
+    },
+    "mkt-webinar": {
+     "reply": 1.0
+    },
+    "mkt-newsletter": {
+     "reply": 1.0
+    },
+    "mkt-tickets": {
+     "reply": 1.0
+    },
+    "per-dinner": {
+     "reply": 1.0
+    },
+    "per-dentist": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-delivery-slot": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-photos": {
+     "reply": 1.0
+    },
+    "per-inspection": {
+     "reply": 1.0
+    },
+    "per-flight": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-invite-teams": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-panel-interview": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-assessment-day": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-final-onsite": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-confirmed-zoom": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "work-recruiter-long": {
+     "reply": 1.0
+    },
+    "mkt-newsletter-long": {
+     "reply": 1.0
+    },
+    "rel-tool-long": {
+     "reply": 1.0
+    },
+    "per-hairdresser": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-vet": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-restaurant": {
+     "event_found": 1.0,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-physio-link": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    },
+    "per-car-service": {
+     "event_found": 0.8,
+     "event_right": 1.0,
+     "reply": 1.0
+    }
+   }
+  }
+ ],
+ "triage": [
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-long (before): The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-invite-ats-relative (before): The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-screen-ats-long (before): The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-invite-teams (before): The deciding text ends at character 1302, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-panel-interview (before): The deciding text ends at character 1572, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-assessment-day (before): The deciding text ends at character 2222, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-final-onsite (before): The deciding text ends at character 3237, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "product issue",
+   "text": "work-confirmed-zoom (before): The deciding text ends at character 4228, but the classifier only sends the first 600, so the model never saw it."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-invite-short (before): The email has an explicit date and time, but the classifier dropped it because it clashed with another email in the batch, and the instructions never say how to treat conflicting or related emails."
+  },
+  {
+   "kind": "prompt gap",
+   "text": "work-reschedule (before): The instructions say a time that might still move gets lower certainty rather than null, but they don't say what to do when a reschedule asks for confirmation and clashes with another email, so the model chose null."
+  },
+  {
+   "kind": "rubric gap",
+   "text": "work-invite-ats-relative (after): Received on Friday 2 Oct, 'next Thursday' could mean 8 or 15 Oct, and the instructions say to return null when in doubt, so the gold's confident 8 Oct is arguable."
+  },
+  {
+   "kind": "rubric gap",
+   "text": "work-confirmed-zoom (after): The interview is 20 days away and the instructions put 'appointment confirmations further out' under important, so IMPORTANT is defensible even though 'interview invitations' are listed under super."
+  }
+ ],
+ "misses": {
+  "600": [
+   {
+    "id": "work-invite-ats-long",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-13",
+      "time": "11:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "technical interview invite from Harbourline; no date given in the visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1113, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "advanced to next stage: hiring manager chat, pair session, final chat; no dates yet",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 933, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-screen-ats-long",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": [
+      "screening",
+      "interview"
+     ],
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-05",
+      "time": "09:15"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to a recruiter phone screen; the visible text gives no time, and they need to arrange it",
+     "jobStatus": "screening",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 798, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-teams",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-09",
+      "time": "14:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to next interview stage for Senior QA Engineer",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1302, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-panel-interview",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-12",
+      "time": "10:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "shortlisted for panel interview for Test Lead",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1572, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-assessment-day",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-15",
+      "time": "09:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to assessment day for QA Engineer role",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 2222, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to final-stage interview at Pademelon Labs",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "interview for Platform QA Engineer confirmed",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 600, so the model never saw it."
+   },
+   {
+    "id": "work-invite-short",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-07",
+      "time": "14:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "video interview invite; Wed 7 Oct 2:30pm conflicts with #11's interview move, so not calendared",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The email has an explicit date and time, but the classifier dropped it because it clashed with another email in the batch, and the instructions never say how to treat conflicting or related emails."
+   },
+   {
+    "id": "work-reschedule",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-14",
+      "time": "15:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "asks if the proposed Wed 14 Oct 3pm time works; not settled and conflicts with #0",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions say a time that might still move gets lower certainty rather than null, but they don't say what to do when a reschedule asks for confirmation and clashes with another email, so the model chose null."
+   }
+  ],
+  "1000": [
+   {
+    "id": "work-invite-ats-long",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-13",
+      "time": "11:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "technical interview invite for Quality Engineer, no date given in email",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1113, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-invite-teams",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-09",
+      "time": "14:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to first-stage interview for Senior QA Engineer; no-reply sender, no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1302, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-panel-interview",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-12",
+      "time": "10:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "shortlisted for panel interview for Test Lead; no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1572, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-assessment-day",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-15",
+      "time": "09:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to assessment day for QA Engineer; no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 2222, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to final-stage interview for Senior Test Automation Engineer; no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "interview confirmed for Platform QA Engineer; no date in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 1000, so the model never saw it."
+   },
+   {
+    "id": "work-reschedule",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-14",
+      "time": "15:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "proposes moving interview to Wed 14 Oct 3pm, conflicts with email 0; needs confirmation",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "judge",
+    "reason": "The instructions say a plan not yet settled gets a lower certainty rather than null, and the email clearly states the new interview time of Wed 14 Oct 3pm, so the event should have been extracted."
+   },
+   {
+    "id": "per-physio-link",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Personal",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "urgent": false,
+     "event": {
+      "date": "2026-10-13",
+      "time": "07:30"
+     }
+    },
+    "got": {
+     "category": "Personal",
+     "flags": [],
+     "via": "llm",
+     "reason": "physio appointment reminder for 13 Oct 2026, already past as of today (2026-11-10); no-reply automated",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions say to resolve dates against the received date but never say whether to skip an appointment that is already past on the day of classification, so the model dropped it by guessing."
+   },
+   {
+    "id": "per-car-service",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Personal",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "urgent": false,
+     "event": {
+      "date": "2026-10-09",
+      "time": "08:00"
+     }
+    },
+    "got": {
+     "category": "Personal",
+     "flags": [],
+     "via": "llm",
+     "reason": "car service booking for Fri 9 Oct 2026, already past as of today (2026-11-10); automated, no reply needed",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions never say what to do with a booking whose date has passed relative to today's date, and the model dropped this one as past even though it was future at the received date."
+   }
+  ],
+  "1500": [
+   {
+    "id": "work-panel-interview",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-12",
+      "time": "10:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "shortlisted for panel interview for Test Lead; date not in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 1572, but the classifier only sends the first 1500, so the model never saw it."
+   },
+   {
+    "id": "work-assessment-day",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-15",
+      "time": "09:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invitation to assessment day for QA Engineer; date not in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 2222, but the classifier only sends the first 1500, so the model never saw it."
+   },
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invitation to final interview stage for Senior Test Automation Engineer; date not in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 1500, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Platform QA Engineer interview confirmed; date not in visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 1500, so the model never saw it."
+   },
+   {
+    "id": "per-physio-link",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Personal",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "urgent": false,
+     "event": {
+      "date": "2026-10-13",
+      "time": "07:30"
+     }
+    },
+    "got": {
+     "category": "Personal",
+     "flags": [],
+     "via": "llm",
+     "reason": "physio appointment reminder for Tue 13 Oct 7:30am, already past as of today",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "judge",
+    "reason": "The instructions say to extract medical appointments with an explicit date and time and to judge dates against the received date (2 Oct), but the classifier dropped the 13 Oct 7:30am appointment because it was 'already past as of today'."
+   },
+   {
+    "id": "per-car-service",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Personal",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "urgent": false,
+     "event": {
+      "date": "2026-10-09",
+      "time": "08:00"
+     }
+    },
+    "got": {
+     "category": "Personal",
+     "flags": [],
+     "via": "llm",
+     "reason": "service booking confirmation, drop-off Fri 9 Oct 8:00am, already past as of today",
+     "jobStatus": "none",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "judge",
+    "reason": "A confirmed booking with a drop-off of Fri 9 Oct 8:00am is a clear extract case, yet the classifier returned null by judging it 'already past as of today' instead of against the 2 Oct received date."
+   }
+  ],
+  "2000": [
+   {
+    "id": "work-assessment-day",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-15",
+      "time": "09:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to assessment day; date not in visible text, reply to accept",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 2222, but the classifier only sends the first 2000, so the model never saw it."
+   },
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "reply",
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "invited to final-stage on-site interview; no date given, reply needed",
+     "jobStatus": "interview",
+     "replyExpected": true,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 2000, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Platform QA Engineer interview confirmed; no date in the text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 2000, so the model never saw it."
+   }
+  ],
+  "3000": [
+   {
+    "id": "work-final-onsite",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-20",
+      "time": "13:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "final-stage invitation for Pademelon Labs; no date given in the email",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 3237, but the classifier only sends the first 3000, so the model never saw it."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Ironbark Platform QA interview confirmed; date not in the visible text",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 3000, so the model never saw it."
+   },
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "advanced to first conversation with hiring manager; 'next Thursday' is ambiguous (8 or 15 Oct) and time/link not final",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "prompt gap",
+    "by": "judge",
+    "reason": "The instructions say to resolve \"next Thursday\" against the received date but never say whether \"next\" means the coming Thursday or the one after, and \"if in doubt, return null\" pulls against giving a lower-certainty date, so the model had to guess and chose null."
+   }
+  ],
+  "4000": [
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Platform QA Engineer interview confirmed, but the email gives no date or time",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "product issue",
+    "by": "code",
+    "reason": "The deciding text ends at character 4228, but the classifier only sends the first 4000, so the model never saw it."
+   }
+  ],
+  "full": [
+   {
+    "id": "work-invite-ats-relative",
+    "fields": [
+     "event_found"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-08",
+      "time": "10:00"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "SUPER IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "advancing to next stage; first call 'next Thursday' is ambiguous (8 or 15 Oct) and the invite is still to come",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": null,
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "rubric gap",
+    "by": "judge",
+    "reason": "Received on Friday 2 Oct, 'next Thursday' could mean 8 or 15 Oct, and the instructions say to return null when in doubt, so the gold's confident 8 Oct is arguable."
+   },
+   {
+    "id": "work-confirmed-zoom",
+    "fields": [
+     "urgent"
+    ],
+    "gold": {
+     "category": "Work",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "urgent": true,
+     "event": {
+      "date": "2026-10-22",
+      "time": "15:30"
+     }
+    },
+    "got": {
+     "category": "Work",
+     "flags": [
+      "IMPORTANT"
+     ],
+     "via": "llm",
+     "reason": "Platform QA Engineer interview confirmed for Thu 22 Oct 3:30pm on Zoom; no reply needed",
+     "jobStatus": "interview",
+     "replyExpected": false,
+     "event": {
+      "title": "Interview - Ironbark Energy (Platform QA Engineer)",
+      "date": "2026-10-22",
+      "time": "15:30",
+      "durationMin": 60,
+      "kind": "interview",
+      "certainty": 95
+     },
+     "noEvent": false,
+     "v": 1
+    },
+    "kind": "rubric gap",
+    "by": "judge",
+    "reason": "The interview is 20 days away and the instructions put 'appointment confirmations further out' under important, so IMPORTANT is defensible even though 'interview invitations' are listed under super."
+   }
+  ]
+ }
+}

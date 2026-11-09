@@ -197,13 +197,17 @@ def tag_scores(cases: list[dict], case_scores: list[list[dict]], verdict_sets: l
     return out
 
 
-def per_case(cases: list[dict], case_scores: list[list[dict]]) -> dict:
-    """How often each case was right on dates and on the reply, across the repeats: where a rate comes from."""
+def per_case(cases: list[dict], case_scores: list[list[dict]], verdict_sets: list[dict]) -> dict:
+    """How often each case was right on dates and on the reply across the repeats, and the mean certainty the
+    model put on its entries for it: where a rate, or a calibration band, comes from."""
     out = {}
     for i, c in enumerate(cases):
         row = {k: rate([rep[i][f] for rep in case_scores]) for k, f in (("event_found", "event_found"),
                                                                          ("event_right", "event_right"),
                                                                          ("reply", "reply"))}
+        certs = [float(ev["certainty"]) for vs in verdict_sets
+                 if (ev := (vs.get(c["id"]) or {}).get("event")) and ev.get("certainty") is not None]
+        row["certainty"] = round(sum(certs) / len(certs), 1) if certs else None
         row = {k: v for k, v in row.items() if v is not None}
         if row:
             out[c["id"]] = row
@@ -413,6 +417,21 @@ def cut_words(chars: int | None) -> str:
     return "the whole body" if chars is None else f"the first {chars:,} characters"
 
 
+def summary_text(cases: int, repeats: int, cuts: list[int | None]) -> str:
+    """The record's one-paragraph summary: what ran, and which cut is compared with which on the page."""
+    numbers = [f"{c:,}" for c in cuts if c is not None]
+    listed = (", ".join(numbers[:-1]) + " and " + numbers[-1] if len(numbers) > 1 else "".join(numbers))
+    if listed:
+        listed = f"the first {listed} characters" + (" and the whole body" if None in cuts else "")
+    else:
+        listed = "the whole body"
+    base, cand = cuts[0], cuts[-1]
+    text = (f"{cases} made-up emails, each classified {repeats} times at each cut ({listed}) by Claude Haiku "
+            f"through the dashboard's own classify.llm_verdicts. Before: {cut_words(base)} of each body"
+            + (", as the dashboard sends today" if base == PRODUCTION else "") + ".")
+    return text + (f" After: {cut_words(cand)}." if len(cuts) > 1 else "")
+
+
 def describe(r: dict) -> str:
     s, t, cal = r["scores"], r["tokens"], r["calibration"]
     return (f"{r['name']:>5}: dates caught {s['event_recall']}, entries right {s['event_precision']}, "
@@ -443,7 +462,7 @@ def main(repeats: int = 2, chars: list[int | None] | None = None, experiment: st
                             "tags": tag_scores(cases, scores, verdict_sets),
                             "tokens": token_use(calls, len(cases) * repeats),
                             "calibration": calibration(cases, verdict_sets),
-                            "per_case": per_case(cases, scores),
+                            "per_case": per_case(cases, scores, verdict_sets),
                             "misses": triage(classify, cases_by_id, first_misses, limit)})
             print(describe(results[-1]), flush=True)
     finally:
@@ -454,16 +473,11 @@ def main(repeats: int = 2, chars: list[int | None] | None = None, experiment: st
         tag = "before" if m in base["misses"] else "after"
         groups.setdefault(m["kind"], []).append(f"{m['id']} ({tag}): {m['reason']}")
     now = datetime.now(timezone.utc)
-    cuts = ", ".join("the whole body" if r["body_chars"] is None else f"{r['body_chars']:,}" for r in results)
     record = {
         "generated": now.isoformat(timespec="seconds"),
         "title": (f"Email triage experiment: {experiment}" if experiment
                   else "Email triage: how much of each body to send"),
-        "summary": (f"{len(cases)} made-up emails, each classified {repeats} times at each cut ({cuts} characters) "
-                    f"by Claude Haiku through the dashboard's own classify.llm_verdicts. Before: "
-                    f"{cut_words(base['body_chars'])} of each body"
-                    + (", as the dashboard sends today" if base["body_chars"] == PRODUCTION else "")
-                    + f". After: {cut_words(cand['body_chars'])}."),
+        "summary": summary_text(len(cases), repeats, chars),
         "legend": (f"Calendar entries that shouldn't exist: {base['scores']['false_entries']} before, "
                    f"{cand['scores']['false_entries']} after (across all repeats). Rates count only the cases where "
                    "a field applies: dates caught is over emails that need a calendar entry."),

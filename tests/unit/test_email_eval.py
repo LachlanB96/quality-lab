@@ -207,6 +207,17 @@ def test_the_full_body_is_never_cut():
     assert et.variant_name(None) == "full" and et.variant_name(600) == "600"
 
 
+def test_the_summary_lists_the_cuts_in_plain_words():
+    s = et.summary_text(50, 5, [600, 1000, 4000, None])
+    assert ("each classified 5 times at each cut (the first 600, 1,000 and 4,000 characters and the whole body)"
+            in s)
+    assert s.endswith("Before: the first 600 characters of each body, as the dashboard sends today. "
+                      "After: the whole body.")
+    assert et.summary_text(50, 8, [600]).endswith("(the first 600 characters) by Claude Haiku through the "
+                                                  "dashboard's own classify.llm_verdicts. Before: the first 600 "
+                                                  "characters of each body, as the dashboard sends today.")
+
+
 def test_chars_sent_is_what_the_cut_lets_through():
     cases = [{"body": "a" * 100}, {"body": "b" * 1000}]
     assert et.chars_sent(cases, 600) == 350.0
@@ -262,6 +273,15 @@ def test_an_entry_where_none_belongs_counts_as_wrong_and_a_missed_date_not_at_al
 def test_an_entry_without_a_certainty_is_counted_apart():
     cal = et.calibration([dated("a")], [{"a": verdict()}])
     assert (cal["entries"], cal["unrated"], cal["brier"]) == (0, 1, None)
+
+
+def test_per_case_gives_each_case_its_rates_and_mean_certainty():
+    cases = [dated("a"), {"id": "n", "gold": {**INTERVIEW["gold"], "event": None, "replyExpected": None}}]
+    runs = [{"a": entry(90), "n": verdict(event=None)}, {"a": entry(70, time="12:00"), "n": verdict(event=None)}]
+    scores = [[et.score_case(c, vs[c["id"]]) for c in cases] for vs in runs]
+    got = et.per_case(cases, scores, runs)
+    assert got["a"] == {"event_found": 0.5, "event_right": 0.5, "reply": 1.0, "certainty": 80.0}
+    assert "n" not in got, "a case with nothing scored and no entries has no row"
 
 
 def test_an_unscored_optional_entry_is_left_out():
