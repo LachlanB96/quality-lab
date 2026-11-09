@@ -1,5 +1,5 @@
 {
- "note": "Defects the suite found in SpireScape. Each is pinned by strict xfail tests carrying its id, so a fix turns them into XPASS failures until the marker is removed.",
+ "note": "Defects the suite found in SpireScape. Each is pinned by strict xfail tests carrying its id, so a fix turns them into XPASS failures until the marker is removed. An intermittent one (it has a `metrics` list) is measured instead: open when the latest live run saw it, unseen when it didn't.",
  "findings": [
   {
    "id": "BUG-001",
@@ -9,7 +9,13 @@
    "found": "2026-10-04",
    "how": "A data test asked, for every item in Old Bram's starter kit, whether any recipe makes it. Three don't. A local end-to-end test then reproduced the dead end.",
    "impact": "Old Bram hands out the pickaxe, axe and hammer once, and nothing makes them again. Drop one and lose the pile, or die before smithing (death keeps your three most valuable items, and the hammer is worth the least) and don't get back to your death pile within 300 ticks (three minutes), and the tutorial can't be finished.",
-   "repro": ["Talk to Old Bram and take the kit", "Drop the hammer", "Wait three minutes for the pile to despawn", "Talk to Bram again: no new hammer", "The forge's arrowhead recipe says 'Needs a Hammer' for good"],
+   "repro": [
+    "Talk to Old Bram and take the kit",
+    "Drop the hammer",
+    "Wait three minutes for the pile to despawn",
+    "Talk to Bram again: no new hammer",
+    "The forge's arrowhead recipe says 'Needs a Hammer' for good"
+   ],
    "fix": "Have Bram replace missing tutorial tools, or add recipes for them. Which one is a design call."
   },
   {
@@ -20,7 +26,11 @@
    "found": "2026-10-04",
    "how": "An integration test logged in twice with the same 12-character name.",
    "impact": "The server trims names to 12 characters, then adds a number if the name is taken, so the second player becomes 13 characters long. Anything that sizes a name tag for 12 characters overflows.",
-   "repro": ["Log in as 'abcdefghijkl'", "Log in again with the same name", "The second player is 'abcdefghijkl2'"],
+   "repro": [
+    "Log in as 'abcdefghijkl'",
+    "Log in again with the same name",
+    "The second player is 'abcdefghijkl2'"
+   ],
    "fix": "Trim the base name so that base plus suffix fits in 12."
   },
   {
@@ -31,7 +41,11 @@
    "found": "2026-10-04",
    "how": "A parametrised test checks the progress text for every gathering verb.",
    "impact": "The status line is built by adding 'ing' to the verb, which works for Pluck and Mine but not for Chop.",
-   "repro": ["Take Old Bram's kit", "Chop a tree", "The status reads 'Choping...'"],
+   "repro": [
+    "Take Old Bram's kit",
+    "Chop a tree",
+    "The status reads 'Choping...'"
+   ],
    "fix": "Keep the progress text in the node content instead of deriving it."
   },
   {
@@ -42,7 +56,11 @@
    "found": "2026-10-04",
    "how": "A robustness test sent a valid message with a wrong length prefix. The server accepted it.",
    "impact": "Every frame starts with its length, but the WebSocket path decodes from byte four whatever the prefix says. The TCP path does check it. Not exploitable on its own, but the two transports disagree about what a valid frame is.",
-   "repro": ["Encode a Chat message", "Replace the length prefix with 9999", "Send it over WebSocket: it's processed as normal"],
+   "repro": [
+    "Encode a Chat message",
+    "Replace the length prefix with 9999",
+    "Send it over WebSocket: it's processed as normal"
+   ],
    "fix": "Reject a frame whose length prefix doesn't match the WebSocket message size."
   },
   {
@@ -53,7 +71,11 @@
    "found": "2026-10-04",
    "how": "A robustness test sent 300 chat lines as fast as possible and counted how many reached another player.",
    "impact": "All 300 arrived. One client can flood every player in a region, and on the public demo anyone can be that client.",
-   "repro": ["Connect two players", "Send 300 Chat messages from one", "The other receives all 300"],
+   "repro": [
+    "Connect two players",
+    "Send 300 Chat messages from one",
+    "The other receives all 300"
+   ],
    "fix": "A per-player token bucket on chat (and probably on every intent)."
   },
   {
@@ -64,7 +86,11 @@
    "found": "2026-10-04",
    "how": "The suite was taking ten minutes. Timing the disconnects showed every server-initiated close took exactly the client library's 10-second close timeout.",
    "impact": "When the server closes a connection (a bad frame, the server is full, an idle player), its read loop has already stopped, so nothing reads the client's reply to the close frame and TCP is never closed. RFC 6455 says the server should close TCP right after the handshake. Clients wait out their timeout instead.",
-   "repro": ["Connect with a client whose close timeout is 10 s", "Send a malformed frame", "The close frame arrives at once, but the connection takes 10 s to end"],
+   "repro": [
+    "Connect with a client whose close timeout is 10 s",
+    "Send a malformed frame",
+    "The close frame arrives at once, but the connection takes 10 s to end"
+   ],
    "fix": "Close or abort the socket once the close handshake completes on the server-initiated path."
   },
   {
@@ -75,8 +101,30 @@
    "found": "2026-10-04",
    "how": "A Playwright test of the live demo page.",
    "impact": "Unity's WebGL template default title was never changed, so that's what visitors see in the tab and in bookmarks.",
-   "repro": ["Open spirescape.lachlanb.com", "Look at the tab title"],
+   "repro": [
+    "Open spirescape.lachlanb.com",
+    "Look at the tab title"
+   ],
    "fix": "Set the product name in the WebGL template or player settings."
+  },
+  {
+   "id": "BUG-008",
+   "title": "Some WebSocket upgrades to the live demo are never answered",
+   "severity": "high",
+   "area": "session",
+   "found": "2026-11-09",
+   "metrics": [
+    "handshake_stalls",
+    "handshake_stalls_of_10"
+   ],
+   "how": "The nightly live run went red on 18 Oct, 5 Nov and 7 Nov with a bare TimeoutError at connect, a different test each time, while the other workers' connects in the same seconds went through. Probing the demo from outside with nobody playing: 8 of 30, then 11 of 25 upgrades got no reply; none of them ever completed, given 90 s; /healthz answered in under 0.15 s through the same proxy during every stall; and the connection right after a stalled one opened in 0.1 s.",
+   "impact": "A player whose upgrade is dropped sits on the connecting screen for good, and the next attempt works. A test whose connect stalled failed with a bare TimeoutError, so a red night looked like the test's fault. The local target has never shown it in hundreds of connects a run, so the fault is in the demo's connection path (its proxy, or its listener's handling of an upgrade), not in the game's rules.",
+   "repro": [
+    "Open a TLS connection to the demo and send a WebSocket upgrade for /ws",
+    "Repeat 30 times: a share of them (27% to 44% on 9 Nov) never get a response",
+    "GET /healthz in the same seconds is answered at once"
+   ],
+   "fix": "Server side, once the demo's logs say whether a dropped request reaches the game server's listener. Meanwhile the suite names the cause (ConnectTimeout, phase upgrade, with /healthz's answer from the same moment), tries a stalled connect once more on the live target only, and counts every stall it saw, so a run stays green with the bug on the page rather than hidden. An intermittent bug can't be pinned by a strict xfail: its status here is whether the latest live run saw it, never 'fixed' on its own."
   }
  ]
 }

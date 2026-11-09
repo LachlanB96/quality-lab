@@ -11,7 +11,7 @@ SpireScape is a multiplayer card battler I'm building: a C# server that owns eve
 It runs against two targets:
 
 - **local**: a server built from the private SpireScape repo, one per pytest-xdist worker, on a 20 ms tick with a fixed seed. Everything runs here, including hostile input that wouldn't be fair on a public server.
-- **live**: the public demo at its real 600 ms tick, shared with whoever else is playing. Fights share one worker because the map has two rats, and the helpers retry when someone else gets to a rock first.
+- **live**: the public demo at its real 600 ms tick, shared with whoever else is playing. Fights share one worker because the map has two rats, and the helpers retry when someone else gets to a rock first. A connect the demo never answers (BUG-008) is tried once more, and counted.
 
 Each test carries a layer and an area:
 
@@ -29,7 +29,7 @@ Each test carries a layer and an area:
 
 ## Bugs it found
 
-Seven, all real, all pinned by `xfail(strict=True)` tests carrying the bug's id. A fix makes the test pass, which fails the run until the marker comes off, so nothing gets fixed or broken quietly. The write-ups are in [`findings.json`](findings.json). The worst: losing a starter tool can leave the tutorial impossible to finish.
+Eight, all real. Seven are pinned by `xfail(strict=True)` tests carrying the bug's id: a fix makes the test pass, which fails the run until the marker comes off, so nothing gets fixed or broken quietly. The eighth is intermittent (some WebSocket upgrades to the demo are never answered), so a test measures it every run and the page says whether the latest run saw it. The write-ups are in [`findings.json`](findings.json). The worst: losing a starter tool can leave the tutorial impossible to finish.
 
 ## The AI parts
 

@@ -8,7 +8,6 @@ import time
 import pytest
 
 from qualitylab.spirescape import messages as m
-from qualitylab.spirescape.client import GameClient
 from qualitylab.spirescape.messages import EntityKind
 
 pytestmark = [pytest.mark.perf, pytest.mark.area("performance")]
@@ -57,13 +56,18 @@ def test_examine_round_trip(player, target, record_property):
     assert p95 < budget_ms, f"p95 {p95:.0f} ms over the {budget_ms} ms budget"
 
 
-def test_login_time(target, record_property):
-    """Connect, Hello, and everything up to the first objective."""
+def test_login_time(connect, target, record_property):
+    """Connect, Hello, and everything up to the first objective.
+
+    The connect is the answered upgrade's own time: on the live demo a connect the server never answers
+    (BUG-008) is retried by the fixture and counted as its own metric, not folded into login_ms."""
+    c = connect(login=False)
+    connect_ms = c.connected_in * 1000
     t0 = time.monotonic()
-    with GameClient(target.ws_url) as c:
-        c.login("qa-timer")
-        elapsed = (time.monotonic() - t0) * 1000
-        login_bytes = sum(len(m.encode(r.msg)) for r in c.messages())
+    c.login("qa-timer")
+    elapsed = connect_ms + (time.monotonic() - t0) * 1000
+    login_bytes = sum(len(m.encode(r.msg)) for r in c.messages())
+    metric(record_property, "connect_ms", connect_ms, "ms")
     metric(record_property, "login_ms", elapsed, "ms")
     metric(record_property, "login_kb", login_bytes / 1024, "KB")
     assert elapsed < (5000 if target.is_live else 1500)
