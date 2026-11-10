@@ -18,8 +18,9 @@
   {"id": "work-invite-ats-relative", "from": ["Northwind Analytics via HireFlow", "no-reply@hireflow.example.com"], "bulk": false,
    "subject": "Next steps for your application",
    "body": "Hello Sam,\n\nThank you for applying to Northwind Analytics. Every application at Northwind is read by a person, not a filter, and yours stood out to the hiring team for the Test Automation Engineer role. We're excited to move you to the next stage of our process, which has three short steps.\n\nOur process\n1. A conversation with the hiring manager about your experience and what you're looking for.\n2. A practical session where you pair with one of our engineers on a small automation problem. You won't need to install anything; we'll share a browser-based environment.\n3. A final chat with the team about how we work together.\n\nWhat we're looking for\nWe value curiosity, clear communication and engineers who care about the people using what we build. We don't expect you to know our stack already. We'd rather hear how you'd approach something new.\n\nYour first conversation\nWe've booked the first conversation for next Thursday at 10am, on a video call with Daniel Okafor, our Head of Quality. The link will follow in a calendar invite.\n\nWe look forward to speaking with you.\n\nNorthwind Talent",
-   "gold": {"category": "Work", "jobStatus": "interview", "replyExpected": false, "urgent": true, "event": {"date": "2026-10-08", "time": "10:00"}},
-   "evidence": "next Thursday at 10am"},
+   "gold": {"category": "Work", "jobStatus": "interview", "replyExpected": false, "urgent": true, "event": {"date": "2026-10-08", "time": "10:00"}, "event_optional": true},
+   "evidence": "next Thursday at 10am",
+   "note": "The entry is optional since 2026-11-10. Received on a Friday, 'next Thursday' can mean the 8th or the 15th, and the instructions say to return null when in doubt, so a missing entry isn't held against the model; one it makes is still held to the 8th (the judge's rubric gap, and Lachlan's E4 of 2026-11-10)."},
 
   {"id": "work-invite-ats-slot", "from": ["Wombat Freight via HireFlow", "no-reply@hireflow.example.com"], "bulk": false,
    "subject": "Book your interview with Wombat Freight",

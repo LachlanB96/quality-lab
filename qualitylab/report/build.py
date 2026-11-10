@@ -78,6 +78,54 @@ def latest_json(folder: Path) -> dict | None:
     return _load(files[-1], None) if files else None
 
 
+def pooled_calibration(variants: list[dict]) -> dict | None:
+    """Every variant's certainty bands added together: entries, mean certainty and share right per band, and the
+    expected calibration error over all of them (exact from the bands, since it's a weighted mean of band gaps)."""
+    bands: dict[str, list[float]] = {}
+    for v in variants:
+        for b in (v.get("calibration") or {}).get("bands", []):
+            n, cert, right = bands.setdefault(b["band"], [0, 0.0, 0.0]), b["certainty"], b["right"]
+            n[0] += b["entries"]
+            n[1] += cert * b["entries"]
+            n[2] += right * b["entries"]
+    total = sum(n for n, _, _ in bands.values())
+    if not total:
+        return None
+    rows = [{"band": k, "entries": int(n), "certainty": round(c / n, 1), "right": round(r / n, 4)}
+            for k, (n, c, r) in sorted(bands.items(), key=lambda kv: int(kv[0].split("-")[0]))]
+    ece = sum(r["entries"] / total * abs(r["right"] - r["certainty"] / 100) for r in rows)
+    return {"entries": int(total), "bands": rows, "ece": round(ece, 4), "all_right": all(r["right"] == 1 for r in rows)}
+
+
+def shape_evals(record: dict | None, root: Path = ROOT) -> dict | None:
+    """The newest eval record, cut to what the page shows. With more than two cuts it adds the staircase: each
+    case with a date it must find whose deciding text ends past the first cut, so the cut can hide it, with where
+    that text ends and the share of runs that caught the date at each cut, in order of how far in it sits."""
+    if record is None:
+        return None
+    from ..evals import email_triage as et
+    variants = record.get("variants", [])
+    out = {k: record.get(k) for k in ("title", "summary", "legend", "baseline", "candidate", "metrics", "triage",
+                                      "repeats", "cases", "model")}
+    out["variants"] = [{"name": v["name"], "body_chars": v.get("body_chars"), "chars_sent": v.get("chars_sent"),
+                        "scores": v["scores"], "input_per_mail": (v.get("tokens") or {}).get("input_per_mail")}
+                       for v in variants]
+    if len(variants) < 3:
+        return out
+    first = variants[0].get("body_chars")
+    stairs = []
+    for c in et.load_cases(root / "evals" / "email_triage" / "cases.json")[0]:
+        end = et.evidence_end(c)
+        if not c["gold"].get("event") or c["gold"].get("event_optional") or first is None or end <= first:
+            continue
+        found = [v.get("per_case", {}).get(c["id"], {}).get("event_found") for v in variants]
+        if any(f is not None for f in found):
+            stairs.append({"id": c["id"], "deciding_at": end, "found": found})
+    out["staircase"] = sorted(stairs, key=lambda s: (s["deciding_at"], s["id"]))
+    out["calibration"] = pooled_calibration(variants)
+    return out
+
+
 def collect(root: Path = ROOT) -> dict:
     runs = h.load_runs(root / "history" / "runs")
     targets = {t: shape_target(r) for t in ("local", "live") if (r := h.latest(runs, t))}
@@ -110,7 +158,7 @@ def collect(root: Path = ROOT) -> dict:
         "findings": findings,
         "analysis": latest_json(root / "history" / "analysis"),
         "suggestions": _load(root / "suggestions.json", {}).get("suggestions", []),
-        "evals": latest_json(root / "history" / "evals"),
+        "evals": shape_evals(latest_json(root / "history" / "evals"), root),
         "review": {
             "total": len(distinct),
             "reviewed": sum(1 for i in distinct if review.get(i, {}).get("status") == "reviewed"),

@@ -281,6 +281,13 @@ details.more .fix b { color: var(--ink); }
 .triage-item { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.8rem; font-size: 0.93rem; padding: 0.7rem 0.9rem; border-radius: 10px; background: var(--bg-3); }
 .triage-item .k { font-weight: 600; }
 .triage-item .v { color: var(--ink-2); }
+.sweep { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.8rem; font-variant-numeric: tabular-nums; }
+.sweep th, .sweep td { text-align: right; padding: 0.4rem 0.55rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.sweep thead th { color: var(--muted); font-weight: 600; vertical-align: bottom; white-space: normal; }
+.sweep th:first-child { text-align: left; }
+.sweep tbody th { font-weight: 600; }
+.matrix.flat thead th { writing-mode: horizontal-tb; transform: none; height: auto; text-align: center; white-space: nowrap; }
+.matrix.flat tbody th { white-space: nowrap; }
 
 /* ---------- how it works ---------- */
 .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.8rem; counter-reset: step; }

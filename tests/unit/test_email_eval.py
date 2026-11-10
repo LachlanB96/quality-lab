@@ -63,7 +63,8 @@ def test_the_long_cases_put_their_deciding_text_in_their_band(cid):
 
 def test_every_band_of_a_sweep_has_a_date_to_find():
     """A cut can only beat the one below it on dates if some date ends between them."""
-    dated = [et.evidence_end(c) for c in CASES if c["gold"].get("event") and c["id"] in LONG]
+    dated = [et.evidence_end(c) for c in CASES
+             if c["gold"].get("event") and not c["gold"].get("event_optional") and c["id"] in LONG]
     for lo, hi in ((600, 1000), (1000, 1500), (1500, 2000), (2000, 3000), (3000, 4000), (4000, None)):
         assert any(e > lo and (hi is None or e <= hi) for e in dated), (lo, hi)
 
