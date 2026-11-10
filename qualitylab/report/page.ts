@@ -27,11 +27,19 @@ interface Analysis {
   overview?: { headline?: string; paragraphs?: string[]; points?: { kind: string; text: string }[] };
 }
 interface Suggestion { id: string; status: string; kind?: string; title: string; why: string; effort?: string; proposed?: string; evidence?: string[]; note?: string }
+interface EvalVariant {
+  name: string; body_chars?: number | null; chars_sent?: number | null;
+  scores: Record<string, number | undefined>; input_per_mail?: number | null;
+}
 interface Evals {
   title?: string; summary?: string; legend?: string; baseline?: string; candidate?: string;
-  variants?: { name: string; scores: Record<string, number | undefined> }[];
+  repeats?: number; model?: string;
+  variants?: EvalVariant[];
   metrics?: { key: string; label: string }[];
   triage?: { kind: string; text: string }[];
+  staircase?: { id: string; deciding_at: number; found: (number | null)[] }[];
+  calibration?: { entries: number; ece: number; all_right: boolean;
+    bands: { band: string; entries: number; certainty: number; right: number }[] } | null;
 }
 interface Data {
   generated: string; repo: string; demo: string;
@@ -602,6 +610,66 @@ function renderAI(): void {
 }
 
 // ---------- evals ----------
+const cutName = (v: EvalVariant): string => (v.body_chars == null ? "Whole body" : nf.format(v.body_chars));
+
+// A record with more than two cuts: every cut side by side, where each long email's date comes into view,
+// and whether the certainty the model puts on a date matches how often it's right.
+function renderSweep(e: Evals, variants: EvalVariant[]): HTMLElement[] {
+  const runs = e.repeats ? `${e.repeats} runs at each` : "each";
+  const base = variants[0].input_per_mail;
+  const th = (s: string) => el("th", { scope: "col" }, s);
+  const shown = (e.metrics || []).filter((m) => ["event_recall", "event_precision", "reply"].includes(m.key));
+  const tokens = (v: EvalVariant): string => {
+    if (v.input_per_mail == null) return "";
+    const extra = base != null && v !== variants[0] ? ` (+${nf.format(Math.round(v.input_per_mail - base))})` : "";
+    return nf.format(Math.round(v.input_per_mail)) + extra;
+  };
+  const head = el("thead", null, el("tr", null, th("Characters sent"), th("Seen per email"), shown.map((m) => th(m.label)),
+    th("Same reply every run"), th("Input tokens per email")));
+  const rows = el("tbody", null, variants.map((v) => el("tr", null,
+    el("th", { scope: "row" }, cutName(v)),
+    el("td", null, v.chars_sent == null ? "" : nf.format(Math.round(v.chars_sent))),
+    shown.map((m) => el("td", null, pct(v.scores[m.key]))),
+    el("td", null, pct(v.scores.reply_steady)),
+    el("td", null, tokens(v)))));
+  const cuts = el("div", { class: "card pad reveal", style: "margin-top:1rem" },
+    el("h3", null, "At each cut"),
+    el("p", { class: "card-sub" }, `The classifier sends only the start of each email to the model. Every row is one cut, ${runs}. Input tokens are everything the model reads per email, the instructions and the model's own prompt included, which are the same for every batch.`),
+    el("div", { class: "matrix-wrap" }, el("table", { class: "sweep" }, head, rows)));
+  const out = [cuts];
+  const stairs = e.staircase || [];
+  if (stairs.length) {
+    const table = el("table", { class: "matrix flat" },
+      el("thead", null, el("tr", null, el("th", { scope: "col" }, "Where the date sits"), variants.map((v) => el("th", { scope: "col" }, cutName(v))))),
+      el("tbody", null, stairs.map((s) => el("tr", null,
+        el("th", { scope: "row" }, `${nf.format(s.deciding_at)} characters in`),
+        s.found.map((f, i) => {
+          if (f == null) return el("td", { class: "z" }, "");
+          const strength = 0.08 + 0.86 * f;
+          return el("td", { style: `background:rgba(${css("--mag")},${strength.toFixed(2)});color:${strength > 0.55 ? "#fff" : "var(--ink)"}`,
+            "aria-label": `${s.id}, date ${nf.format(s.deciding_at)} characters in, cut at ${cutName(variants[i])}: caught in ${pct(f)} of runs` }, pct(f));
+        })))));
+    out.push(el("div", { class: "card pad reveal", style: "margin-top:1rem" },
+      el("h3", null, "Where the dates come into view"),
+      el("p", { class: "card-sub" }, "The emails whose date sits past the shortest cut, in order of how far in, and how often the model caught that date at each cut."),
+      el("div", { class: "matrix-wrap" }, table)));
+  }
+  const cal = e.calibration;
+  if (cal && cal.entries) {
+    out.push(el("div", { class: "card pad reveal", style: "margin-top:1rem" },
+      el("h3", null, "Is the model's certainty right?"),
+      el("p", { class: "card-sub" }, "Every calendar entry the model made, at every cut, grouped by the certainty it gave. A well-calibrated model is right about 90% of the time when it says 90."),
+      el("div", { class: "matrix-wrap" }, el("table", { class: "sweep" },
+        el("thead", null, el("tr", null, th("Certainty given"), th("Entries"), th("Average certainty"), th("Right"))),
+        el("tbody", null, cal.bands.map((b) => el("tr", null, el("th", { scope: "row" }, b.band), el("td", null, nf.format(b.entries)),
+          el("td", null, b.certainty.toFixed(1)), el("td", null, pct(b.right))))))),
+      el("p", { class: "meta", style: "margin-top:0.8rem" },
+        `Expected calibration error ${cal.ece.toFixed(3)} over ${nf.format(cal.entries)} entries.` +
+        (cal.all_right ? " Every entry was right, so the whole gap is the model being less sure than it turned out to be." : ""))));
+  }
+  return out;
+}
+
 function renderEvals(): void {
   const body = $("eval-body");
   body.replaceChildren();
@@ -625,6 +693,7 @@ function renderEvals(): void {
   card.append(scores);
   if (e.legend) card.append(el("p", { class: "meta", style: "margin-top:0.8rem" }, e.legend));
   body.append(card);
+  if (variants.length > 2) body.append(...renderSweep(e, variants));
   if (e.triage && e.triage.length) {
     const t = el("div", { class: "card pad reveal", style: "margin-top:1rem" }, el("h3", null, "Why the misses missed"),
       el("p", { class: "card-sub" }, "Each miss sorted into a prompt gap (the model wasn't told), a rubric gap (my labels were wrong or unclear) or a product issue (the code around the model)."));
